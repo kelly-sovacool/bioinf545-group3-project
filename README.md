@@ -1,3 +1,5 @@
 # bioinf545-group3-project
-Group members
-Christina Kang-Yun
+Group members:
+- Nicole Bowers 
+- Kelly L. Sovacool
+- Christina Kang-Yun
