@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-python@v1
       - uses: goanpeca/setup-miniconda@v1
         with:
-           activate-environment: gwc
+           activate-environment: bf545
            environment-file: environment.yml
            python-version: 3.7
            auto-activate-base: false
