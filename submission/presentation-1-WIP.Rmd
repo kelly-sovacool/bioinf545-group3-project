@@ -1,0 +1,27 @@
+---
+title: "Insert cool title here"
+subtitle: ""
+author: ""
+date: "03 Apr. 2020"
+output:
+    ioslides_presentation:
+        widescreen: true
+---
+```{r, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, error = TRUE)
+```
+
+## slide title example
+
+- here's a bulleted list.
+- example image:
+
+![](https://imgs.xkcd.com/comics/exploits_of_a_mom.png)
+
+## another slide
+
+with example code!
+```{r}
+my_vector <- 1:10
+my_vector
+```

@@ -1,0 +1,31 @@
+---
+output:
+    pdf_document:
+        latex_engine: xelatex
+        keep_tex: false
+        includes:
+          in_header: preamble.tex
+fontsize: 11pt
+geometry: margin=0.5in
+bibliography: bioinf545-group3.bib
+csl: mbio.csl
+---
+<!-- Guidelines: (from Steve's lecture 11 slides)
+- due March 17
+- 1-2 pages max (Steve said he'd prefer closer to 1 page)
+- Questions to address:
+    1. state teh question / hypothesis
+    2. describe datasets to use:
+        - number of obs/samples per group
+        - type of data
+        - source of data
+    3. outline analysis plan (not set in stone)
+    4. list tools plan to use
+    5. list strengths of each person relative to project requirements
+-->
+# insert cool title here
+
+Here's an example of an in-text citation [@topcuoglu_effective_2019]
+
+## References
+
