@@ -5,6 +5,7 @@ channels:
   - defaults
   - r
 dependencies:
+  - black
   - pandoc=2.9.2
   - python=3.6.7
   - r-base=3.6.2
