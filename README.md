@@ -30,4 +30,10 @@ Run the [snakemake](https://snakemake.readthedocs.io/en/stable/) workflow with:
 snakemake
 ```
 
+Visualize the workflow with:
+```bash
+snakemake --rulegraph | dot -T png > figures/rulegraph.png
+```
+![rulegraph](figures/rulegraph.png)
+
 See the rendered PDF and HTML files [here](https://sovacool.dev/bioinf545-group3-project).
