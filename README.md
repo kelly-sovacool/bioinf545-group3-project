@@ -11,7 +11,7 @@ Most dependencies are listed in the [conda](https://conda.io/docs/) environment 
 
 You can create the conda environment with:
 ```bash
-conda env install -f environment.yml
+conda env create -f environment.yml
 ```
 
 Then activate it with:

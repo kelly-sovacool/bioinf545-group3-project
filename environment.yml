@@ -6,6 +6,7 @@ channels:
   - r
 dependencies:
   - black
+  - mothur=1.43.0
   - pandoc=2.9.2
   - python=3.6.7
   - r-base=3.6.2
