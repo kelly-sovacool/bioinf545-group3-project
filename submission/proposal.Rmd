@@ -28,7 +28,7 @@ link-citations: true
 
 ## Questions / Hypothesis
 
-1. Are there differences in bacterial & viral community composition between human stool samples form patients diagnosed as normal, adenoma, and carcinoma?
+1. Are there differences in bacterial & viral community composition between human stool samples from patients diagnosed as normal, adenoma, and carcinoma?
 1. Are there differences in model performance between random forest and logistic regression when classifying samples as healthy or cancerous based on bacterial & viral taxa?
     - Hannigan et al [@hannigan_diagnostic_2017] used a random forest model with OTUs or OVUs as features. Recent work suggests that logistic regression may perform just as well as random forest for OTU classification but with fewer computing resources [@topcuoglu_effective_2019].
 1. Are there differences in functional potential between metagenomes from normal, adenoma, and carcinoma samples?
