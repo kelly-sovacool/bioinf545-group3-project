@@ -70,7 +70,7 @@ We will use [`conda`](https://docs.conda.io/en/latest/) to manage our dependenci
 ## Strengths of each person relative to project requirements 
 
 - Brittany - data analysis, scientific writing, mothur, R
-- Christina - experimental design, data analysis, R, python.
+- Christina - experimental design, data analysis, R, python, derivation of biological relevance and/or significance of analysis results.
 - Katelyn - experimental design, scientific writing, carcinogenesis, R
 - Kelly - 16S sequence analysis with mothur, pipelines with Snakemake, collaboration with git/GitHub, R/tidyverse, python.
 - Nicole - scientific writing, colorectal carcinoma, problem solving with google, R, python, linux.
