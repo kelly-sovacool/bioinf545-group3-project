@@ -1,0 +1,78 @@
+---
+output:
+    pdf_document:
+        latex_engine: xelatex
+        keep_tex: false
+        includes:
+          in_header: preamble.tex
+fontsize: 11pt
+geometry: margin=0.5in
+bibliography: bioinf545-group3_proposal.bib
+csl: mbio.csl
+link-citations: true
+---
+<!-- Guidelines: (from Steve's lecture 11 slides)
+- due March 17
+- 1-2 pages max (Steve said he'd prefer closer to 1 page)
+- Questions to address:
+    1. state the question / hypothesis
+    2. describe datasets to use:
+        - number of obs/samples per group
+        - type of data
+        - source of data
+    3. outline analysis plan (not set in stone)
+    4. list tools plan to use
+    5. list strengths of each person relative to project requirements
+-->
+# Investigating the microbial community of the human gut in colorectal cancer
+
+## Questions / Hypothesis
+
+1. Are there differences in bacterial & viral community composition between human stool samples from patients diagnosed as normal, adenoma, and carcinoma?
+1. Are there differences in model performance between random forest and logistic regression when classifying samples as healthy or cancerous based on bacterial & viral taxa?
+    - Hannigan et al [@hannigan_diagnostic_2017] used a random forest model with OTUs or OVUs as features. Recent work suggests that logistic regression may perform just as well as random forest for OTU classification but with fewer computing resources [@topcuoglu_effective_2019].
+1. Are there differences in functional potential between metagenomes from normal, adenoma, and carcinoma samples?
+    - There may be differences at the OTU level between conditions, but that may or may not translate to changes at the gene level in the bacterial community. Annotating genes with known functions is one step closer to characterizing the functional composition of the community [@carr_comparative_2014].
+
+## Datasets
+
+1. Number of observations/samples in each group. 
+    - 90 total human stool samples. 30 each from normal, adenoma, & (colorectal) carcinoma. 
+1. Type of data
+    - 16S rRNA gene sequence
+    - metagenomes
+    - metaviromes
+1. Source of data
+    - Paper: Hannigan et al 2017 [@hannigan_diagnostic_2017]
+    - NCBI BioProject ID: PRJNA389927
+
+## Analysis plan 
+
+1. OTU clustering of 16S sequences (bacterial taxonomy) and OVU clustering of metaviromes (viral taxonomy).
+1. Machine learning classification of samples as healthy or cancerous with OTUs & OVUs as model features. Compare performance of random forest vs other model(s) (e.g. logistic regression).
+1. Assemble metagenomes, annotate genes with KEGG ids, and compare across samples.
+
+## Tools
+
+- CONCOCT [@alneberg_binning_2014]
+- MGS-Fast [@brown_mgs-fast_2019]
+- mothur [@schloss_introducing_2009]
+- python [@python]
+- R [@R]
+    - caret [@kuhn_building_2008]
+    - R Markdown [@rmarkdown]
+    - tidyverse [@wickham_welcome_2019]
+    - vegan [@vegan]
+- snakemake [@snakemake]
+
+We will use [`conda`](https://docs.conda.io/en/latest/) to manage our dependencies.
+
+## Strengths of each person relative to project requirements 
+
+- Brittany - data analysis, scientific writing, mothur, R
+- Christina - experimental design, data analysis, R, python, derivation of biological relevance and/or significance of analysis results.
+- Katelyn - experimental design, scientific writing, carcinogenesis, R
+- Kelly - 16S sequence analysis with mothur, pipelines with Snakemake, collaboration with git/GitHub, R/tidyverse, python.
+- Nicole - scientific writing, colorectal carcinoma, problem solving with google, R, python, linux.
+
+## References
