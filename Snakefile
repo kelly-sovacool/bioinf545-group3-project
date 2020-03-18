@@ -1,7 +1,6 @@
 rule targets:
     input:
-        "docs/proposal.pdf",
-        "docs/presentation-1-WIP.html"
+        "docs/proposal.pdf"
 
 rule render_pdf:
     input:
