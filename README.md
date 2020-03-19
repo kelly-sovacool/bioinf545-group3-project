@@ -3,7 +3,7 @@
 Group members:
 
 - Nicole Bowers
-- Kelly L. Sovacool
+- [Kelly L. Sovacool](github.com/kelly-sovacool)
 - Christina Kang-Yun
 - Brittany Hicks
 
