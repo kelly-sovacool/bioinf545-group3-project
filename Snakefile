@@ -1,7 +1,6 @@
 rule targets:
     input:
-        "docs/proposal.pdf",
-        "docs/presentation-1-WIP.html"
+        "docs/proposal.pdf"
 
 rule render_pdf:
     input:
@@ -15,14 +14,9 @@ rule render_pdf:
     script:
         "{input.code}"
 
-rule render_slides:
+rule download:
     input:
-        code="code/render.R",
-        rmd="submission/{doc}.Rmd",
-        preamble="submission/preamble.tex"
-    output:
-        file="docs/{doc}.html"
-    params:
-        format="ioslides_presentation"
-    script:
-        "{input.code}"
+        code="code/download.sh",
+        sra_list="data/SRR_Acc_List.txt"
+    shell:
+        "bash {input.code} {input.sra_list} data/raw/"
