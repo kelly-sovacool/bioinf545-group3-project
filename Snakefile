@@ -18,7 +18,5 @@ rule download:
     input:
         code="code/download.sh",
         sra_list="data/SRR_Acc_List.txt"
-    output:
-        outdir=directory("data/raw/")
     shell:
-        "bash {input.code} {input.sra_list} {output.outdir}"
+        "bash {input.code} {input.sra_list} data/raw/"
