@@ -11,6 +11,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Random Forest model
 
+Useful links:
+
+- caret docs: https://topepo.github.io/caret/measuring-performance.html#measures-for-predicted-classes
+- Geoff's paper: https://mbio.asm.org/content/9/6/e02248-18
+- Geoff's code: https://github.com/SchlossLab/Hannigan_CRCVirome_mBio_2018/blob/master/bin/predictVirome.R
+- Begüm's code: https://github.com/SchlossLab/Topcuoglu_ML_XXX_2019/blob/master/code/learning/individual_models/RandomForest.R
+
 ### First, try on example data
 ```{r}
 library(mlbench)
