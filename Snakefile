@@ -13,3 +13,12 @@ rule render_pdf:
         format="pdf_document"
     script:
         "{input.code}"
+
+rule download:
+    input:
+        code="code/download.sh",
+        sra_list="data/SRR_Acc_List.txt"
+    output:
+        outdir=directory("data/raw/")
+    shell:
+        "bash {input.code} {input.sra_list} {output.outdir}"
