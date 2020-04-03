@@ -1,0 +1,132 @@
+---
+title: "exploratory"
+author: "Kelly Sovacool"
+date: "2020 Apr 03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Random Forest model
+
+### First, try on example data
+```{r}
+library(mlbench)
+data(Sonar)
+head(Sonar)
+```
+
+### Split the data into training & testing
+```{r}
+library(caret)
+set.seed(998)
+inTraining <- createDataPartition(Sonar$Class, p = .75, list = FALSE)
+training <- Sonar[ inTraining,]
+testing  <- Sonar[-inTraining,]
+```
+
+### 5-fold Cross-validation
+```{r}
+cross_val <- trainControl(method="repeatedcv",
+                     repeats = 1,
+                     number=5,
+                     returnResamp="final",
+                     classProbs=TRUE,
+                     summaryFunction=twoClassSummary,
+                     indexFinal=NULL,
+                     savePredictions = TRUE)
+```
+
+### Training
+```{r}
+model <- train(Class ~ ., 
+               data = training, 
+               trControl = cross_val, 
+               method="rf", 
+               metric="ROC", 
+               tuneLength=5)
+model
+```
+
+
+### Feature importance
+```{r}
+rf_imp <- varImp(model)
+plot(rf_imp, top=20)
+sort(rf_imp$Overall, decreasing = TRUE)
+rf_imp_final <- varImp(model$finalModel)
+sort(rf_imp_final$Overall, decreasing = TRUE)
+```
+
+### Measuring performance
+```{r}
+#roc_imp <- filterVarImp(x = training[, -ncol(training)], y = training$Class)
+#head(roc_imp)
+testing$pred = predict(model, newdata = testing)
+model_prec_recall <- confusionMatrix(
+    data = testing$pred,
+    reference = testing$Class,
+    mode = "prec_recall"
+)
+print(model_prec_recall)
+model_sens_spec <- confusionMatrix(
+    data = testing$pred,
+    reference = testing$Class)
+print(model_sens_spec)
+```
+
+### Now try it on some of our metadata + fake data
+
+```{r}
+library(here)
+library(tidyverse)
+metadata <- read_csv(here('data', 'SraRunTable.txt'))
+head(metadata)
+```
+
+Eventually, we'll need to merge the metadata with the mothur shared file (OTU abundances).
+
+For now, let's make up some stuff.
+
+First, only use samples that are cancerious or healthy.
+```{r}
+metadata %>% group_by(DiseaseClass) %>% summarise(n = n())
+diagnoses <- metadata %>% filter(DiseaseClass %in% c("Cancer", "Healthy"))
+head(diagnoses)
+```
+
+Rename sonar data classes to cancer/healthy for fake data for development purposes.
+```{r}
+otu_abun_data <- Sonar %>% 
+    mutate(DiseaseClass = case_when(
+        Class == 'R' ~ 'Cancer',
+        Class == 'M' ~ 'Healthy'
+    )) %>% 
+    select(-Class)
+head(otu_abun_data)
+```
+
+Test our machine learning code:
+```{r}
+source(here('code', "machine_learning.R"))
+set.seed(999)
+inTraining <-
+    createDataPartition(otu_abun_data %>% pull(DiseaseClass),
+                        p = 0.75,
+                        list = FALSE)
+training_data <- otu_abun_data[inTraining, ]
+testing_data  <- otu_abun_data[-inTraining, ]
+otu_model <- run_rf(training_data)
+testing_data <- testing_data %>% 
+    mutate(prediction = predict(otu_model, newdata= testing_data),
+           DiseaseClass = as.factor(DiseaseClass))
+prec_recall <- confusionMatrix(
+    data = testing_data$prediction,
+    reference = testing_data$DiseaseClass,
+    mode = "prec_recall"
+)
+prec_recall
+```
+
