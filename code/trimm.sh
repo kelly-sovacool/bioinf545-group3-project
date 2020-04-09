@@ -5,7 +5,7 @@ adapterPath=$3
 for infile in $indir/*_1.fastq.gz
 do
   base=$(basename ${infile} _1.fastq.gz)
-  trimmomatic PE -phred33 -thread 4 \
+  trimmomatic PE -phred33 -threads 4 \
                ${infile} ${indir}/${base}_2.fastq.gz \
                ${outdir}/${base}_1_paired.fastq.gz ${outdir}/${base}_1_unpaired.fastq.gz \
                ${outdir}/${base}_2_paired.fastq.gz ${outdir}/${base}_2_unpaired.fastq.gz \
