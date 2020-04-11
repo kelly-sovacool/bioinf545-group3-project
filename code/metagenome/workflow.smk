@@ -1,10 +1,6 @@
 with open('data/metagenomes/SRR_Acc_List_metagen.txt', 'r') as infile:
     samples = [line.strip() for line in infile]
 
-rule targets:
-    input:
-        expand("data/metagenome/bwa_IGC_results/{sample}_IGC.bam", sample=samples)
-
 rule bwa_mem:
     input:
         R1="data/metagenome/bwa_GRC_sbatch/{sample}_1_unmapped.fastq.gz",
