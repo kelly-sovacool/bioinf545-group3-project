@@ -1,6 +1,9 @@
+include: "code/metagenome/workflow.smk"
+
 rule targets:
     input:
-        "docs/proposal.pdf"
+        "docs/proposal.pdf",
+        expand("data/metagenome/bwa_IGC_results/{sample}_IGC.bam", sample=samples)
 
 rule render_pdf:
     input:
