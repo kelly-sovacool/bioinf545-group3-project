@@ -3,7 +3,7 @@ with open('data/metagenomes/SRR_Acc_List_metagen.txt', 'r') as infile:
 
 rule targets:
     input:
-        expand("data/metagenome/{sample}.mapped.bam", sample=samples)
+        expand("data/metagenome/bwa_IGC_results/{sample}_IGC.bam", sample=samples)
 
 rule bwa_mem:
     input:
