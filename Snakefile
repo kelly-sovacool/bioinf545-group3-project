@@ -1,3 +1,5 @@
+include: "code/metagenome/workflow.smk"
+
 rule targets:
     input:
         "docs/proposal.pdf"
