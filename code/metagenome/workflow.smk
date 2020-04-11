@@ -1,7 +1,7 @@
 with open('data/metagenome/SRR_Acc_List_metagen.txt', 'r') as infile:
     samples = [line.strip() for line in infile]
 
-rule bwa_mem:
+rule bwa_mem: 
     input:
         R1="data/metagenome/bwa_GRC_sbatch/{sample}_1_unmapped.fastq.gz",
         R2="data/metagenome/bwa_GRC_sbatch/{sample}_2_unmapped.fastq.gz"
