@@ -7,7 +7,7 @@ rule render_pdf:
         code="code/render.R",
         rmd="submission/{doc}.Rmd",
         preamble="submission/preamble_{doc}.tex",
-        figures=["figures/example.png"]
+        figures=["figures/rulegraph.png"]
     output:
         file="docs/{doc}.pdf"
     params:

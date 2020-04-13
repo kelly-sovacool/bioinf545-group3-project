@@ -54,9 +54,9 @@ All code used in preparation of this report is available in the following GitHub
 
 # Results
 
-\begin{wrapfigure}{R}{.4\textwidth}
+\begin{wrapfigure}{R}{0.4\textwidth}
     \begin{center}
-        \includegraphics[width=.35\textwidth]{../figures/rulegraph.png}  
+        \includegraphics[width=0.35\textwidth]{../figures/rulegraph.png}  
         \caption{Example}
         \label{fig:example}  
     \end{center}
@@ -70,7 +70,7 @@ and including it inline with the text.
 
 # Acknowledgements
 
-Author order was determined by alphabetizing by last name. 
+Author order was determined by alphabetizing by last name.
 \todo{insert contribution statement here}
 
 \newpage
