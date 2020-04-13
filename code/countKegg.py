@@ -1,7 +1,12 @@
 """
 countKegg.py input output
-Input: .gene
-Output: KeggCount.txt
+
+**Inputs and outputs**
+
+The Input is the .gene file from the geneList.sh tool.
+
+The Output file is a kegg count file. (.txt)
+
 """
 
 import sys
