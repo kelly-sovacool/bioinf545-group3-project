@@ -142,10 +142,24 @@ rule extract_geneList:
        "../../environment_bwa.yml"
     shell:
         """
-        samtools -h {input} |
+        samtools view {input} |
         cut -f 3 - | sort - | uniq -c - | sort -b -nr -k 1,1 - | grep -v ":" - > {output.gene}
         sed -i 's/^ *//' {output.gene}
         cut -f 2 -d " " {output.gene} > {output.list}
         grep -Fw -f {output.list} {params} > {output.anno}
         cut -f 8 {output.anno} | grep -v "unknown" - | sort - | uniq -c - | sort -b -nr -k 1,1 - > {output.kegg}
         """
+
+rule countKegg:
+    input:
+        "data/metagenome/gene_abundance_results/{sample}.gene"
+    params:
+        "data/metagenome/bwa_DB/IGC.kegg"
+    output:
+        "data/metagenome/gene_abundance_results/{sample}_keggCount.txt"
+    conda:
+        "../../environment.yml"
+    log:
+        "log/metagenome/countKegg_{sample}.log"
+    shell:
+        "python code/countKegg.py {input} {output} 2> {log}"
