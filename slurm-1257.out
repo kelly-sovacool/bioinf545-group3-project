@@ -1,0 +1,243 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	68	bwa_mem_IGC
+	85	extract_geneList
+	85	metaphlan2
+	1	render_pdf
+	1	targets
+	240
+
+[Mon Apr 13 08:37:31 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665122_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665122.gene, data/metagenome/gene_abundance_results/SRR5665122.list, data/metagenome/gene_abundance_results/SRR5665122_anno.txt, data/metagenome/gene_abundance_results/SRR5665122.kegg
+    jobid: 39
+    wildcards: sample=SRR5665122
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Mon Apr 13 08:37:31 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665184_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665184.gene, data/metagenome/gene_abundance_results/SRR5665184.list, data/metagenome/gene_abundance_results/SRR5665184_anno.txt, data/metagenome/gene_abundance_results/SRR5665184.kegg
+    jobid: 94
+    wildcards: sample=SRR5665184
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Mon Apr 13 08:37:31 2020]
+rule metaphlan2:
+    input: data/metagenome/bwa_GRCh38_results/SRR5665122_GRCh38.bam
+    output: data/metagenome/metaphlan2_results/SRR5665122_mtphln2.txt, data/metagenome/metaphlan2_results/SRR5665122_bowtie2.out.bz2
+    log: log/metagenome/metaphlan2_SRR5665122.log
+    jobid: 96
+    benchmark: benchmarks/metagenome/metaphlan2_SRR5665122.txt
+    wildcards: sample=SRR5665122
+
+
+[Mon Apr 13 08:37:31 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665186_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665186.gene, data/metagenome/gene_abundance_results/SRR5665186.list, data/metagenome/gene_abundance_results/SRR5665186_anno.txt, data/metagenome/gene_abundance_results/SRR5665186.kegg
+    jobid: 137
+    wildcards: sample=SRR5665186
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/9a3c46c4
+
+[Mon Apr 13 08:37:31 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665043_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665043.gene, data/metagenome/gene_abundance_results/SRR5665043.list, data/metagenome/gene_abundance_results/SRR5665043_anno.txt, data/metagenome/gene_abundance_results/SRR5665043.kegg
+    jobid: 1
+    wildcards: sample=SRR5665043
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Mon Apr 13 08:37:31 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665073_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665073.gene, data/metagenome/gene_abundance_results/SRR5665073.list, data/metagenome/gene_abundance_results/SRR5665073_anno.txt, data/metagenome/gene_abundance_results/SRR5665073.kegg
+    jobid: 93
+    wildcards: sample=SRR5665073
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Mon Apr 13 08:37:31 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665187_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665187.gene, data/metagenome/gene_abundance_results/SRR5665187.list, data/metagenome/gene_abundance_results/SRR5665187_anno.txt, data/metagenome/gene_abundance_results/SRR5665187.kegg
+    jobid: 41
+    wildcards: sample=SRR5665187
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Mon Apr 13 08:37:31 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665162_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665162.gene, data/metagenome/gene_abundance_results/SRR5665162.list, data/metagenome/gene_abundance_results/SRR5665162_anno.txt, data/metagenome/gene_abundance_results/SRR5665162.kegg
+    jobid: 119
+    wildcards: sample=SRR5665162
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Mon Apr 13 08:37:31 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665055_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665055.gene, data/metagenome/gene_abundance_results/SRR5665055.list, data/metagenome/gene_abundance_results/SRR5665055_anno.txt, data/metagenome/gene_abundance_results/SRR5665055.kegg
+    jobid: 164
+    wildcards: sample=SRR5665055
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Mon Apr 13 08:37:31 2020]
+rule metaphlan2:
+    input: data/metagenome/bwa_GRCh38_results/SRR5665187_GRCh38.bam
+    output: data/metagenome/metaphlan2_results/SRR5665187_mtphln2.txt, data/metagenome/metaphlan2_results/SRR5665187_bowtie2.out.bz2
+    log: log/metagenome/metaphlan2_SRR5665187.log
+    jobid: 52
+    benchmark: benchmarks/metagenome/metaphlan2_SRR5665187.txt
+    wildcards: sample=SRR5665187
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/9a3c46c4
+
+[Mon Apr 13 08:37:32 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665180_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665180.gene, data/metagenome/gene_abundance_results/SRR5665180.list, data/metagenome/gene_abundance_results/SRR5665180_anno.txt, data/metagenome/gene_abundance_results/SRR5665180.kegg
+    jobid: 82
+    wildcards: sample=SRR5665180
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Mon Apr 13 08:37:32 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665120_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665120.gene, data/metagenome/gene_abundance_results/SRR5665120.list, data/metagenome/gene_abundance_results/SRR5665120_anno.txt, data/metagenome/gene_abundance_results/SRR5665120.kegg
+    jobid: 155
+    wildcards: sample=SRR5665120
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Mon Apr 13 08:37:32 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665182_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665182.gene, data/metagenome/gene_abundance_results/SRR5665182.list, data/metagenome/gene_abundance_results/SRR5665182_anno.txt, data/metagenome/gene_abundance_results/SRR5665182.kegg
+    jobid: 56
+    wildcards: sample=SRR5665182
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Mon Apr 13 08:37:32 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665046_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665046.gene, data/metagenome/gene_abundance_results/SRR5665046.list, data/metagenome/gene_abundance_results/SRR5665046_anno.txt, data/metagenome/gene_abundance_results/SRR5665046.kegg
+    jobid: 87
+    wildcards: sample=SRR5665046
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Mon Apr 13 08:37:32 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665072_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665072.gene, data/metagenome/gene_abundance_results/SRR5665072.list, data/metagenome/gene_abundance_results/SRR5665072_anno.txt, data/metagenome/gene_abundance_results/SRR5665072.kegg
+    jobid: 91
+    wildcards: sample=SRR5665072
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Mon Apr 13 08:37:32 2020]
+rule extract_geneList:
+    input: data/metagenome/bwa_IGC_results/SRR5665054_IGC.bam
+    output: data/metagenome/gene_abundance_results/SRR5665054.gene, data/metagenome/gene_abundance_results/SRR5665054.list, data/metagenome/gene_abundance_results/SRR5665054_anno.txt, data/metagenome/gene_abundance_results/SRR5665054.kegg
+    jobid: 34
+    wildcards: sample=SRR5665054
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+No MetaPhlAn BowTie2 database found (--index option)!
+Expecting location /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/9a3c46c4/bin/metaphlan_databases/mpa_v20_m200
+Exiting...No MetaPhlAn BowTie2 database found (--index option)!
+Expecting location /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/9a3c46c4/bin/metaphlan_databases/mpa_v20_m200
+Exiting...[Mon Apr 13 08:37:32 2020]
+Error in rule metaphlan2:
+    jobid: 96
+    output: data/metagenome/metaphlan2_results/SRR5665122_mtphln2.txt, data/metagenome/metaphlan2_results/SRR5665122_bowtie2.out.bz2
+    log: log/metagenome/metaphlan2_SRR5665122.log
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/9a3c46c4
+
+RuleException:
+CalledProcessError in line 84 of /home/csrkang/bf545/Project/bioinf545-group3-project/code/metagenome/workflow.smk:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/9a3c46c4; set -euo pipefail;  
+        samtools fasta data/metagenome/bwa_GRCh38_results/SRR5665122_GRCh38.bam | cat |
+                 metaphlan2.py --input_type fasta --bowtie2out data/metagenome/metaphlan2_results/SRR5665122_bowtie2.out.bz2 > data/metagenome/metaphlan2_results/SRR5665122_mtphln2.txt
+        2> log/metagenome/metaphlan2_SRR5665122.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/code/metagenome/workflow.smk", line 84, in __rule_metaphlan2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+Removing output files of failed job metaphlan2 since they might be corrupted:
+data/metagenome/metaphlan2_results/SRR5665122_mtphln2.txt
+[Mon Apr 13 08:37:32 2020]
+Error in rule metaphlan2:
+    jobid: 52
+    output: data/metagenome/metaphlan2_results/SRR5665187_mtphln2.txt, data/metagenome/metaphlan2_results/SRR5665187_bowtie2.out.bz2
+    log: log/metagenome/metaphlan2_SRR5665187.log
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/9a3c46c4
+
+RuleException:
+CalledProcessError in line 84 of /home/csrkang/bf545/Project/bioinf545-group3-project/code/metagenome/workflow.smk:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/9a3c46c4; set -euo pipefail;  
+        samtools fasta data/metagenome/bwa_GRCh38_results/SRR5665187_GRCh38.bam | cat |
+                 metaphlan2.py --input_type fasta --bowtie2out data/metagenome/metaphlan2_results/SRR5665187_bowtie2.out.bz2 > data/metagenome/metaphlan2_results/SRR5665187_mtphln2.txt
+        2> log/metagenome/metaphlan2_SRR5665187.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/code/metagenome/workflow.smk", line 84, in __rule_metaphlan2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+Removing output files of failed job metaphlan2 since they might be corrupted:
+data/metagenome/metaphlan2_results/SRR5665187_mtphln2.txt
+[Mon Apr 13 08:38:59 2020]
+Finished job 94.
+1 of 240 steps (0.42%) done
+[Mon Apr 13 08:39:00 2020]
+Finished job 87.
+2 of 240 steps (0.83%) done
+[Mon Apr 13 08:39:03 2020]
+Finished job 34.
+3 of 240 steps (1%) done
+[Mon Apr 13 08:39:03 2020]
+Finished job 1.
+4 of 240 steps (2%) done
+[Mon Apr 13 08:39:05 2020]
+Finished job 155.
+5 of 240 steps (2%) done
+[Mon Apr 13 08:39:09 2020]
+Finished job 119.
+6 of 240 steps (2%) done
+[Mon Apr 13 08:39:09 2020]
+Finished job 56.
+7 of 240 steps (3%) done
+[Mon Apr 13 08:39:09 2020]
+Finished job 82.
+8 of 240 steps (3%) done
+[Mon Apr 13 08:39:10 2020]
+Finished job 137.
+9 of 240 steps (4%) done
+[Mon Apr 13 08:39:14 2020]
+Finished job 93.
+10 of 240 steps (4%) done
+[Mon Apr 13 08:39:21 2020]
+Finished job 164.
+11 of 240 steps (5%) done
+[Mon Apr 13 08:39:22 2020]
+Finished job 91.
+12 of 240 steps (5%) done
+[Mon Apr 13 08:39:38 2020]
+Finished job 41.
+13 of 240 steps (5%) done
+[Mon Apr 13 08:39:44 2020]
+Finished job 39.
+14 of 240 steps (6%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/log/2020-04-13T083729.618655.snakemake.log

@@ -5,7 +5,7 @@ for infile in ${indir}*.bam
 do
   base=$(basename ${infile} _GRCh38.bam)
   samtools fasta ${infile} | cat |
-           metaphlan2.py --input_type multifasta --bowtie2out ${outdir}/${base}.bowtie2out.bz2 \
+           metaphlan2.py --input_type fasta --nproc 4 --bowtie2out ${outdir}/${base}.bowtie2out.bz2 \
            > ${outdir}/${base}_mtphln2.txt
 done
 

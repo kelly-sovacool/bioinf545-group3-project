@@ -1,0 +1,135 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	30	bwa_mem_IGC
+	30	extract_geneList
+	85	metaphlan2
+	1	render_pdf
+	1	targets
+	147
+
+[Mon Apr 13 13:22:57 2020]
+rule metaphlan2:
+    input: data/metagenome/bwa_GRCh38_results/SRR5665055_GRCh38.bam
+    output: data/metagenome/metaphlan_test/SRR5665055_mtphln2.txt, data/metagenome/metaphlan_test/SRR5665055_bowtie2.out.bz2
+    log: log/metagenome/metaphlan2_SRR5665055.log
+    jobid: 60
+    benchmark: benchmarks/metagenome/metaphlan2_SRR5665055.txt
+    wildcards: sample=SRR5665055
+    threads: 4
+
+
+[Mon Apr 13 13:22:57 2020]
+rule metaphlan2:
+    input: data/metagenome/bwa_GRCh38_results/SRR5665122_GRCh38.bam
+    output: data/metagenome/metaphlan_test/SRR5665122_mtphln2.txt, data/metagenome/metaphlan_test/SRR5665122_bowtie2.out.bz2
+    log: log/metagenome/metaphlan2_SRR5665122.log
+    jobid: 63
+    benchmark: benchmarks/metagenome/metaphlan2_SRR5665122.txt
+    wildcards: sample=SRR5665122
+    threads: 4
+
+
+[Mon Apr 13 13:22:57 2020]
+rule metaphlan2:
+    input: data/metagenome/bwa_GRCh38_results/SRR5665187_GRCh38.bam
+    output: data/metagenome/metaphlan_test/SRR5665187_mtphln2.txt, data/metagenome/metaphlan_test/SRR5665187_bowtie2.out.bz2
+    log: log/metagenome/metaphlan2_SRR5665187.log
+    jobid: 98
+    benchmark: benchmarks/metagenome/metaphlan2_SRR5665187.txt
+    wildcards: sample=SRR5665187
+    threads: 4
+
+
+[Mon Apr 13 13:22:57 2020]
+rule metaphlan2:
+    input: data/metagenome/bwa_GRCh38_results/SRR5665072_GRCh38.bam
+    output: data/metagenome/metaphlan_test/SRR5665072_mtphln2.txt, data/metagenome/metaphlan_test/SRR5665072_bowtie2.out.bz2
+    log: log/metagenome/metaphlan2_SRR5665072.log
+    jobid: 100
+    benchmark: benchmarks/metagenome/metaphlan2_SRR5665072.txt
+    wildcards: sample=SRR5665072
+    threads: 4
+
+Warning! Biom python library not detected!
+ Exporting to biom format will not work!
+OSError: fatal error running '/home/csrkang/miniconda3/envs/bf545/bin/utils/read_fastx.py'. Is it in the system path?
+Warning! Biom python library not detected!
+ Exporting to biom format will not work!
+OSError: fatal error running '/home/csrkang/miniconda3/envs/bf545/bin/utils/read_fastx.py'. Is it in the system path?
+Warning! Biom python library not detected!
+ Exporting to biom format will not work!
+OSError: fatal error running '/home/csrkang/miniconda3/envs/bf545/bin/utils/read_fastx.py'. Is it in the system path?
+Warning! Biom python library not detected!
+ Exporting to biom format will not work!
+OSError: fatal error running '/home/csrkang/miniconda3/envs/bf545/bin/utils/read_fastx.py'. Is it in the system path?
+[Mon Apr 13 13:22:58 2020]
+Error in rule metaphlan2:
+[Mon Apr 13 13:22:58 2020]
+    jobid: 60
+Error in rule metaphlan2:
+[Mon Apr 13 13:22:58 2020]
+    output: data/metagenome/metaphlan_test/SRR5665055_mtphln2.txt, data/metagenome/metaphlan_test/SRR5665055_bowtie2.out.bz2
+    jobid: 98
+Error in rule metaphlan2:
+    log: log/metagenome/metaphlan2_SRR5665055.log
+    output: data/metagenome/metaphlan_test/SRR5665187_mtphln2.txt, data/metagenome/metaphlan_test/SRR5665187_bowtie2.out.bz2
+    jobid: 100
+
+    log: log/metagenome/metaphlan2_SRR5665187.log
+    output: data/metagenome/metaphlan_test/SRR5665072_mtphln2.txt, data/metagenome/metaphlan_test/SRR5665072_bowtie2.out.bz2
+
+    log: log/metagenome/metaphlan2_SRR5665072.log
+
+[Mon Apr 13 13:22:58 2020]
+Error in rule metaphlan2:
+    jobid: 63
+    output: data/metagenome/metaphlan_test/SRR5665122_mtphln2.txt, data/metagenome/metaphlan_test/SRR5665122_bowtie2.out.bz2
+    log: log/metagenome/metaphlan2_SRR5665122.log
+
+RuleException:
+CalledProcessError in line 83 of /home/csrkang/bf545/Project/bioinf545-group3-project/code/metagenome/workflow.smk:
+Command ' set -euo pipefail;   
+        samtools fasta data/metagenome/bwa_GRCh38_results/SRR5665055_GRCh38.bam | cat |
+                 metaphlan2.py --input_type fasta --nproc 4 --bowtie2out data/metagenome/metaphlan_test/SRR5665055_bowtie2.out.bz2 > data/metagenome/metaphlan_test/SRR5665055_mtphln2.txt
+        2> log/metagenome/metaphlan2_SRR5665055.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/code/metagenome/workflow.smk", line 83, in __rule_metaphlan2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+RuleException:
+CalledProcessError in line 83 of /home/csrkang/bf545/Project/bioinf545-group3-project/code/metagenome/workflow.smk:
+Command ' set -euo pipefail;   
+        samtools fasta data/metagenome/bwa_GRCh38_results/SRR5665187_GRCh38.bam | cat |
+                 metaphlan2.py --input_type fasta --nproc 4 --bowtie2out data/metagenome/metaphlan_test/SRR5665187_bowtie2.out.bz2 > data/metagenome/metaphlan_test/SRR5665187_mtphln2.txt
+        2> log/metagenome/metaphlan2_SRR5665187.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/code/metagenome/workflow.smk", line 83, in __rule_metaphlan2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+RuleException:
+CalledProcessError in line 83 of /home/csrkang/bf545/Project/bioinf545-group3-project/code/metagenome/workflow.smk:
+Command ' set -euo pipefail;   
+        samtools fasta data/metagenome/bwa_GRCh38_results/SRR5665072_GRCh38.bam | cat |
+                 metaphlan2.py --input_type fasta --nproc 4 --bowtie2out data/metagenome/metaphlan_test/SRR5665072_bowtie2.out.bz2 > data/metagenome/metaphlan_test/SRR5665072_mtphln2.txt
+        2> log/metagenome/metaphlan2_SRR5665072.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/code/metagenome/workflow.smk", line 83, in __rule_metaphlan2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+RuleException:
+CalledProcessError in line 83 of /home/csrkang/bf545/Project/bioinf545-group3-project/code/metagenome/workflow.smk:
+Command ' set -euo pipefail;   
+        samtools fasta data/metagenome/bwa_GRCh38_results/SRR5665122_GRCh38.bam | cat |
+                 metaphlan2.py --input_type fasta --nproc 4 --bowtie2out data/metagenome/metaphlan_test/SRR5665122_bowtie2.out.bz2 > data/metagenome/metaphlan_test/SRR5665122_mtphln2.txt
+        2> log/metagenome/metaphlan2_SRR5665122.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/code/metagenome/workflow.smk", line 83, in __rule_metaphlan2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+Removing output files of failed job metaphlan2 since they might be corrupted:
+data/metagenome/metaphlan_test/SRR5665055_mtphln2.txt
+Removing output files of failed job metaphlan2 since they might be corrupted:
+data/metagenome/metaphlan_test/SRR5665187_mtphln2.txt
+Removing output files of failed job metaphlan2 since they might be corrupted:
+data/metagenome/metaphlan_test/SRR5665072_mtphln2.txt
+Removing output files of failed job metaphlan2 since they might be corrupted:
+data/metagenome/metaphlan_test/SRR5665122_mtphln2.txt
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/log/2020-04-13T132256.164963.snakemake.log

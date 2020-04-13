@@ -1,0 +1,336 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[11pt,]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=0.5in]{geometry}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\setmainfont{Arial}
+\usepackage{wrapfig}
+\usepackage[toc,page]{appendix}
+\usepackage[font=footnotesize]{caption}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[singlespacing]{setspace}
+\usepackage[compact]{titlesec} % http://ctan.mirrors.hoobly.com/macros/latex/contrib/titlesec/titlesec.pdf
+\usepackage{paralist}
+\renewenvironment{thebibliography}[1]{
+    \let\par\relax\let\newblock\relax
+    \inparaenum[\bfseries{[}1{]}]}{\endinparaenum}
+\usepackage[english]{babel}
+\pagenumbering{gobble}
+\usepackage{lineno}
+%\linenumbers % remove before submitting
+
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+
+\hypertarget{investigating-the-microbial-community-of-the-human-gut-in-colorectal-cancer}{%
+\section{Investigating the microbial community of the human gut in
+colorectal
+cancer}\label{investigating-the-microbial-community-of-the-human-gut-in-colorectal-cancer}}
+
+\hypertarget{questions-hypothesis}{%
+\subsection{Questions / Hypothesis}\label{questions-hypothesis}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Are there differences in bacterial \& viral community composition
+  between human stool samples from patients diagnosed as normal,
+  adenoma, and carcinoma?
+\item
+  Are there differences in model performance between random forest and
+  logistic regression when classifying samples as healthy or cancerous
+  based on bacterial \& viral taxa?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Hannigan et al (\protect\hyperlink{ref-hannigan_diagnostic_2017}{1})
+    used a random forest model with OTUs or OVUs as features. Recent
+    work suggests that logistic regression may perform just as well as
+    random forest for OTU classification but with fewer computing
+    resources (\protect\hyperlink{ref-topcuoglu_effective_2019}{2}).
+  \end{itemize}
+\item
+  Are there differences in functional potential between metagenomes from
+  normal, adenoma, and carcinoma samples?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    There may be differences at the OTU level between conditions, but
+    that may or may not translate to changes at the gene level in the
+    bacterial community. Annotating genes with known functions is one
+    step closer to characterizing the functional composition of the
+    community (\protect\hyperlink{ref-carr_comparative_2014}{3}).
+  \end{itemize}
+\end{enumerate}
+
+\hypertarget{datasets}{%
+\subsection{Datasets}\label{datasets}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Number of observations/samples in each group.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    90 total human stool samples. 30 each from normal, adenoma, \&
+    (colorectal) carcinoma.
+  \end{itemize}
+\item
+  Type of data
+
+  \begin{itemize}
+  \tightlist
+  \item
+    16S rRNA gene sequence
+  \item
+    metagenomes
+  \item
+    metaviromes
+  \end{itemize}
+\item
+  Source of data
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Paper: Hannigan et al 2017
+    (\protect\hyperlink{ref-hannigan_diagnostic_2017}{1})
+  \item
+    NCBI BioProject ID: PRJNA389927
+  \end{itemize}
+\end{enumerate}
+
+\hypertarget{analysis-plan}{%
+\subsection{Analysis plan}\label{analysis-plan}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  OTU clustering of 16S sequences (bacterial taxonomy) and OVU
+  clustering of metaviromes (viral taxonomy).
+\item
+  Machine learning classification of samples as healthy or cancerous
+  with OTUs \& OVUs as model features. Compare performance of random
+  forest vs other model(s) (e.g.~logistic regression).
+\item
+  Assemble metagenomes, annotate genes with KEGG ids, and compare across
+  samples.
+\end{enumerate}
+
+\hypertarget{tools}{%
+\subsection{Tools}\label{tools}}
+
+\begin{itemize}
+\tightlist
+\item
+  CONCOCT (\protect\hyperlink{ref-alneberg_binning_2014}{4})
+\item
+  MGS-Fast (\protect\hyperlink{ref-brown_mgs-fast_2019}{5})
+\item
+  mothur (\protect\hyperlink{ref-schloss_introducing_2009}{6})
+\item
+  python (\protect\hyperlink{ref-python}{7})
+\item
+  R (\protect\hyperlink{ref-R}{8})
+
+  \begin{itemize}
+  \tightlist
+  \item
+    caret (\protect\hyperlink{ref-kuhn_building_2008}{9})
+  \item
+    R Markdown (\protect\hyperlink{ref-rmarkdown}{10})
+  \item
+    tidyverse (\protect\hyperlink{ref-wickham_welcome_2019}{11})
+  \item
+    vegan (\protect\hyperlink{ref-vegan}{12})
+  \end{itemize}
+\item
+  snakemake (\protect\hyperlink{ref-snakemake}{13})
+\end{itemize}
+
+We will use \href{https://docs.conda.io/en/latest/}{\texttt{conda}} to
+manage our dependencies.
+
+\hypertarget{strengths-of-each-person-relative-to-project-requirements}{%
+\subsection{Strengths of each person relative to project
+requirements}\label{strengths-of-each-person-relative-to-project-requirements}}
+
+\begin{itemize}
+\tightlist
+\item
+  Brittany - data analysis, scientific writing, mothur, R
+\item
+  Christina - experimental design, data analysis, R, python, derivation
+  of biological relevance and/or significance of analysis results.
+\item
+  Katelyn - experimental design, scientific writing, carcinogenesis, R
+\item
+  Kelly - 16S sequence analysis with mothur, pipelines with Snakemake,
+  collaboration with git/GitHub, R/tidyverse, python.
+\item
+  Nicole - scientific writing, colorectal carcinoma, problem solving
+  with google, R, python, linux.
+\end{itemize}
+
+\hypertarget{references}{%
+\subsection*{References}\label{references}}
+\addcontentsline{toc}{subsection}{References}
+
+\hypertarget{refs}{}
+\leavevmode\hypertarget{ref-hannigan_diagnostic_2017}{}%
+1. \textbf{Hannigan GD}, \textbf{Duhaime MB}, \textbf{Ruffin MT},
+\textbf{Koumpouras CC}, \textbf{Schloss PD}. 2017. The Diagnostic
+Potential \& Interactive Dynamics of the Colorectal Cancer Virome.
+doi:\href{https://doi.org/10.1101/152868}{10.1101/152868}.
+
+\leavevmode\hypertarget{ref-topcuoglu_effective_2019}{}%
+2. \textbf{Topçuoğlu BD}, \textbf{Lesniak NA}, \textbf{Ruffin M},
+\textbf{Wiens J}, \textbf{Schloss PD}. 2019. Effective application of
+machine learning to microbiome-based classification problems. bioRxiv
+816090. doi:\href{https://doi.org/10.1101/816090}{10.1101/816090}.
+
+\leavevmode\hypertarget{ref-carr_comparative_2014}{}%
+3. \textbf{Carr R}, \textbf{Borenstein E}. 2014. Comparative Analysis of
+Functional Metagenomic Annotation and the Mappability of Short Reads.
+PLOS ONE \textbf{9}:e105776.
+doi:\href{https://doi.org/10.1371/journal.pone.0105776}{10.1371/journal.pone.0105776}.
+
+\leavevmode\hypertarget{ref-alneberg_binning_2014}{}%
+4. \textbf{Alneberg J}, \textbf{Bjarnason BS}, \textbf{Bruijn I de},
+\textbf{Schirmer M}, \textbf{Quick J}, \textbf{Ijaz UZ}, \textbf{Lahti
+L}, \textbf{Loman NJ}, \textbf{Andersson AF}, \textbf{Quince C}. 2014.
+Binning metagenomic contigs by coverage and composition. Nature Methods
+\textbf{11}:1144--1146.
+doi:\href{https://doi.org/10.1038/nmeth.3103}{10.1038/nmeth.3103}.
+
+\leavevmode\hypertarget{ref-brown_mgs-fast_2019}{}%
+5. \textbf{Brown SM}, \textbf{Chen H}, \textbf{Hao Y}, \textbf{Laungani
+BP}, \textbf{Ali TA}, \textbf{Dong C}, \textbf{Lijeron C}, \textbf{Kim
+B}, \textbf{Wultsch C}, \textbf{Pei Z}, \textbf{Krampis K}. 2019.
+MGS-Fast: Metagenomic shotgun data fast annotation using microbial gene
+catalogs. Gigascience \textbf{8}.
+doi:\href{https://doi.org/10.1093/gigascience/giz020}{10.1093/gigascience/giz020}.
+
+\leavevmode\hypertarget{ref-schloss_introducing_2009}{}%
+6. \textbf{Schloss PD}, \textbf{Westcott SL}, \textbf{Ryabin T},
+\textbf{Hall JR}, \textbf{Hartmann M}, \textbf{Hollister EB},
+\textbf{Lesniewski RA}, \textbf{Oakley BB}, \textbf{Parks DH},
+\textbf{Robinson CJ}, \textbf{Sahl JW}, \textbf{Stres B},
+\textbf{Thallinger GG}, \textbf{Horn DJV}, \textbf{Weber CF}. 2009.
+Introducing mothur: Open-Source, Platform-Independent,
+Community-Supported Software for Describing and Comparing Microbial
+Communities. Appl Environ Microbiol \textbf{75}:7537--7541.
+doi:\href{https://doi.org/10.1128/AEM.01541-09}{10.1128/AEM.01541-09}.
+
+\leavevmode\hypertarget{ref-python}{}%
+7. \textbf{Van Rossum G}, \textbf{Drake FL}. 2009. Python 3 reference
+manual. CreateSpace, Scotts Valley, CA.
+
+\leavevmode\hypertarget{ref-R}{}%
+8. \textbf{R Core Team}. 2019. R: A language and environment for
+statistical computing. R Foundation for Statistical Computing, Vienna,
+Austria.
+
+\leavevmode\hypertarget{ref-kuhn_building_2008}{}%
+9. \textbf{Kuhn M}. 2008. Building Predictive Models in R Using the
+caret Package. Journal of Statistical Software \textbf{28}:1--26.
+doi:\href{https://doi.org/10.18637/jss.v028.i05}{10.18637/jss.v028.i05}.
+
+\leavevmode\hypertarget{ref-rmarkdown}{}%
+10. 2020. Rmarkdown: Dynamic documents for r.
+
+\leavevmode\hypertarget{ref-wickham_welcome_2019}{}%
+11. \textbf{Wickham H}, \textbf{Averick M}, \textbf{Bryan J},
+\textbf{Chang W}, \textbf{McGowan L}, \textbf{François R},
+\textbf{Grolemund G}, \textbf{Hayes A}, \textbf{Henry L}, \textbf{Hester
+J}, \textbf{Kuhn M}, \textbf{Pedersen T}, \textbf{Miller E},
+\textbf{Bache S}, \textbf{Müller K}, \textbf{Ooms J}, \textbf{Robinson
+D}, \textbf{Seidel D}, \textbf{Spinu V}, \textbf{Takahashi K},
+\textbf{Vaughan D}, \textbf{Wilke C}, \textbf{Woo K}, \textbf{Yutani H}.
+2019. Welcome to the Tidyverse. Journal of Open Source Software
+\textbf{4}:1686.
+doi:\href{https://doi.org/10.21105/joss.01686}{10.21105/joss.01686}.
+
+\leavevmode\hypertarget{ref-vegan}{}%
+12. \textbf{Oksanen J}, \textbf{Blanchet FG}, \textbf{Friendly M},
+\textbf{Kindt R}, \textbf{Legendre P}, \textbf{McGlinn D},
+\textbf{Minchin PR}, \textbf{O'Hara RB}, \textbf{Simpson GL},
+\textbf{Solymos P}, \textbf{Stevens MHH}, \textbf{Szoecs E},
+\textbf{Wagner H}. 2019. Vegan: Community ecology package.
+
+\leavevmode\hypertarget{ref-snakemake}{}%
+13. \textbf{Köster J}, \textbf{Rahmann S}. 2012. Snakemake---a scalable
+bioinformatics workflow engine. Bioinformatics \textbf{28}:2520--2522.
+doi:\href{https://doi.org/10.1093/bioinformatics/bts480}{10.1093/bioinformatics/bts480}.
+
+\end{document}

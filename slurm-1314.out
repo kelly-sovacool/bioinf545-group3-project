@@ -1,0 +1,51 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	30	bwa_mem_IGC
+	30	extract_geneList
+	1	render_pdf
+	1	targets
+	62
+
+[Mon Apr 13 16:48:00 2020]
+rule bwa_mem_IGC:
+    input: data/metagenome/bwa_GRCh38_results/SRR5665033_unmapped_1.fastq.gz, data/metagenome/bwa_GRCh38_results/SRR5665033_unmapped_2.fastq.gz
+    output: data/metagenome/bwa_IGC_results/SRR5665033_IGC.bam, data/metagenome/bwa_IGC_results/SRR5665033_flagstat.txt
+    log: log/metagenome/bwa-mem_IGC_SRR5665033.log
+    jobid: 152
+    benchmark: benchmarks/metagenome/bwa-mem_IGC_SRR5665033.txt
+    wildcards: sample=SRR5665033
+    threads: 16
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 1564000 sequences (160000183 bp)...
+[M::process] read 1562876 sequences (160000071 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (91, 396107, 26, 76)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (64, 92, 169)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 379)
+[M::mem_pestat] mean and std.dev: (114.44, 70.24)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 484)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (71, 112, 176)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 386)
+[M::mem_pestat] mean and std.dev: (128.62, 76.69)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 491)
+[M::mem_pestat] analyzing insert size distribution for orientation RF...
+[M::mem_pestat] (25, 50, 75) percentile: (54, 147, 260)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 672)
+[M::mem_pestat] mean and std.dev: (152.21, 109.03)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 878)
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (50, 96, 183)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 449)
+[M::mem_pestat] mean and std.dev: (120.14, 92.65)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 582)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 1564000 reads in 334.593 CPU sec, 25.104 real sec

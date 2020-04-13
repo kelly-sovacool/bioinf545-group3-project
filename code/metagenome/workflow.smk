@@ -72,16 +72,17 @@ rule metaphlan2:
     input:
         "data/metagenome/bwa_GRCh38_results/{sample}_GRCh38.bam"
     output:
-        mtphln2="data/metagenome/metaphlan2_results/{sample}_mtphln2.txt",
-        bowtie2="data/metagenome/metaphlan2_results/{sample}_bowtie2.out.bz2"
+        mtphln2="data/metagenome/metaphlan_test/{sample}_mtphln2.txt",
+        bowtie2="data/metagenome/metaphlan_test/{sample}_bowtie2.out.bz2"
+    threads: 4
     log:
         "log/metagenome/metaphlan2_{sample}.log"
     benchmark:
         "benchmarks/metagenome/metaphlan2_{sample}.txt"
     shell:
-        """
+        """ 
         samtools fasta {input} | cat |
-                 metaphlan2.py --input_type fasta --bowtie2out {output.bowtie2} > {output.mtphln2}
+                 metaphlan2.py --input_type fasta --nproc {threads} --bowtie2out {output.bowtie2} > {output.mtphln2}
         2> {log}
         """
 
