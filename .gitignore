@@ -5,3 +5,4 @@
 .Ruserdata
 .snakemake/
 /data/fastq
+/benchmark
