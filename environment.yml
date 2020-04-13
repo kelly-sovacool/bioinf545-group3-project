@@ -22,5 +22,3 @@ dependencies:
   - snakemake=5.3.0
   - fastqc=0.11.9
   - trimmomatic=0.39
-  - metaphlan2=2.96.1
-  - bwa=0.7.12
