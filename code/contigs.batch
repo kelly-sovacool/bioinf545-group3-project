@@ -1,6 +1,0 @@
-set.dir(input=~/Desktop/bioinf545-group3-project/data/raw/16S/)
-set.dir(tempdefault=~/Desktop/bioinf545-group3-project/data/raw/16S/)
-set.dir(output=~/Desktop/bioinf545-group3-project/data/mothur_output/)
-
-make.contigs(file=~/Desktop/bioinf545-group3-project/data/raw/16S/stability.files,processors=4)
-
