@@ -3,9 +3,11 @@
 Group members:
 
 - Nicole Bowers
-- [Kelly L. Sovacool](https://github.com/kelly-sovacool)
-- Christina Kang-Yun
 - Brittany Hicks
+- Christina Kang-Yun
+- Katelyn Polemi
+- [Kelly Sovacool](https://github.com/kelly-sovacool)
+
 
 ## Setup
 
