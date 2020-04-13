@@ -74,8 +74,6 @@ rule metaphlan2:
     output:
         mtphln2="data/metagenome/metaphlan2_results/{sample}_mtphln2.txt",
         bowtie2="data/metagenome/metaphlan2_results/{sample}_bowtie2.out.bz2"
-    conda:
-        "../../environment_metaphlan2.yml"
     log:
         "log/metagenome/metaphlan2_{sample}.log"
     benchmark:
