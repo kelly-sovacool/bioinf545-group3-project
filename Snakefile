@@ -1,6 +1,9 @@
+include: "code/metagenome/workflow.smk"
+
 rule targets:
     input:
-        "docs/proposal.pdf"
+        "docs/proposal.pdf",
+        expand(["data/metagenome/gene_abundance_results/{sample}.gene", "data/metagenome/metaphlan2_results/{sample}_mtphln2.txt"], sample=samples)
 
 rule render_pdf:
     input:
