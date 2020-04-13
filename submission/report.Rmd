@@ -12,8 +12,18 @@ bibliography: bioinf545-group3_report.bib
 csl: mbio.csl
 link-citations: true
 title: "Investigating the microbial community of the human gut in colorectal cancer"
-author: "Nicole Bowers, Brittany Hicks, Christina Kang, Katelyn Polemi, Kelly Sovacool"
+author: "Nicole Bowers, Brittany Hicks, Christina Kang-Yun, Katelyn Polemi, Kelly Sovacool"
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, 
+                      fig.path = here::here("figures/"))
+```
+```{r load}
+library(broom)
+library(here)
+library(knitr)
+library(tidyverse)
+```
 
 \newpage
 \todo{Guidelines: https://drive.google.com/file/d/1YNqYiMJYiVWXiSR9yWUbQTPAoUpVa9Id/view}
@@ -43,6 +53,18 @@ All code used in preparation of this report is available in the following GitHub
 ## Metagenome annotation and phylogeny
 
 # Results
+
+\begin{wrapfigure}{R}{.4\textwidth}
+    \begin{center}
+        \includegraphics[width=.35\textwidth]{../figures/rulegraph.png}  
+        \caption{Example}
+        \label{fig:example}  
+    \end{center}
+\end{wrapfigure}
+
+Example of referring to a figure in text (Fig. \ref{fig:example}) 
+and including it inline with the text.  
+\todo{remove example figure before submitting}
 
 # Discussion
 

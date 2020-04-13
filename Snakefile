@@ -1,13 +1,13 @@
 rule targets:
     input:
-        "docs/proposal.pdf",
         "docs/report.pdf"
 
 rule render_pdf:
     input:
         code="code/render.R",
         rmd="submission/{doc}.Rmd",
-        preamble="submission/preamble_{doc}.tex"
+        preamble="submission/preamble_{doc}.tex",
+        figures=["figures/example.png"]
     output:
         file="docs/{doc}.pdf"
     params:
