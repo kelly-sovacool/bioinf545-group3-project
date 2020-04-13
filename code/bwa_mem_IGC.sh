@@ -2,11 +2,11 @@
 indir=$1
 outdir=$2
 indexpath=$3
-for infile in $indir/SRR56650*1_unmapped.fastq.gz
+for infile in $indir/*unmapped_1.fastq.gz
 do
-  base=$(basename ${infile} _1_unmapped.fastq.gz)
+  base=$(basename ${infile} unmapped_1.fastq.gz)
   bwa mem ${indexpath} \
-          ${indir}/${base}_1_unmapped.fastq.gz ${indir}/${base}_2_unmapped.fastq.gz |
-  samtools view -h -f 2 - > ${outdir}/${base}_IGC.sam
+          ${indir}/${base}_unmapped_1.fastq.gz ${indir}/${base}_unmapped_2.fastq.gz |
+  samtools view -b -f 2 - > ${outdir}/${base}_IGC.bam
 done
 
