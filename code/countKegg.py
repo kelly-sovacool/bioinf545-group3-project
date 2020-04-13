@@ -1,3 +1,9 @@
+"""
+countKegg.py input output
+Input: .gene
+Output: KeggCount.txt
+"""
+
 import sys
 
 KeggDict = {}
