@@ -1,0 +1,55 @@
+---
+output:
+    pdf_document:
+        latex_engine: xelatex
+        keep_tex: false
+        includes:
+          in_header: preamble_report.tex
+        toc: true
+fontsize: 11pt
+geometry: margin=1in
+bibliography: bioinf545-group3_report.bib
+csl: mbio.csl
+link-citations: true
+title: "Investigating the microbial community of the human gut in colorectal cancer"
+author: "Nicole Bowers, Brittany Hicks, Christina Kang, Katelyn Polemi, Kelly Sovacool"
+---
+
+\newpage
+\todo{Guidelines: https://drive.google.com/file/d/1YNqYiMJYiVWXiSR9yWUbQTPAoUpVa9Id/view}
+# Abstract
+
+# Introduction
+
+# Methods
+
+## Study design and data collection
+
+\todo{study design / data collection based on hannigan paper}
+[@hannigan_diagnostic_2017]
+
+The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927). 
+All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.
+\todo{make the repo public before submitting}
+
+## 16S rRNA gene preprocessing
+
+## Virome preprocessing
+
+## Metagenome preprocessing
+
+## Classification modeling
+
+## Metagenome annotation and phylogeny
+
+# Results
+
+# Discussion
+
+# Acknowledgements
+
+Author order was determined by alphabetizing by last name. 
+\todo{insert contribution statement here}
+
+\newpage
+# References

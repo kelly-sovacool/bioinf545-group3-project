@@ -1,0 +1,24 @@
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\setmainfont{Arial}
+\usepackage{wrapfig}
+\usepackage[toc,page]{appendix}
+\usepackage[font=footnotesize]{caption}
+\usepackage[margin=1in]{geometry}
+\usepackage[compact]{titlesec} % http://ctan.mirrors.hoobly.com/macros/latex/contrib/titlesec/titlesec.pdf
+\usepackage{paralist}
+\renewenvironment{thebibliography}[1]{
+    \let\par\relax\let\newblock\relax
+    \inparaenum[\bfseries{[}1{]}]}{\endinparaenum}
+\usepackage[english]{babel}
+%\pagenumbering{gobble}
+\usepackage{lineno}
+%\linenumbers % remove before submitting
+\linespread{1.25} % equiv. to 1.5 spacing in MS Word https://tex.stackexchange.com/questions/65849/confusion-onehalfspacing-vs-spacing-vs-word-vs-the-world
+\usepackage[colorinlistoftodos]{todonotes}
+\hypersetup{colorlinks=true, urlcolor=blue, linkcolor=black}
+\usepackage{blindtext}
+\presetkeys%
+    {todonotes}%
+    {inline, backgroundcolor=yellow}{}
