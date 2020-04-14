@@ -33,5 +33,5 @@ rule fastq_dump:
         """
         prefetch {wildcards.sample}
         fasterq-dump --split-files {wildcards.sample} -O {params.outdir}
-        gzip data/raw/*.fastq
+        gzip data/raw/{wildcards.sample}_1.fastq data/raw/{wildcards.sample}_2.fastq
         """
