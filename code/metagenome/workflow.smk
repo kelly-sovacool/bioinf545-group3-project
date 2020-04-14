@@ -177,4 +177,7 @@ rule countKegg:
     log:
         "log/metagenome/countKegg_{sample}.log"
     shell:
-        "python code/metagenome/countKegg.py {input} {output} 2> {log}"
+        """
+        python code/metagenome/countKegg.py {input} {output} 2> {log}
+        code/metagenome/clean_countKegg.sh {output}
+        """
