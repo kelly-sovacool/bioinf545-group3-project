@@ -68,12 +68,12 @@ rule bwa_mem_GRCh38:
         samtools flagstat {output.bam} > {output.flagstat}
         """
 
-rule metaphlan2:
+rule metaphlan2_samples:
     input:
         rules.bwa_mem_GRCh38.output.bam
     output:
-        mtphln2="data/metagenome/metaphlan_test/{sample}_mtphln2.txt",
-        bowtie2="data/metagenome/metaphlan_test/{sample}_bowtie2.out.bz2"
+        mtphln2="data/metagenome/metaphlan2_samples/{sample}_mtphln2.txt",
+        bowtie2="data/metagenome/metaphlan_samples/{sample}_bowtie2.out.bz2"
     threads: 4
     log:
         "log/metagenome/metaphlan2_{sample}.log"
@@ -84,6 +84,24 @@ rule metaphlan2:
         samtools fasta {input} | cat |
                  metaphlan2.py --input_type fasta --nproc {threads} --bowtie2out {output.bowtie2} > {output.mtphln2}
         2> {log}
+        """
+
+rule metaphlan2_results:
+    input:
+        expand("data/metagenome/metaphlan2_samples/{sample}_mtphln2.txt", sample=samples)
+    output:
+        merged="data/metagenome/metaphlan2_results/merged.txt",
+        phylum="data/metagenome/metaphlan2_results/merged_phylum.txt",
+        family="data/metagenome/metaphlan2_results/merged_family.txt",
+        genus="data/metagenome/metaphlan2_results/merged_genus.txt",
+        species="data/metagenome/metaphlan2_results/merged_species.txt"
+    shell:
+        """
+        merge_metaphlan_tables.py {input} > {output.merged}
+        grep -E "(s__)|(^clade_name)" {output.merged} | grep -v "t__" | sed 's/^.*s__//g' > {output.species}
+        grep -E "(g__)|(^clade_name)" {output.merged} | grep -v "t__" | sed 's/^.*g__//g' | sed '/|s_/d' > {output.genus}
+        grep -E "(f__)|(^clade_name)" {output.merged} | grep -v "t__" | sed 's/^.*f__//g' | sed '/|g_/d' > {output.family}
+        grep -E "(p__)|(^clade_name)" {output.merged} | grep -v "t__" | sed 's/^.*p__//g' | sed '/|c_/d' > {output.phylum}
         """
 
 rule bam_to_fastq:
