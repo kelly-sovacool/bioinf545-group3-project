@@ -1,33 +1,4 @@
 # EdgeR code for the creation of KEGG abundance plots.
-<<<<<<< HEAD
-source("http://www.bioconductor.org/biocLite.R")
-biocLite("edgeR")
-library(edgeR)
-
-data <- read.delim("keggTable.txt", row.names = 1, header = T)
-# Create DGEList object with groups for the treatments C and T
-group <- c(rep("C", 10), rep("T", 10))
-cds <- DGEList(data, group = group)
-
-# Filter out genes with low counts, keeping those rows where the count
-# per million (cpm) is at least 1 in at least 6 samples:
-keep <- rowSums(cpm(cds) > 1) >= 6
-cds <- cds[keep, ]
-
-# Normalize
-cds <- calcNormFactors(cds)
-cds <- estimateCommonDisp(cds)
-cds <- estimateTagwiseDisp(cds, prior.df = 10)
-
-# Draw the MDS plot
-plotMDS(cds, main = "MDS Plot for Count Data", labels = colnames(cds$counts))
-
-# Find Differentially Expressed genes
-DEgenes <- exactTest(cds, pair = c("C", "T"))
-summary(decideTestsDGE(DEgenes, p.value = 0.05))
-DEgene.table <- topTags(de.tgw, n = nrow(DEgenes$table))$table
-write.table(DEgene.table, file = "DEgenes.csv", sep = ",", row.names = TRUE)
-=======
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("edgeR")
@@ -41,7 +12,7 @@ setwd("data/metagenome/gene_abundance_results")
 # Import metadata to order samples by name.
 SraRun <- read.table('../../SraRunTable.txt', header = T, sep = ',', stringsAsFactors = F)
 
-SraRun <- SraRun %>% 
+SraRun <- SraRun %>%
   filter(samp_mat_process == 'WholeMetagenome') %>% # Filter out virome samples
   arrange(subjectid) %>% # rearrange by patient type
   arrange(factor(DiseaseClass, levels = c('Negative', 'Healthy', 'Adenoma', 'Cancer')))
@@ -57,10 +28,10 @@ keggCounts <- lapply(fileNames, function(i){
 
 keggCounts <- keggCounts %>% reduce(full_join, by = "V1") # full join on kegg ID.
 
-colnames(keggCounts) <- 
+colnames(keggCounts) <-
   c("KeggNo", gsub('_keggCount.txt', '', fileNames)) # rename columns to sample name.
 
-keggCounts <- keggCounts %>% 
+keggCounts <- keggCounts %>%
   select(paste(colOrder)) # reorder by sample type.
 
 keggCounts[is.na(keggCounts)] = 0 # replace NA with 0
@@ -71,7 +42,7 @@ rm(colOrder)
 #Create DGEList object with groups for the treatments C and T
 group <- c(rep("N", sum(SraRun$DiseaseClass == "Negative")),
            rep("H", sum(SraRun$DiseaseClass == "Healthy")),
-           rep("A", sum(SraRun$DiseaseClass == "Adenoma")), 
+           rep("A", sum(SraRun$DiseaseClass == "Adenoma")),
            rep("C", sum(SraRun$DiseaseClass == "Cancer")))
 cds <- DGEList(keggCounts, group = group)
 
@@ -95,4 +66,3 @@ DEgenes <-  exactTest(cds , pair = c("C" , "T"))
 summary( decideTestsDGE (DEgenes, p.value = 0.05 ) )
 DEgene.table <- topTags( de.tgw , n = nrow(DEgenes$table))$table
 write.table(DEgene.table, file = "DEgenes.csv" , sep = "," , row.names = TRUE )
->>>>>>> christina
