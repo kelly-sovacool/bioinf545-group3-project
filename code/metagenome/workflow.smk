@@ -10,7 +10,7 @@ rule bwa_mem_GRCh38:
         flagstat="data/metagenome/bwa_GRCh38_results/{sample}_flagstat.txt"
     conda:
        "../../environment_bwa.yml"
-    threads: 16
+    threads: num_threads
     log:
         "log/metagenome/bwa-mem_GRCh38_{sample}.log"
     benchmark:
@@ -28,7 +28,7 @@ rule metaphlan2_samples:
     output:
         mtphln2="data/metagenome/metaphlan2_samples/{sample}_mtphln2.txt",
         bowtie2="data/metagenome/metaphlan_samples/{sample}_bowtie2.out.bz2"
-    threads: 4
+    threads: num_threads
     log:
         "log/metagenome/metaphlan2_{sample}.log"
     benchmark:
@@ -87,7 +87,7 @@ rule bwa_mem_IGC:
         flagstat="data/metagenome/bwa_IGC_results/{sample}_flagstat.txt"
     conda:
        "../../environment_bwa.yml"
-    threads: 16
+    threads: num_threads
     log:
         "log/metagenome/bwa-mem_IGC_{sample}.log"
     benchmark:

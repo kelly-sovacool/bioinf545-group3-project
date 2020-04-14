@@ -1,3 +1,6 @@
+configfile: "config.yml"
+num_threads = config['threads']
+
 with open('data/SRR_Acc_List.txt', 'r') as infile:
     all_samples = [line.strip() for line in infile]
 with open('data/metagenome/SRR_Acc_List_metagen.txt', 'r') as infile:
@@ -56,7 +59,7 @@ rule trim:
         R2_P="data/qc/trimm_results/{sample}_paired_2.fastq.gz",
         R1_U="data/qc/trimm_results/{sample}_unpaired_1.fastq.gz",
         R2_U="data/qc/trimm_results/{sample}_unpaired_2.fastq.gz"
-    threads: 16
+    threads: num_threads
     log:
         "log/qc/trimmomatic_{sample}.log"
     benchmark:
