@@ -15,7 +15,8 @@ rule targets:
     input:
         "docs/proposal.pdf",
         expand("data/metagenome/gene_abundance_results/{sample}_keggCount.txt", sample=metag_samples),
-        "data/metagenome/metaphlan2_results/merged.txt"
+        "data/metagenome/metaphlan2_results/merged.txt",
+        expand("data/qc/bwa_GRCh38_results/{sample}_unmapped_{pair}.fastq.gz", sample=all_samples, pair=[1,2])
 
 rule render_pdf:
     input:
@@ -90,4 +91,47 @@ rule re_pair:
     shell:
         """
         repair.sh in={input.R1} in2={input.R2} out={output.R1} out2={output.R2} outs={output.single} 2> {log}
+        """
+
+rule bwa_mem_GRCh38:
+    input:
+        R1=rules.re_pair.output.R1,
+        R2=rules.re_pair.output.R1
+    params:
+        index="data/qc/bwa_DB/GRCh38/GRCh38"
+    output:
+        mapped="data/qc/bwa_GRCh38_results/{sample}_GRCh38_mapped.bam",
+        unmapped="data/qc/bwa_GRCh38_results/{sample}_GRCh38_mapped.bam",
+        flagstat="data/qc/bwa_GRCh38_results/{sample}_flagstat.txt"
+    conda:
+       "environment_bwa.yml"
+    threads: num_threads
+    log:
+        "log/qc/bwa-mem_GRCh38_{sample}.log"
+    benchmark:
+        "benchmarks/qc/bwa-mem_GRCh38_{sample}.txt"
+    shell:
+        """
+        bwa mem -t {threads} {params.index} {input.R1} {input.R2} |
+        samtools view -bh - > {output.bam} 2> {log}
+        samtools view -bh -f 8 {output.bam} > {output.unmapped}
+        samtools flagstat {output.bam} > {output.flagstat}
+        """
+
+rule bam_to_fastq:
+    input:
+        rules.bwa_mem_GRCh38.output.unmapped
+    output:
+        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz"
+    conda:
+       "environment_bwa.yml"
+    log:
+        "log/qc/bamtofastq_{sample}.log"
+    benchmark:
+        "benchmarks/qc/bamtofastq_{sample}.txt"
+    shell:
+        """
+        samtools view {input} | samtools sort -n {input} |
+        samtools fastq -1 {output.R1} -2 {output.R2} - 2> {log}
         """
