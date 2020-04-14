@@ -20,12 +20,6 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
       - uses: r-lib/actions/setup-pandoc@v1
       - uses: actions/setup-python@v1
-      - uses: goanpeca/setup-miniconda@v1
-        with:
-           activate-environment: bf545
-           environment-file: environment.yml
-           python-version: 3.7
-           auto-activate-base: false
       - name: Configure git
         shell: bash -l {0}
         run: |
@@ -34,6 +28,7 @@ jobs:
       - name: Style R code
         shell: bash -l {0}
         run: |
+          R -e "install.packages(c('usethis', 'styler'))"
           git status
           Rscript -e 'usethis::use_tidy_style()'
           git add .
@@ -43,6 +38,7 @@ jobs:
       - name: Style Python code
         shell: bash -l {0}
         run: |
+          pip install black
           black .
           git add .
           git commit \
