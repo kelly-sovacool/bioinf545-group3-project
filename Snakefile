@@ -17,11 +17,11 @@ rule render_pdf:
     script:
         "{input.code}"
 
-rule fastqs:
+rule download:
     input:
         expand("data/raw/{sample}_{pair}.fastq.gz", sample=samples, pair=[1,2])
 
-rule download:
+rule fastq_dump:
     input:
         sra_list="data/SRR_Acc_List.txt"
     output:
