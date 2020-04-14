@@ -49,6 +49,7 @@ rule get_IGC:
         gunzip {params.gz_catalog}
         wget ftp://ftp.cngb.org/pub/SciRAID/Microbiome/humanGut_9.9M/GeneAnnotation/IGC.annotation_OF.summary.gz -O {params.gz_annot}
         gunzip {params.gz_annot}
+        bwa index -p IGC IGC.fa
         """
 
 rule bwa_mem_IGC:
