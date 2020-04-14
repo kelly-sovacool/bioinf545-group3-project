@@ -1,6 +1,9 @@
+include: "code/metagenome/workflow.smk"
+
 rule targets:
     input:
-        "docs/proposal.pdf"
+        # "docs/proposal.pdf",
+        expand("data/metagenome/gene_abundance_results/{sample}_keggCount.txt", sample=samples)
 
 rule render_pdf:
     input:
