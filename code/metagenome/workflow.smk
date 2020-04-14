@@ -156,9 +156,7 @@ rule countKegg:
         "data/metagenome/bwa_DB/IGC.kegg"
     output:
         "data/metagenome/gene_abundance_results/{sample}_keggCount.txt"
-    conda:
-        "../../environment.yml"
     log:
         "log/metagenome/countKegg_{sample}.log"
     shell:
-        "python code/countKegg.py {input} {output} 2> {log}"
+        "python code/metagenome/countKegg.py {input} {output} 2> {log}"
