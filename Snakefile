@@ -1,4 +1,5 @@
 include: "code/metagenome/workflow.smk"
+include: "code/virome/workflow.smk"
 
 rule targets:
     input:
