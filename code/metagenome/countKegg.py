@@ -24,9 +24,9 @@ geneList = []
 with open(sys.argv[1], "rb") as genes:
     for i in genes.readlines():
         line = i.split()
-	if line[1] != '*':
+        if line[1] != '*':
             geneList.append((eval(line[0]),line[1]))
-
+           
 for read in geneList:
     KEGG = KeggDict[read[1]]
     if KEGG in keggCount:
