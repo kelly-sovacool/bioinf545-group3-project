@@ -110,7 +110,7 @@ rule bwa_mem_GRCh38:
         R2=rules.re_pair.output.R1,
         ref=rules.get_GRCh38.output
     params:
-        index="data/qc/bwa_DB/GRCh38/GRCh38"
+        index="data/qc/bwa_DB/GRCh38/GRCh38.d1.vd1.fa"
     output:
         mapped="data/qc/bwa_GRCh38_results/{sample}_GRCh38_mapped.bam",
         unmapped="data/qc/bwa_GRCh38_results/{sample}_GRCh38_unmapped.bam",
@@ -125,9 +125,9 @@ rule bwa_mem_GRCh38:
     shell:
         """
         bwa mem -t {threads} {params.index} {input.R1} {input.R2} |
-        samtools view -bh - > {output.unmapped} 2> {log}
-        samtools view -bh -f 8 {output.unmapped} > {output.unmapped}
-        samtools flagstat {output.unmapped} > {output.flagstat}
+        samtools view -bh - > {output.mapped} 2> {log}
+        samtools view -bh -f 8 {output.mapped} > {output.unmapped}
+        samtools flagstat {output.mapped} > {output.flagstat}
         """
 
 rule bam_to_fastq:
