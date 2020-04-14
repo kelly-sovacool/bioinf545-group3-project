@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=bwa_IGC
+#SBATCH --job-name=snakemake
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=100G
 #SBATCH --time=24:00:00

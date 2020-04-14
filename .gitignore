@@ -5,3 +5,5 @@
 .Ruserdata
 .snakemake/
 /data/fastq
+/benchmark
+slurm_sovacool.sh

@@ -1,10 +1,15 @@
+
+with open('data/SRR_Acc_List.txt', 'r') as infile:
+    all_samples = [line.strip() for line in infile]
+
 include: "code/metagenome/workflow.smk"
 include: "code/virome/workflow.smk"
 
 rule targets:
     input:
         "docs/proposal.pdf",
-        expand("data/metagenome/gene_abundance_results/{sample}.gene", sample=samples)
+        expand("data/metagenome/gene_abundance_results/{sample}_keggCount.txt", sample=samples),
+        "data/metagenome/metaphlan2_results/merged.txt"
 
 rule render_pdf:
     input:
@@ -20,7 +25,19 @@ rule render_pdf:
 
 rule download:
     input:
-        code="code/download.sh",
+        expand("data/raw/{sample}_{pair}.fastq.gz", sample=all_samples, pair=[1,2])
+
+rule fastq_dump:
+    input:
         sra_list="data/SRR_Acc_List.txt"
+    output:
+        "data/raw/{sample}_1.fastq.gz",
+        "data/raw/{sample}_2.fastq.gz"
+    params:
+        outdir="data/raw/"
     shell:
-        "bash {input.code} {input.sra_list} data/raw/"
+        """
+        prefetch {wildcards.sample}
+        fasterq-dump --split-files {wildcards.sample} -O {params.outdir}
+        gzip data/raw/{wildcards.sample}_1.fastq data/raw/{wildcards.sample}_2.fastq
+        """
