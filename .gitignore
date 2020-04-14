@@ -4,3 +4,4 @@
 .RData
 .Ruserdata
 .snakemake/
+slurm_sovacool.sh
