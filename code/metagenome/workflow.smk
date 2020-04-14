@@ -1,4 +1,4 @@
-
+max_threads = 6  # metaphlan2 can only handle up to 6 processors
 
 rule metaphlan2_samples:
     input:
@@ -6,7 +6,7 @@ rule metaphlan2_samples:
     output:
         mtphln2="data/metagenome/metaphlan2_samples/{sample}_mtphln2.txt",
         bowtie2="data/metagenome/metaphlan_samples/{sample}_bowtie2.out.bz2"
-    threads: num_threads
+    threads: max_threads if num_threads > max_threads else num_threads
     log:
         "log/metagenome/metaphlan2_{sample}.log"
     benchmark:
