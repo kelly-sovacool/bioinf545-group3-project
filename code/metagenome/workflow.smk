@@ -81,7 +81,7 @@ rule metaphlan2:
         "benchmarks/metagenome/metaphlan2_{sample}.txt"
     shell:
         """ 
-        samtools fasta {input} | cat |
+        samtools view -f 8 {input} | samtools fasta - | cat |
                  metaphlan2.py --input_type fasta --nproc {threads} --bowtie2out {output.bowtie2} > {output.mtphln2}
         2> {log}
         """
@@ -100,7 +100,7 @@ rule bam_to_fastq:
         "benchmarks/metagenome/bamtofastq_{sample}.txt"
     shell:
         """
-        samtools sort -n {input} |
+        samtools view -f 8 {input} | samtools sort -n {input} |
         samtools fastq -1 {output.R1} -2 {output.R2} - 2> {log}
         """                
 
@@ -141,7 +141,7 @@ rule extract_geneList:
        "../../environment_bwa.yml"
     shell:
         """
-        samtools view {input} |
+        samtools view -f 2 {input} |
         cut -f 3 - | sort - | uniq -c - | sort -b -nr -k 1,1 - | grep -v ":" - > {output.gene}
         sed -i 's/^ *//' {output.gene}
         cut -f 2 -d " " {output.gene} > {output.list}
