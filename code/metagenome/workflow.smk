@@ -13,7 +13,7 @@ rule metaphlan2_samples:
         "benchmarks/metagenome/metaphlan2_{sample}.txt"
     shell:
         """
-        samtools view {input} | samtools fasta - | cat |
+        samtools fasta - | cat |
                  metaphlan2.py --input_type fasta --nproc {threads} --bowtie2out {output.bowtie2} > {output.mtphln2}
         2> {log}
         """
