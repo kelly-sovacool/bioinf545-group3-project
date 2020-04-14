@@ -25,7 +25,7 @@ conda activate bf545
 
 Additionally, you will need to [install a TeX distribution](https://nbconvert.readthedocs.io/en/latest/install.html#installing-tex) to compile the documents to PDF.
 
-As you install new dependencies are added, add them to the [environment file](environment.yml) too.
+As you install new dependencies, add them to the [environment file](environment.yml) too.
 You can update your active environment (e.g. after a collaborator adds a new dependency) with:
 ```bash
 conda env update -f environment.yml
