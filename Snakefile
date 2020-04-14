@@ -144,6 +144,6 @@ rule bam_to_fastq:
         "benchmarks/qc/bamtofastq_{sample}.txt"
     shell:
         """
-        samtools view {input} | samtools sort -n {input} |
+        samtools sort -n {input} |
         samtools fastq -1 {output.R1} -2 {output.R2} - 2> {log}
         """
