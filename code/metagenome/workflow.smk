@@ -2,7 +2,7 @@
 
 rule metaphlan2_samples:
     input:
-        rules.bwa_mem_GRCh38.output.unmapped
+        "data/qc/bwa_GRCh38_results/{sample}_GRCh38_unmapped.bam"
     output:
         mtphln2="data/metagenome/metaphlan2_samples/{sample}_mtphln2.txt",
         bowtie2="data/metagenome/metaphlan_samples/{sample}_bowtie2.out.bz2"
@@ -38,8 +38,8 @@ rule metaphlan2_results:
 
 rule bwa_mem_IGC:
     input:
-        R1=rules.bam_to_fastq.output.R1,
-        R2=rules.bam_to_fastq.output.R2
+        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz"
     params:
         index="data/metagenome/bwa_DB/IGC/IGC"
     output:
@@ -61,7 +61,7 @@ rule bwa_mem_IGC:
 
 rule extract_geneList:
     input:
-        rules.bwa_mem_IGC.output.bam
+        "data/qc/bwa_GRCh38_results/{sample}_GRCh38_unmapped.bam"
     params:
         "data/metagenome/bwa_DB/IGC.annotation_OF.summary"
     output:

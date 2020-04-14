@@ -101,7 +101,7 @@ rule bwa_mem_GRCh38:
         index="data/qc/bwa_DB/GRCh38/GRCh38"
     output:
         mapped="data/qc/bwa_GRCh38_results/{sample}_GRCh38_mapped.bam",
-        unmapped="data/qc/bwa_GRCh38_results/{sample}_GRCh38_mapped.bam",
+        unmapped="data/qc/bwa_GRCh38_results/{sample}_GRCh38_unmapped.bam",
         flagstat="data/qc/bwa_GRCh38_results/{sample}_flagstat.txt"
     conda:
        "environment_bwa.yml"
@@ -113,9 +113,9 @@ rule bwa_mem_GRCh38:
     shell:
         """
         bwa mem -t {threads} {params.index} {input.R1} {input.R2} |
-        samtools view -bh - > {output.bam} 2> {log}
-        samtools view -bh -f 8 {output.bam} > {output.unmapped}
-        samtools flagstat {output.bam} > {output.flagstat}
+        samtools view -bh - > {output.unmapped} 2> {log}
+        samtools view -bh -f 8 {output.unmapped} > {output.unmapped}
+        samtools flagstat {output.unmapped} > {output.flagstat}
         """
 
 rule bam_to_fastq:
