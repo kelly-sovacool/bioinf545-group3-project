@@ -77,7 +77,7 @@ rule bwa_mem_IGC:
 
 rule extract_geneList:
     input:
-        "data/qc/bwa_GRCh38_results/{sample}_GRCh38_unmapped.bam"
+        rules.bwa_mem_IGC.output.bam
     params:
         "data/metagenome/bwa_DB/IGC.annotation_OF.summary"
     output:
