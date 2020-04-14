@@ -36,10 +36,26 @@ rule metaphlan2_results:
         grep -E "(p__)|(^clade_name)" {output.merged} | grep -v "t__" | sed 's/^.*p__//g' | sed '/|c_/d' > {output.phylum}
         """
 
+rule get_IGC:
+    output:
+        "data/metagenome/bwa_DB/IGC/IGC.fa",
+        "data/metagenome/bwa_DB/IGC/IGC.annotation_OF.summary"
+    params:
+        gz_catalog="data/metagenome/bwa_DB/IGC/IGC.fa.gz",
+        gz_annot="data/metagenome/bwa_DB/IGC/IGC.annotation_OF.summary.gz"
+    shell:
+        """
+        wget ftp://ftp.cngb.org/pub/SciRAID/Microbiome/humanGut_9.9M/GeneCatalog/IGC.fa.gz -O {params.gz_catalog}
+        gunzip {params.gz_catalog}
+        wget ftp://ftp.cngb.org/pub/SciRAID/Microbiome/humanGut_9.9M/GeneAnnotation/IGC.annotation_OF.summary.gz -O {params.gz_annot}
+        gunzip {params.gz_annot}
+        """
+
 rule bwa_mem_IGC:
     input:
         R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
-        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz"
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz",
+        ref=rules.get_IGC.output
     params:
         index="data/metagenome/bwa_DB/IGC/IGC"
     output:

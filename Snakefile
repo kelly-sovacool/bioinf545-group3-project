@@ -93,10 +93,22 @@ rule re_pair:
         repair.sh in={input.R1} in2={input.R2} out={output.R1} out2={output.R2} outs={output.single} 2> {log}
         """
 
+rule get_GRCh38:
+    output:
+        "data/qc/bwa_DB/GRCh38/GRCh38.d1.vd1.fa.bwt"
+    params:
+        tar="data/qc/bwa_DB/GRCh38/GRCh38.d1.vd1_BWA.tar.gz"
+    shell:
+        """
+        wget -O {params.tar} https://api.gdc.cancer.gov/data/25217ec9-af07-4a17-8db9-101271ee7225
+        tar -xzvf {params.tar} -C data/qc/bwa_DB/GRCh38/
+        """
+
 rule bwa_mem_GRCh38:
     input:
         R1=rules.re_pair.output.R1,
-        R2=rules.re_pair.output.R1
+        R2=rules.re_pair.output.R1,
+        ref=rules.get_GRCh38.output
     params:
         index="data/qc/bwa_DB/GRCh38/GRCh38"
     output:
