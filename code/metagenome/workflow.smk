@@ -2,7 +2,7 @@
 rule bwa_mem_GRCh38:
     input:
         R1="data/qc/trimm_results/{sample}_repaired_1.fastq.gz",
-        R2="data/qc/trimm_results/{sample}_repaired_1.fastq.gz"
+        R2="data/qc/trimm_results/{sample}_repaired_2.fastq.gz"
     params:
         index="data/metagenome/bwa_DB/GRCh38/GRCh38"
     output:
