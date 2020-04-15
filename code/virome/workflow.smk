@@ -37,14 +37,14 @@ rule index_contigs:
         bwa index -t {threads} {input.fna}
         """
 
-rule align:
+rule map:
     input:
         fna=rules.virome_assembly.output.fna,
         bwt=rules.index_contigs.output.bwt
     output:
-        bam="data/virome/align/{sample}_mapped.bam",
-        tsv="data/virome/align/{sample}_flagstat.tsv",
-        txt="data/virome/align/{sample}_idxstats.txt"
+        bam="data/virome/mapping/{sample}_mapped.bam",
+        tsv="data/virome/mapping/{sample}_flagstat.tsv",
+        txt="data/virome/mapping/{sample}_idxstats.txt"
     params:
         index="data/virome/contigs/contigs"
     threads: num_threads
@@ -58,13 +58,60 @@ rule align:
         samtools idxstats {output.bam} > {output.txt}
         """
 
+rule concoct_prep:
+    input:
+        contigs=rules.concat_contigs.output.fna,
+        bams=expand("data/virome/mapping/{sample}_mapped.bam", sample=virome_samples)
+    output:
+        bed="rules/virome/contigs/contigs_10K.bed",
+        fna="rules/virome/contigs/contigs_10K.fna",
+        tsv="rules/virome/contigs/coverage_table.tsv"
+    shell:
+        """
+        cut_up_fasta.py {input.contigs} -c 10000 > {output.fna}
+        concoct_coverage_table.py {output.bed} {input.bams} > {output.tsv}
+        """
+
+'''
 rule contig_counts:
     input:
         code="code/virome/get_count_table.py",
-        files=expand("data/virome/align/{sample}_idxstats.txt", sample=virome_samples)
+        files=expand("data/virome/mapping/{sample}_idxstats.txt", sample=virome_samples)
     output:
-        txt="data/virome/contig_counts.tsv"
+        tsv="data/virome/contigs/contig_counts.tsv"
     shell:
         """
-        python {input.code} {input.files} > {output.txt}
+        python {input.code} {input.files} > {output.tsv}
         """
+'''
+
+rule concoct_cluster:
+    input:
+        tsv=rules.concoct_prep.output.tsv,
+        fna=rules.concoct_prep.output.fna
+    output:
+        csv1="data/virome/concoct/clustering_gt1000.csv",
+        csv2="data/virome/concoct/clustering_merged.csv"
+    params:
+        dir="data/virome/concoct/"
+    shell:
+        """
+        concoct --coverage_file {input.tsv} --composition_file = {input.fna} \
+            --clusters 500 --kmer_length 4 --length_threshold 1000 \
+            --read_length 150 --basename {params.dir} --no_total_coverage \
+            --iterations 50
+        merge_cutup_clustering.py {output.csv1} > {output.csv2}
+        """
+
+rule extract_viromes:
+    input:
+        fna=rules.concat_contigs.output.fna,
+        csv=rules.concoct_cluster.output.csv2
+    output:
+        directory("data/virome/concoct/fasta_bins")
+    shell:
+        """
+        extract_fasta_bins.py {input.fna} {input.csv} --output_path
+        """
+
+# TODO: Get OVU abundance
