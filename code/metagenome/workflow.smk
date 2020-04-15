@@ -39,7 +39,7 @@ rule metaphlan2_results:
 rule get_IGC:
     output:
         fa="data/metagenome/bwa_DB/IGC/IGC.fa",
-        txt="data/metagenome/bwa_DB/IGC/IGC.annotation_OF.summary"
+        txt="data/metagenome/bwa_DB/IGC/IGC.kegg"
     params:
         gz_catalog="data/metagenome/bwa_DB/IGC/IGC.fa.gz",
         gz_annot="data/metagenome/bwa_DB/IGC/IGC.annotation_OF.summary.gz",
@@ -49,7 +49,7 @@ rule get_IGC:
         wget ftp://ftp.cngb.org/pub/SciRAID/Microbiome/humanGut_9.9M/GeneCatalog/IGC.fa.gz -O {params.gz_catalog}
         gunzip {params.gz_catalog}
         wget ftp://ftp.cngb.org/pub/SciRAID/Microbiome/humanGut_9.9M/GeneAnnotation/IGC.annotation_OF.summary.gz -O {params.gz_annot}
-        gunzip {params.gz_annot}
+        gunzip -c {params.gz_annot} | cut -d$'\t' -f8,2 - > {output.txt}
         bwa index -p {params.index} {output.fa}
         """
 
