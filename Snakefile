@@ -16,7 +16,7 @@ rule targets:
         "docs/proposal.pdf",
         expand("data/metagenome/gene_abundance_results/{sample}_keggCount.txt", sample=metag_samples),
         "data/metagenome/metaphlan2_results/merged.txt",
-        expand("data/qc/bwa_GRCh38_results/{sample}_unmapped_{pair}.fastq.gz", sample=all_samples, pair=[1,2])
+        "data/virome/contig_counts.tsv"
 
 rule render_pdf:
     input:
