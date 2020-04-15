@@ -113,3 +113,13 @@ rule countKegg:
         python code/metagenome/countKegg.py {input} {output} 2> {log}
         code/metagenome/clean_countKegg.sh {output}
         """
+
+rule gene_abundance:
+    input:
+        code="code/metagenome/abundance-plot.R",
+        kegg=expand("data/metagenome/gene_abundance_results/{sample}_keggCount.txt", sample=metag_samples)
+    output:
+        kegg="data/metagenome/all_kegg_counts.csv",
+        diffexp="data/metagenome/DEgenes.csv"
+    script:
+        "{input.code}"
