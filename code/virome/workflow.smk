@@ -72,19 +72,6 @@ rule concoct_prep:
         concoct_coverage_table.py {output.bed} {input.bams} > {output.tsv}
         """
 
-'''
-rule contig_counts:
-    input:
-        code="code/virome/get_count_table.py",
-        files=expand("data/virome/mapping/{sample}_idxstats.txt", sample=virome_samples)
-    output:
-        tsv="data/virome/contigs/contig_counts.tsv"
-    shell:
-        """
-        python {input.code} {input.files} > {output.tsv}
-        """
-'''
-
 rule concoct_cluster:
     input:
         tsv=rules.concoct_prep.output.tsv,
