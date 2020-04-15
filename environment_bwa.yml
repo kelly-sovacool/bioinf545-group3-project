@@ -1,0 +1,10 @@
+name: bf545_bwa
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - AgBiome
+dependencies:
+  - samtools=1.3.1
+  - bwa=0.7.12
+  - bbtools=37.62
