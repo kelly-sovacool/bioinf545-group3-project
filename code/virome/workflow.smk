@@ -81,12 +81,13 @@ rule concoct_cluster:
         csv2="data/virome/concoct/clustering_merged.csv"
     params:
         dir="data/virome/concoct/"
+    threads: num_threads
     shell:
         """
         concoct --coverage_file {input.tsv} --composition_file = {input.fna} \
             --clusters 500 --kmer_length 4 --length_threshold 1000 \
             --read_length 150 --basename {params.dir} --no_total_coverage \
-            --iterations 50
+            --iterations 50 -t {threads} --seed 545
         merge_cutup_clustering.py {output.csv1} > {output.csv2}
         """
 
