@@ -8,20 +8,22 @@ library("dplyr")
 library("purrr")
 library("tidyr")
 
-setwd("data/metagenome/gene_abundance_results")
 
 # Import metadata to order samples by name.
-SraRun <- read.table("../../SraRunTable.txt", header = T, sep = ",", stringsAsFactors = F)
+SraRun <- read.table(here::here("data", "SraRunTable.txt"), header = T,
+                     sep = ",", stringsAsFactors = F)
 
 SraRun <- SraRun %>%
   filter(samp_mat_process == "WholeMetagenome") %>% # Filter out virome samples
   arrange(subjectid) %>% # rearrange by patient type
-  arrange(factor(DiseaseClass, levels = c("Negative", "Healthy", "Adenoma", "Cancer")))
+  arrange(factor(DiseaseClass,
+                 levels = c("Negative", "Healthy", "Adenoma", "Cancer")))
 
 colOrder <- as.character(SraRun$Run) # used to order the dataframe of sample keggCounts.
 
 # Import keggCount data of all samples and return dataframe with all sample info.
-fileNames <- Sys.glob("*keggCount.txt")
+fileNames <- Sys.glob(here::here("data", "metagenome", "gene_abundance_results",
+                                 "*keggCount.txt"))
 
 keggCounts <- lapply(fileNames, function(i) {
   read.csv(i, header = F, stringsAsFactors = F)
@@ -36,6 +38,8 @@ keggCounts <- keggCounts %>%
   select(paste(colOrder)) # reorder by sample type.
 
 keggCounts[is.na(keggCounts)] <- 0 # replace NA with 0
+
+write.table(keggCounts, file = here::here('data', 'metagenome', 'all_kegg_counts.csv'), sep=',', row.names=TRUE)
 
 rm(fileNames)
 rm(colOrder)
@@ -68,4 +72,5 @@ plotMDS(cds, main = "MDS Plot for Count Data", labels = colnames(cds$counts))
 DEgenes <- exactTest(cds, pair = c("C", "T"))
 summary(decideTestsDGE(DEgenes, p.value = 0.05))
 DEgene.table <- topTags(de.tgw, n = nrow(DEgenes$table))$table
-write.table(DEgene.table, file = "DEgenes.csv", sep = ",", row.names = TRUE)
+write.table(DEgene.table, file = here::here("data", "metagenome","DEgenes.csv"),
+            sep = ",", row.names = TRUE)
