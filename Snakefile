@@ -14,7 +14,7 @@ include: "code/virome/workflow.smk"
 
 rule targets:
     input:
-        "docs/proposal.pdf",
+        "docs/report.pdf",
         "data/metagenome/all_kegg_counts.csv",
         "data/metagenome/metaphlan2_results/merged.txt"#,
         #"data/virome/concoct/clustering_merged.csv"
@@ -23,7 +23,8 @@ rule render_pdf:
     input:
         code="code/render.R",
         rmd="submission/{doc}.Rmd",
-        preamble="submission/preamble.tex"
+        preamble="submission/preamble_{doc}.tex",
+        figures=["figures/rulegraph.png"]
     output:
         file="docs/{doc}.pdf"
     params:

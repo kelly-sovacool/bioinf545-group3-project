@@ -119,7 +119,7 @@ rule gene_abundance:
         code="code/metagenome/abundance-plot.R",
         kegg=expand("data/metagenome/gene_abundance_results/{sample}_keggCount.txt", sample=metag_samples)
     output:
-        kegg="data/metagenome/all_kegg_counts.csv",
-        diffexp="data/metagenome/DEgenes.csv"
-    script:
-        "{input.code}"
+        kegg="data/metagenome/all_kegg_counts.csv"#,
+        #diffexp="data/metagenome/DEgenes.csv"
+    shell:
+        "Rscript {input.code}"
