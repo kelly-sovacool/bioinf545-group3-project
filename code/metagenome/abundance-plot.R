@@ -9,9 +9,7 @@ library("tidyr")
 SraRun <- read.table(here::here("data", "SraRunTable.txt"),
   header = T,
   sep = ",", stringsAsFactors = F
-)
-
-SraRun <- SraRun %>%
+) %>%
   filter(samp_mat_process == "WholeMetagenome") %>% # Filter out virome samples
   arrange(subjectid) %>% # rearrange by patient type
   arrange(factor(DiseaseClass,
@@ -33,7 +31,7 @@ keggCounts <- lapply(fileNames, function(i) {
 keggCounts <- keggCounts %>% reduce(full_join, by = "V1") # full join on kegg ID.
 
 colnames(keggCounts) <-
-  c("KeggNo", gsub("_keggCount.txt", "", fileNames)) # rename columns to sample name.
+  c("KeggNo", gsub(".*(SRR.*)_keggCount.txt", "\\1", fileNames)) # rename columns to sample name.
 
 keggCounts <- keggCounts %>%
   select(paste(colOrder)) # reorder by sample type.
@@ -70,10 +68,11 @@ plotMDS(cds, main = "MDS Plot for Count Data", labels = colnames(cds$counts))
 #### Did not update following code >>> Need to do pairwise?
 
 # Find Differentially Expressed genes
-DEgenes <- exactTest(cds, pair = c("C", "T"))
-summary(decideTestsDGE(DEgenes, p.value = 0.05))
-DEgene.table <- topTags(de.tgw, n = nrow(DEgenes$table))$table
-write.table(DEgene.table,
-  file = here::here("data", "metagenome", "DEgenes.csv"),
-  sep = ",", row.names = TRUE
-)
+# DEgenes <- exactTest(cds, pair = c("C", "T"))
+# summary(decideTestsDGE(DEgenes, p.value = 0.05))
+# DEgene.table <- topTags(de.tgw, n = nrow(DEgenes$table))$table
+# write.table(DEgene.table,
+#   file = here::here("data", "metagenome", "DEgenes.csv"),
+#   sep = ",", row.names = TRUE
+# )
+#
