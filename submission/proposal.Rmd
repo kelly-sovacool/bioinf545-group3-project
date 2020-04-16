@@ -4,7 +4,7 @@ output:
         latex_engine: xelatex
         keep_tex: false
         includes:
-          in_header: preamble.tex
+          in_header: preamble_proposal.tex
 fontsize: 11pt
 geometry: margin=0.5in
 bibliography: bioinf545-group3_proposal.bib
