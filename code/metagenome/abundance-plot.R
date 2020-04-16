@@ -4,7 +4,7 @@ library("dplyr")
 library("purrr")
 library("tidyr")
 library("ggplot2")
-library("vegan")
+#library("vegan")
 
 
 # Import metadata to order samples by name.
