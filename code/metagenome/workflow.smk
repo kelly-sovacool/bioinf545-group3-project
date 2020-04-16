@@ -39,7 +39,8 @@ rule metaphlan2_results:
 rule get_IGC:
     output:
         fa="data/metagenome/bwa_DB/IGC/IGC.fa",
-        txt="data/metagenome/bwa_DB/IGC/IGC.kegg"
+        txt="data/metagenome/bwa_DB/IGC/IGC.kegg",
+        annot="data/metagenome/bwa_DB/IGC/IGC.annotation_OF.summary"
     params:
         gz_catalog="data/metagenome/bwa_DB/IGC/IGC.fa.gz",
         gz_annot="data/metagenome/bwa_DB/IGC/IGC.annotation_OF.summary.gz",
@@ -49,14 +50,16 @@ rule get_IGC:
         wget ftp://ftp.cngb.org/pub/SciRAID/Microbiome/humanGut_9.9M/GeneCatalog/IGC.fa.gz -O {params.gz_catalog}
         gunzip {params.gz_catalog}
         wget ftp://ftp.cngb.org/pub/SciRAID/Microbiome/humanGut_9.9M/GeneAnnotation/IGC.annotation_OF.summary.gz -O {params.gz_annot}
-        gunzip -c {params.gz_annot} | cut -d$'\t' -f8,2 - > {output.txt}
+        gunzip {params.gz_annot}
+        cat {output.annot} | cut -d$'\t' -f8,2 - > {output.txt}
         bwa index -p {params.index} {output.fa}
         """
 
 rule bwa_mem_IGC:
     input:
         R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
-        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz"
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz",
+        ref=rules.get_IGC.output
     params:
         index="data/metagenome/bwa_DB/IGC/IGC"
     output:
@@ -78,11 +81,10 @@ rule bwa_mem_IGC:
         samtools view -f 2 {output.bam} > {output.mapped_bam}
         """
 
-rule extract_geneList:
+rule extract_geneList:  # adapted from https://github.com/BCIL/MGS-Fast/blob/master/geneList.sh
     input:
-        rules.bwa_mem_IGC.output.mapped_bam
-    params:
-        "data/metagenome/bwa_DB/IGC.annotation_OF.summary"
+        bam=rules.bwa_mem_IGC.output.mapped_bam,
+        igc=rules.get_IGC.output.annot
     output:
         gene="data/metagenome/gene_abundance_results/{sample}.gene",
         list="data/metagenome/gene_abundance_results/{sample}.list",
@@ -92,11 +94,11 @@ rule extract_geneList:
         "../../environment_bwa.yml"
     shell:
         """
-        samtools view {input} |
+        samtools view {input.bam} |
         cut -f 3 - | sort - | uniq -c - | sort -b -nr -k 1,1 - | grep -v ":" - > {output.gene}
         sed -i 's/^ *//' {output.gene}
         cut -f 2 -d " " {output.gene} > {output.list}
-        grep -Fw -f {output.list} {params} > {output.anno}
+        grep -Fw -f {output.list} {input.igc} > {output.anno}
         cut -f 8 {output.anno} | grep -v "unknown" - | sort - | uniq -c - | sort -b -nr -k 1,1 - > {output.kegg}
         """
 
