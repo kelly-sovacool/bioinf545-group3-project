@@ -1,8 +1,4 @@
 # EdgeR code for the creation of KEGG abundance plots.
-if (!requireNamespace("BiocManager", quietly = TRUE)) {
-  install.packages("BiocManager")
-}
-BiocManager::install("edgeR")
 library("edgeR")
 library("dplyr")
 library("purrr")
