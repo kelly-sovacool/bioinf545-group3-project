@@ -37,7 +37,8 @@ colnames(keggCounts) <-
 
 keggCounts <- keggCounts %>%
   select(paste(colOrder)) # reorder by sample type.
-colnames(keggCounts) <- SraRun$subjectid
+
+colnames(keggCounts) <- SraRun$subjectid #add the subject id's 
 
 keggCounts[is.na(keggCounts)] <- 0 # replace NA with 0
 
@@ -53,6 +54,14 @@ group <- c(
   rep("A", sum(SraRun$DiseaseClass == "Adenoma")),
   rep("C", sum(SraRun$DiseaseClass == "Cancer"))
 )
+
+groupColors <- 
+  c(
+    rep("black", sum(SraRun$DiseaseClass == "Negative")),
+    rep("green", sum(SraRun$DiseaseClass == "Healthy")),
+    rep("blue", sum(SraRun$DiseaseClass == "Adenoma")),
+    rep("red", sum(SraRun$DiseaseClass == "Cancer"))
+  )
 cds <- DGEList(keggCounts, group = group)
 
 # Filter out genes with low counts, keeping those rows where the count
@@ -66,18 +75,18 @@ cds <- estimateCommonDisp(cds)
 cds <- estimateTagwiseDisp(cds, prior.df = 10)
 
 # Draw the MDS plot
-plotMDS(cds, main = "MDS Plot for Count Data", labels = colnames(cds$counts))
+plotMDS(cds, main = "MDS Plot for Count Data", labels = colnames(cds$counts), col = groupColors)
 
-#Draw the MDS plot - Christina 
-plotMDS(cds , main = "MDS Plot for Count Data", labels = colnames(cds$counts))
 #### Did not update following code >>> Need to do pairwise?
 
-# Find Differentially Expressed genes
-# DEgenes <- exactTest(cds, pair = c("C", "T"))
-# summary(decideTestsDGE(DEgenes, p.value = 0.05))
-# DEgene.table <- topTags(de.tgw, n = nrow(DEgenes$table))$table
-# write.table(DEgene.table,
-#   file = here::here("data", "metagenome", "DEgenes.csv"),
-#   sep = ",", row.names = TRUE
-# )
-#
+
+#Find Differentially Expressed genes healthy and control 
+DEgenes.HC <- exactTest(cds, pair = c("H", "C"))
+summary(decideTestsDGE(DEgenes.HC, p.value = 0.05))
+DEgene.table.HC <- topTags(DEgenes.HC, n = nrow(DEgenes.HC$table))$table
+write.table(DEgene.table.HC,
+  file = here::here("data", "metagenome", "DEgenes.csv"),
+  sep = ",", row.names = TRUE
+  )
+
+
