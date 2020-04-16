@@ -126,7 +126,7 @@ rule bwa_mem_GRCh38:
     shell:
         """
         bwa mem -t {threads} {params.index} {input.R1} {input.R2} |
-        samtools view -bh - > {output.mapped} 2> {log}
+        samtools view -Sbh - > {output.mapped} 2> {log}
         samtools view -bh -f 8 {output.mapped} > {output.unmapped}
         samtools flagstat {output.mapped} > {output.flagstat}
         """
