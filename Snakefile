@@ -16,7 +16,7 @@ rule targets:
         "docs/proposal.pdf",
         expand("data/metagenome/gene_abundance_results/{sample}_keggCount.txt", sample=metag_samples),
         "data/metagenome/metaphlan2_results/merged.txt",
-        expand("data/qc/bwa_GRCh38_results/{sample}_unmapped_{pair}.fastq.gz", sample=all_samples, pair=[1,2])
+        expand("data/qc/bwa_GRCh38_results/{sample}_unmapped_{pair}.fastq.gz", sample=metag_samples, pair=[1,2])
 
 rule render_pdf:
     input:
@@ -83,7 +83,7 @@ rule re_pair:
         R2="data/qc/trimm_results/{sample}_repaired_2.fastq.gz",
         single="data/qc/trimm_results/{sample}_singleton.fastq.gz"
     conda:
-        "../../environment_bwa.yml"
+        "environment_bwa.yml"
     log:
         "log/qc/repair_GRCh38_{sample}.log"
     benchmark:
@@ -137,7 +137,7 @@ rule bam_to_fastq:
         R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
         R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz"
     conda:
-       "environment_bwa.yml"
+        "environment_bwa.yml"
     log:
         "log/qc/bamtofastq_{sample}.log"
     benchmark:

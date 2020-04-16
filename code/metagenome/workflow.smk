@@ -56,12 +56,12 @@ rule get_IGC:
 rule bwa_mem_IGC:
     input:
         R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
-        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz",
-        ref=rules.get_IGC.output
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz"
     params:
         index="data/metagenome/bwa_DB/IGC/IGC"
     output:
         bam="data/metagenome/bwa_IGC_results/{sample}_IGC.bam",
+        mapped_bam="data/metagenome/bwa_IGC_results/{sample}_IGC_mapped.bam",
         flagstat="data/metagenome/bwa_IGC_results/{sample}_flagstat.txt"
     conda:
        "../../environment_bwa.yml"
@@ -75,11 +75,12 @@ rule bwa_mem_IGC:
         bwa mem -t {threads} {params.index} {input.R1} {input.R2} |
         samtools view -bh - > {output.bam} 2> {log}
         samtools flagstat {output.bam} > {output.flagstat}
+        samtools view -f 2 {output.bam} > {output.mapped_bam}
         """
 
 rule extract_geneList:
     input:
-        rules.bwa_mem_IGC.output.bam
+        rules.bwa_mem_IGC.output.mapped_bam
     params:
         "data/metagenome/bwa_DB/IGC.annotation_OF.summary"
     output:
@@ -88,10 +89,10 @@ rule extract_geneList:
         anno="data/metagenome/gene_abundance_results/{sample}_anno.txt",
         kegg="data/metagenome/gene_abundance_results/{sample}.kegg"
     conda:
-       "../../environment_bwa.yml"
+        "../../environment_bwa.yml"
     shell:
         """
-        samtools view -f 2 {input} |
+        samtools view {input} |
         cut -f 3 - | sort - | uniq -c - | sort -b -nr -k 1,1 - | grep -v ":" - > {output.gene}
         sed -i 's/^ *//' {output.gene}
         cut -f 2 -d " " {output.gene} > {output.list}
