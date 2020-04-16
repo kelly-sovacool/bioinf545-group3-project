@@ -5,7 +5,7 @@ Group members:
 - Nicole Bowers
 - Brittany Hicks
 - Christina Kang-Yun
-- Katelyn Polemi
+- 
 - [Kelly Sovacool](https://github.com/kelly-sovacool)
 
 
