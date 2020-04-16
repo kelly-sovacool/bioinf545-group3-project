@@ -5,7 +5,7 @@ Group members:
 - Nicole Bowers
 - Brittany Hicks
 - Christina Kang-Yun
-- 
+- [Katelyn Polemi](https://github.com/kmpolemi)
 - [Kelly Sovacool](https://github.com/kelly-sovacool)
 
 
@@ -45,4 +45,3 @@ snakemake --rulegraph | dot -T png > figures/rulegraph.png
 ![rulegraph](figures/rulegraph.png)
 
 See the rendered PDF and HTML files [here](https://sovacool.dev/bioinf545-group3-project).
-
