@@ -39,7 +39,8 @@ rule metaphlan2_results:
 rule get_IGC:
     output:
         fa="data/metagenome/bwa_DB/IGC/IGC.fa",
-        txt="data/metagenome/bwa_DB/IGC/IGC.kegg"
+        txt="data/metagenome/bwa_DB/IGC/IGC.kegg",
+        annot="data/metagenome/bwa_DB/IGC/IGC.annotation_OF.summary"
     params:
         gz_catalog="data/metagenome/bwa_DB/IGC/IGC.fa.gz",
         gz_annot="data/metagenome/bwa_DB/IGC/IGC.annotation_OF.summary.gz",
@@ -49,7 +50,8 @@ rule get_IGC:
         wget ftp://ftp.cngb.org/pub/SciRAID/Microbiome/humanGut_9.9M/GeneCatalog/IGC.fa.gz -O {params.gz_catalog}
         gunzip {params.gz_catalog}
         wget ftp://ftp.cngb.org/pub/SciRAID/Microbiome/humanGut_9.9M/GeneAnnotation/IGC.annotation_OF.summary.gz -O {params.gz_annot}
-        gunzip -c {params.gz_annot} | cut -d$'\t' -f8,2 - > {output.txt}
+        gunzip {params.gz_annot}
+        cat {output.annot} | cut -d$'\t' -f8,2 - > {output.txt}
         bwa index -p {params.index} {output.fa}
         """
 
@@ -62,6 +64,7 @@ rule bwa_mem_IGC:
         index="data/metagenome/bwa_DB/IGC/IGC"
     output:
         bam="data/metagenome/bwa_IGC_results/{sample}_IGC.bam",
+        mapped_bam="data/metagenome/bwa_IGC_results/{sample}_IGC_mapped.bam",
         flagstat="data/metagenome/bwa_IGC_results/{sample}_flagstat.txt"
     conda:
        "../../environment_bwa.yml"
@@ -75,27 +78,27 @@ rule bwa_mem_IGC:
         bwa mem -t {threads} {params.index} {input.R1} {input.R2} |
         samtools view -bh - > {output.bam} 2> {log}
         samtools flagstat {output.bam} > {output.flagstat}
+        samtools view -F 4 {output.bam} > {output.mapped_bam}
         """
 
-rule extract_geneList:
+rule extract_geneList:  # adapted from https://github.com/BCIL/MGS-Fast/blob/master/geneList.sh
     input:
-        "data/metagenome/bwa_IGC_results/{sample}_IGC.bam"
-    params:
-        "data/metagenome/bwa_DB/IGC.annotation_OF.summary"
+        bam=rules.bwa_mem_IGC.output.mapped_bam,
+        igc=rules.get_IGC.output.annot
     output:
         gene="data/metagenome/gene_abundance_results/{sample}.gene",
         list="data/metagenome/gene_abundance_results/{sample}.list",
         anno="data/metagenome/gene_abundance_results/{sample}_anno.txt",
         kegg="data/metagenome/gene_abundance_results/{sample}.kegg"
     conda:
-       "../../environment_bwa.yml"
+        "../../environment_bwa.yml"
     shell:
         """
-        samtools view -F 4 {input} |
+        samtools view {input.bam} |
         cut -f 3 - | sort - | uniq -c - | sort -b -nr -k 1,1 - | grep -v ":" - > {output.gene}
         sed -i 's/^ *//' {output.gene}
         cut -f 2 -d " " {output.gene} > {output.list}
-        grep -Fw -f {output.list} {params} > {output.anno}
+        grep -Fw -f {output.list} {input.igc} > {output.anno}
         cut -f 8 {output.anno} | grep -v "unknown" - | sort - | uniq -c - | sort -b -nr -k 1,1 - > {output.kegg}
         """
 
@@ -113,13 +116,3 @@ rule countKegg:
         python code/metagenome/countKegg.py {input} {output} 2> {log}
         code/metagenome/clean_countKegg.sh {output}
         """
-
-rule gene_abundance:
-    input:
-        code="code/metagenome/abundance-plot.R",
-        kegg=expand("data/metagenome/gene_abundance_results/{sample}_keggCount.txt", sample=metag_samples)
-    output:
-        kegg="data/metagenome/all_kegg_counts.csv"#,
-        #diffexp="data/metagenome/DEgenes.csv"
-    shell:
-        "Rscript {input.code}"
