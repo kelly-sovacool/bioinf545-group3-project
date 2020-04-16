@@ -108,7 +108,7 @@ rule get_GRCh38:
 rule bwa_mem_GRCh38:
     input:
         R1=rules.re_pair.output.R1,
-        R2=rules.re_pair.output.R1,
+        R2=rules.re_pair.output.R2,
         ref=rules.get_GRCh38.output
     params:
         index="data/qc/bwa_DB/GRCh38/GRCh38.d1.vd1.fa"
