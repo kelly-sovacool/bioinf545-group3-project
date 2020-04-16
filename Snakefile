@@ -85,7 +85,7 @@ rule re_pair:
         R2="data/qc/trimm_results/{sample}_repaired_2.fastq.gz",
         single="data/qc/trimm_results/{sample}_singleton.fastq.gz"
     conda:
-        "../../environment_bwa.yml"
+        "environment_bwa.yml"
     log:
         "log/qc/repair_GRCh38_{sample}.log"
     benchmark:
@@ -109,7 +109,7 @@ rule get_GRCh38:
 rule bwa_mem_GRCh38:
     input:
         R1=rules.re_pair.output.R1,
-        R2=rules.re_pair.output.R1,
+        R2=rules.re_pair.output.R2,
         ref=rules.get_GRCh38.output
     params:
         index="data/qc/bwa_DB/GRCh38/GRCh38.d1.vd1.fa"
@@ -128,7 +128,7 @@ rule bwa_mem_GRCh38:
         """
         bwa mem -t {threads} {params.index} {input.R1} {input.R2} |
         samtools view -Sbh - > {output.mapped} 2> {log}
-        samtools view -bh -f 8 {output.mapped} > {output.unmapped}
+        samtools view -bh -f 4 {output.mapped} > {output.unmapped}
         samtools flagstat {output.mapped} > {output.flagstat}
         """
 

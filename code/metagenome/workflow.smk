@@ -79,7 +79,7 @@ rule bwa_mem_IGC:
 
 rule extract_geneList:
     input:
-        rules.bwa_mem_IGC.output.bam
+        "data/metagenome/bwa_IGC_results/{sample}_IGC.bam"
     params:
         "data/metagenome/bwa_DB/IGC.annotation_OF.summary"
     output:
@@ -91,7 +91,7 @@ rule extract_geneList:
        "../../environment_bwa.yml"
     shell:
         """
-        samtools view -f 2 {input} |
+        samtools view -F 4 {input} |
         cut -f 3 - | sort - | uniq -c - | sort -b -nr -k 1,1 - | grep -v ":" - > {output.gene}
         sed -i 's/^ *//' {output.gene}
         cut -f 2 -d " " {output.gene} > {output.list}
