@@ -91,7 +91,7 @@ rule extract_geneList:
        "../../environment_bwa.yml"
     shell:
         """
-        samtools view -f 2 {input} |
+        samtools view -F 4 {input} |
         cut -f 3 - | sort - | uniq -c - | sort -b -nr -k 1,1 - | grep -v ":" - > {output.gene}
         sed -i 's/^ *//' {output.gene}
         cut -f 2 -d " " {output.gene} > {output.list}
