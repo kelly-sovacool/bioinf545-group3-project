@@ -8,6 +8,7 @@ with open('data/metagenome/SRR_Acc_List_metagen.txt', 'r') as infile:
 with open('data/virome/SRR_Acc_List_virome.txt', 'r') as infile:
     virome_samples = [line.strip() for line in infile]
 
+include: "code/16S/workflow.smk"
 include: "code/metagenome/workflow.smk"
 include: "code/virome/workflow.smk"
 
@@ -84,7 +85,7 @@ rule re_pair:
         R2="data/qc/trimm_results/{sample}_repaired_2.fastq.gz",
         single="data/qc/trimm_results/{sample}_singleton.fastq.gz"
     conda:
-        "../../environment_bwa.yml"
+        "environment_bwa.yml"
     log:
         "log/qc/repair_GRCh38_{sample}.log"
     benchmark:
@@ -126,7 +127,7 @@ rule bwa_mem_GRCh38:
     shell:
         """
         bwa mem -t {threads} {params.index} {input.R1} {input.R2} |
-        samtools view -bh - > {output.mapped} 2> {log}
+        samtools view -Sbh - > {output.mapped} 2> {log}
         samtools view -bh -f 4 {output.mapped} > {output.unmapped}
         samtools flagstat {output.mapped} > {output.flagstat}
         """
