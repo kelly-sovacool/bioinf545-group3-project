@@ -1,11 +1,14 @@
 # EdgeR code for the creation of KEGG abundance plots.
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
+  install.packages("ggfortify")
 BiocManager::install("edgeR")
 library("edgeR")
 library("dplyr")
 library("purrr")
 library("tidyr")
+library("ggplot2")
+library("vegan")
 
 setwd("data/metagenome/gene_abundance_results")
 
@@ -33,6 +36,7 @@ colnames(keggCounts) <-
 
 keggCounts <- keggCounts %>%
   select(paste(colOrder)) # reorder by sample type.
+colnames(keggCounts) <- SraRun$subjectid
 
 keggCounts[is.na(keggCounts)] = 0 # replace NA with 0
 
@@ -46,6 +50,7 @@ group <- c(rep("N", sum(SraRun$DiseaseClass == "Negative")),
            rep("C", sum(SraRun$DiseaseClass == "Cancer")))
 cds <- DGEList(keggCounts, group = group)
 
+
 #Filter out genes with low counts, keeping those rows where the count
 #per million (cpm) is at least 1 in at least 6 samples:
 keep <- rowSums(cpm(cds)>1) >=6
@@ -56,9 +61,24 @@ cds <- calcNormFactors(cds)
 cds <- estimateCommonDisp( cds)
 cds <- estimateTagwiseDisp(cds , prior.df = 10)
 
-#Draw the MDS plot
-plotMDS(cds , main = "MDS Plot for Count Data", labels = colnames(cds$counts))
+#Nicole tries to make the plot points the subject IDS
+#trying to change the plot points to be the the subject ID
+#make a table with the Kegg Counts and Sra Run subject ID together 
+#SIKeggCounts <- rbind(keggCounts, c(SraRun$subjectid))
 
+#cdsSI <- rbind(cds$counts, SraRun$subjectid)
+
+#plot(cdsSI)
+
+#plotMDS(cdsSI, main = "MDS Plot for Count Data", labels = colnames(cds$counts),) #original 
+#
+#nplot <- plotMDS(cds , main = "MDS Plot for Count Data", labels = colnames(cds$counts))
+
+
+#end of Nicole 
+
+#Draw the MDS plot - Christina 
+plotMDS(cds , main = "MDS Plot for Count Data", labels = colnames(cds$counts))
 #### Did not update following code >>> Need to do pairwise?
 
 #Find Differentially Expressed genes
