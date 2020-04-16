@@ -4,6 +4,6 @@
 .RData
 .Ruserdata
 .snakemake/
-/data/fastq
-/benchmark
-slurm_sovacool.sh
+benchmarks/
+*KLS*
+Rplots.pdf
