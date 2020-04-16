@@ -47,6 +47,7 @@ rule map:
         txt="data/virome/mapping/{sample}_idxstats.txt"
     params:
         index="data/virome/contigs/contigs"
+    conda: "environment_bwa.yml"
     threads: num_threads
     shell:
         """
