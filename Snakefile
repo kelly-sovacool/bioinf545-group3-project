@@ -8,9 +8,9 @@ with open('data/metagenome/SRR_Acc_List_metagen.txt', 'r') as infile:
 with open('data/virome/SRR_Acc_List_virome.txt', 'r') as infile:
     virome_samples = [line.strip() for line in infile]
 
-include: "code/16S/workflow.smk"
+#include: "code/16S/workflow.smk"
 include: "code/metagenome/workflow.smk"
-include: "code/virome/workflow.smk"
+#include: "code/virome/workflow.smk"
 
 rule targets:
     input:
@@ -109,7 +109,7 @@ rule get_GRCh38:
 rule bwa_mem_GRCh38:
     input:
         R1=rules.re_pair.output.R1,
-        R2=rules.re_pair.output.R1,
+        R2=rules.re_pair.output.R2,
         ref=rules.get_GRCh38.output
     params:
         index="data/qc/bwa_DB/GRCh38/GRCh38.d1.vd1.fa"
@@ -136,8 +136,8 @@ rule bam_to_fastq:
     input:
         rules.bwa_mem_GRCh38.output.unmapped
     output:
-        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
-        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz"
+        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq",
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq"
     conda:
        "environment_bwa.yml"
     log:
@@ -148,4 +148,23 @@ rule bam_to_fastq:
         """
         samtools sort -n {input} |
         samtools fastq -1 {output.R1} -2 {output.R2} - 2> {log}
+        """
+
+rule re_pair_2:
+    input:
+        R1=rules.bam_to_fastq.output.R1,
+        R2=rules.bam_to_fastq.output.R2
+    output:
+        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz",
+        single="data/qc/bwa_GRCh38_results/{sample}_singleton.fastq.gz"
+    conda:
+        "environment_bwa.yml"
+    log:
+        "log/qc/repair_GRCh38_{sample}.log"
+    benchmark:
+        "benchmarks/qc/repair_{sample}.txt"
+    shell:
+        """
+        repair.sh in={input.R1} in2={input.R2} out={output.R1} out2={output.R2} outs={output.single} 2> {log}
         """
