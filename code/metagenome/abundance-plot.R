@@ -36,10 +36,9 @@ colnames(keggCounts) <-
   c("KeggNo", gsub(".*(SRR.*)_keggCount.txt", "\\1", fileNames)) # rename columns to sample name.
 
 keggCounts <- keggCounts %>%
-  select(paste(c("KeggNo", colOrder))) # reorder by sample type.
+  select(paste(colOrder)) # reorder by sample type.
 
 colnames(keggCounts) <- c("KeggNo", SraRun$subjectid) # keep KeggNo & add the subject id's
-
 keggCounts[is.na(keggCounts)] <- 0 # replace NA with 0
 
 write.table(keggCounts, file = here::here("data", "metagenome", "all_kegg_counts.csv"), sep = ",", row.names = TRUE)
@@ -68,7 +67,6 @@ rownames(cds) <- keggCounts$KeggNo # change rownames to KeggNo
 cds <- cds %>%
   select(-KeggNo) %>%
   DGEList(group = group) # analyze just the count numbers
-
 # Filter out genes with low counts, keeping those rows where the count
 # per million (cpm) is at least 1 in at least 6 samples:
 keep <- rowSums(cpm(cds) > 1) >= 6
