@@ -85,7 +85,7 @@ rule re_pair:
         R2="data/qc/trimm_results/{sample}_repaired_2.fastq.gz",
         single="data/qc/trimm_results/{sample}_singleton.fastq.gz"
     conda:
-        "../../environment_bwa.yml"
+        "environment_bwa.yml"
     log:
         "log/qc/repair_GRCh38_{sample}.log"
     benchmark:
