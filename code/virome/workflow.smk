@@ -4,13 +4,16 @@ rule virome_assembly:
         r2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz"
     output:
         fna="data/virome/assembly/{sample}.megahit_asm/final.contigs.fa"
+    log:
+        "log/virome/assembly/{sample}.txt"
     params:
         dir="data/virome/assembly/{sample}.megahit_asm"
     threads: num_threads
     shell:
         """
         megahit -1 {input.r1} -2 {input.r2} -o {params.dir} -t {threads} \
-            --min-contig-len 1000 --k-min 21 --k-max 101 --k-step 20
+            --min-contig-len 1000 --k-min 21 --k-max 101 --k-step 20 \
+            2> {log}
         """
 
 rule concat_contigs:
@@ -45,6 +48,8 @@ rule map:
         bam="data/virome/mapping/{sample}_mapped.bam",
         tsv="data/virome/mapping/{sample}_flagstat.tsv",
         txt="data/virome/mapping/{sample}_idxstats.txt"
+    log:
+        "log/virome/mapping/{sample}.txt"
     params:
         index="data/virome/contigs/contigs"
     threads: num_threads
