@@ -55,8 +55,8 @@ rule get_IGC:
 
 rule bwa_mem_IGC:
     input:
-        R1="data/qc/bwa_GRCh38_results/{sample}_repaired_1.fastq.gz",
-        R2="data/qc/bwa_GRCh38_results/{sample}_repaired_2.fastq.gz",
+        R1="data/qc/bw_GRCh38_results/{sample}_unmapped_1.fastq.gz",
+        R2="data/qc/bw_GRCh38_results/{sample}_unmapped_2.fastq.gz",
         ref=rules.get_IGC.output
     params:
         index="data/metagenome/bwa_DB/IGC/IGC"

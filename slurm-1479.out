@@ -1,0 +1,401 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	37	bam_to_fastq
+	85	bwa_mem_IGC
+	85	countKegg
+	85	extract_geneList
+	1	gene_abundance
+	85	re_pair_2
+	1	targets
+	379
+
+[Thu Apr 16 23:07:25 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665030_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665030_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665030_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665030_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665030_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665030.log
+    jobid: 300
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665030.txt
+    wildcards: sample=SRR5665030
+
+
+[Thu Apr 16 23:07:25 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665184_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665184_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665184_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665184_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665184_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665184.log
+    jobid: 319
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665184.txt
+    wildcards: sample=SRR5665184
+
+
+[Thu Apr 16 23:07:25 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665049_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665049_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665049_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665049_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665049_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665049.log
+    jobid: 291
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665049.txt
+    wildcards: sample=SRR5665049
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Thu Apr 16 23:07:25 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665075_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665075_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665075_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665075_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665075_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665075.log
+    jobid: 285
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665075.txt
+    wildcards: sample=SRR5665075
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Thu Apr 16 23:07:25 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665182_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665182_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665182_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665182_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665182_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665182.log
+    jobid: 301
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665182.txt
+    wildcards: sample=SRR5665182
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Thu Apr 16 23:07:25 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665031_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665031_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665031_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665031_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665031_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665031.log
+    jobid: 312
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665031.txt
+    wildcards: sample=SRR5665031
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Thu Apr 16 23:07:25 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665162_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665162_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665162_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665162_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665162_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665162.log
+    jobid: 277
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665162.txt
+    wildcards: sample=SRR5665162
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Thu Apr 16 23:07:25 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665054_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665054_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665054_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665054_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665054_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665054.log
+    jobid: 270
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665054.txt
+    wildcards: sample=SRR5665054
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Thu Apr 16 23:07:25 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665187_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665187_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665187_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665187_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665187_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665187.log
+    jobid: 316
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665187.txt
+    wildcards: sample=SRR5665187
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Thu Apr 16 23:07:25 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665186_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665186_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665186_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665186_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665186_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665186.log
+    jobid: 268
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665186.txt
+    wildcards: sample=SRR5665186
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Thu Apr 16 23:07:26 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665046_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665046_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665046_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665046_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665046_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665046.log
+    jobid: 293
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665046.txt
+    wildcards: sample=SRR5665046
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Thu Apr 16 23:07:26 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665123_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665123_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665123_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665123_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665123_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665123.log
+    jobid: 327
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665123.txt
+    wildcards: sample=SRR5665123
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Thu Apr 16 23:07:26 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665043_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665043_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665043_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665043_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665043_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665043.log
+    jobid: 260
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665043.txt
+    wildcards: sample=SRR5665043
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Thu Apr 16 23:07:26 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665073_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665073_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665073_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665073_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665073_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665073.log
+    jobid: 264
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665073.txt
+    wildcards: sample=SRR5665073
+
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+[Thu Apr 16 23:07:26 2020]
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665180_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665180_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665180_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665180_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665180_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665180.log
+    jobid: 341
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665180.txt
+    wildcards: sample=SRR5665180
+
+[Thu Apr 16 23:07:26 2020]
+[Thu Apr 16 23:07:26 2020]
+Error in rule re_pair_2:
+Error in rule re_pair_2:
+    jobid: 277
+[Thu Apr 16 23:07:26 2020]
+[Thu Apr 16 23:07:26 2020]
+    jobid: 270
+    output: data/qc/bwa_GRCh38_results/SRR5665162_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665162_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665162_singleton.fastq.gz
+Error in rule re_pair_2:
+[Thu Apr 16 23:07:26 2020]
+[Thu Apr 16 23:07:26 2020]
+[Thu Apr 16 23:07:26 2020]
+Error in rule re_pair_2:
+    output: data/qc/bwa_GRCh38_results/SRR5665054_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665054_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665054_singleton.fastq.gz
+[Thu Apr 16 23:07:26 2020]
+[Thu Apr 16 23:07:26 2020]
+    log: log/qc/repair_unmapped_GRCh38_SRR5665162.log
+[Thu Apr 16 23:07:26 2020]
+    jobid: 301
+Error in rule re_pair_2:
+Error in rule re_pair_2:
+Error in rule re_pair_2:
+    jobid: 300
+    log: log/qc/repair_unmapped_GRCh38_SRR5665054.log
+Error in rule re_pair_2:
+Error in rule re_pair_2:
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+Error in rule re_pair_2:
+    output: data/qc/bwa_GRCh38_results/SRR5665182_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665182_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665182_singleton.fastq.gz
+    jobid: 319
+    jobid: 268
+    jobid: 291
+    output: data/qc/bwa_GRCh38_results/SRR5665030_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665030_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665030_singleton.fastq.gz
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+    jobid: 312
+    jobid: 316
+
+    jobid: 285
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+    log: log/qc/repair_unmapped_GRCh38_SRR5665182.log
+    output: data/qc/bwa_GRCh38_results/SRR5665184_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665184_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665184_singleton.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665186_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665186_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665186_singleton.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665049_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665049_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665049_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665030.log
+
+    output: data/qc/bwa_GRCh38_results/SRR5665031_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665031_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665031_singleton.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665187_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665187_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665187_singleton.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665075_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665075_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665075_singleton.fastq.gz
+[Thu Apr 16 23:07:26 2020]
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+    log: log/qc/repair_unmapped_GRCh38_SRR5665184.log
+    log: log/qc/repair_unmapped_GRCh38_SRR5665186.log
+    log: log/qc/repair_unmapped_GRCh38_SRR5665049.log
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+    log: log/qc/repair_unmapped_GRCh38_SRR5665031.log
+    log: log/qc/repair_unmapped_GRCh38_SRR5665187.log
+    log: log/qc/repair_unmapped_GRCh38_SRR5665075.log
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665162_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665162_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665162_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665162_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665162_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665162.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+rule re_pair_2:
+    input: data/qc/bwa_GRCh38_results/SRR5665120_unmapped_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665120_unmapped_2.fastq.gz
+    output: data/qc/bwa_GRCh38_results/SRR5665120_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665120_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665120_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665120.log
+    jobid: 335
+    benchmark: benchmarks/qc/repair_unmapped_SRR5665120.txt
+    wildcards: sample=SRR5665120
+
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665054_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665054_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665054_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665054_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665054_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665054.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+
+
+
+
+
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665182_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665182_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665182_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665182_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665182_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665182.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665030_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665030_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665030_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665030_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665030_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665030.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665186_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665186_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665186_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665186_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665186_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665186.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665184_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665184_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665184_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665184_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665184_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665184.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665049_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665049_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665049_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665049_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665049_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665049.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665031_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665031_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665031_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665031_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665031_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665031.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665187_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665187_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665187_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665187_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665187_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665187.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665075_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665075_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665075_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665075_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665075_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665075.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+Activating conda environment: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+[Thu Apr 16 23:07:26 2020]
+Error in rule re_pair_2:
+    jobid: 293
+    output: data/qc/bwa_GRCh38_results/SRR5665046_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665046_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665046_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665046.log
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665046_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665046_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665046_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665046_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665046_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665046.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+[Thu Apr 16 23:07:26 2020]
+Error in rule re_pair_2:
+    jobid: 327
+    output: data/qc/bwa_GRCh38_results/SRR5665123_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665123_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665123_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665123.log
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665123_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665123_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665123_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665123_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665123_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665123.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+[Thu Apr 16 23:07:26 2020]
+Error in rule re_pair_2:
+    jobid: 260
+    output: data/qc/bwa_GRCh38_results/SRR5665043_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665043_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665043_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665043.log
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665043_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665043_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665043_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665043_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665043_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665043.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+[Thu Apr 16 23:07:26 2020]
+Error in rule re_pair_2:
+    jobid: 264
+    output: data/qc/bwa_GRCh38_results/SRR5665073_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665073_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665073_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665073.log
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665073_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665073_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665073_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665073_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665073_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665073.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+[Thu Apr 16 23:07:26 2020]
+Error in rule re_pair_2:
+    jobid: 341
+    output: data/qc/bwa_GRCh38_results/SRR5665180_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665180_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665180_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665180.log
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665180_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665180_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665180_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665180_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665180_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665180.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+[Thu Apr 16 23:07:26 2020]
+Error in rule re_pair_2:
+    jobid: 335
+    output: data/qc/bwa_GRCh38_results/SRR5665120_repaired_1.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665120_repaired_2.fastq.gz, data/qc/bwa_GRCh38_results/SRR5665120_singleton.fastq.gz
+    log: log/qc/repair_unmapped_GRCh38_SRR5665120.log
+    conda-env: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6
+
+RuleException:
+CalledProcessError in line 168 of /home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile:
+Command 'source activate /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/conda/f85b58a6; set -euo pipefail;  
+        repair.sh in=data/qc/bwa_GRCh38_results/SRR5665120_unmapped_1.fastq.gz in2=data/qc/bwa_GRCh38_results/SRR5665120_unmapped_2.fastq.gz out=data/qc/bwa_GRCh38_results/SRR5665120_repaired_1.fastq.gz out2=data/qc/bwa_GRCh38_results/SRR5665120_repaired_2.fastq.gz outs=data/qc/bwa_GRCh38_results/SRR5665120_singleton.fastq.gz 2> log/qc/repair_unmapped_GRCh38_SRR5665120.log ' returned non-zero exit status 1.
+  File "/home/csrkang/bf545/Project/bioinf545-group3-project/Snakefile", line 168, in __rule_re_pair_2
+  File "/home/csrkang/miniconda3/envs/bf545/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/csrkang/bf545/Project/bioinf545-group3-project/.snakemake/log/2020-04-16T230723.220211.snakemake.log
