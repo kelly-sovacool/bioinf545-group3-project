@@ -151,9 +151,8 @@ rule bam_to_fastq:
         """
 
 rule re_pair_2:
-
     input:
-        R1=rules.bam_to_fastq.output.R1
+        R1=rules.bam_to_fastq.output.R1,
         R2=rules.bam_to_fastq.output.R2
     output:
         R1="data/qc/bwa_GRCh38_results/{sample}_repaired_1.fastq.gz",
