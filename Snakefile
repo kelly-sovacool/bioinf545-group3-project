@@ -8,15 +8,15 @@ with open('data/metagenome/SRR_Acc_List_metagen.txt', 'r') as infile:
 with open('data/virome/SRR_Acc_List_virome.txt', 'r') as infile:
     virome_samples = [line.strip() for line in infile]
 
-include: "code/16S/workflow.smk"
+#include: "code/16S/workflow.smk"
 include: "code/metagenome/workflow.smk"
-include: "code/virome/workflow.smk"
+#include: "code/virome/workflow.smk"
 
 rule targets:
     input:
         "docs/report.pdf",
-        "data/metagenome/all_kegg_counts.csv",
-        "data/metagenome/metaphlan2_results/merged.txt"#,
+        "data/metagenome/all_kegg_counts.csv"#,
+        #"data/metagenome/metaphlan2_results/merged.txt"#,
         #"data/virome/concoct/clustering_merged.csv"
 
 rule render_pdf:
@@ -85,7 +85,7 @@ rule re_pair:
         R2="data/qc/trimm_results/{sample}_repaired_2.fastq.gz",
         single="data/qc/trimm_results/{sample}_singleton.fastq.gz"
     conda:
-        "environment_bwa.yml"
+        "../../environment_bwa.yml"
     log:
         "log/qc/repair_GRCh38_{sample}.log"
     benchmark:
@@ -128,7 +128,7 @@ rule bwa_mem_GRCh38:
         """
         bwa mem -t {threads} {params.index} {input.R1} {input.R2} |
         samtools view -Sbh - > {output.mapped} 2> {log}
-        samtools view -bh -f 4 {output.mapped} > {output.unmapped}
+        samtools view -bh -f 5 {output.mapped} > {output.unmapped}
         samtools flagstat {output.mapped} > {output.flagstat}
         """
 
@@ -148,4 +148,24 @@ rule bam_to_fastq:
         """
         samtools sort -n {input} |
         samtools fastq -1 {output.R1} -2 {output.R2} - 2> {log}
+        """
+
+rule re_pair_2:
+
+    input:
+        R1=rules.bam_to_fastq.output.R1
+        R2=rules.bam_to_fastq.output.R2
+    output:
+        R1="data/qc/bwa_GRCh38_results/{sample}_repaired_1.fastq.gz",
+        R2="data/qc/bwa_GRCh38_results/{sample}_repaired_2.fastq.gz",
+        single="data/qc/bwa_GRCh38_results/{sample}_singleton.fastq.gz"
+    conda:
+        "../../environment_bwa.yml"
+    log:
+        "log/qc/repair_unmapped_GRCh38_{sample}.log"
+    benchmark:
+        "benchmarks/qc/repair_unmapped_{sample}.txt"
+    shell:
+        """
+        repair.sh in={input.R1} in2={input.R2} out={output.R1} out2={output.R2} outs={output.single} 2> {log}
         """
