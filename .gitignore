@@ -4,3 +4,7 @@
 .RData
 .Ruserdata
 .snakemake/
+benchmarks/
+*KLS*
+Rplots.pdf
+slurm*.out
