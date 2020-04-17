@@ -85,7 +85,7 @@ rule re_pair:
         R2="data/qc/trimm_results/{sample}_repaired_2.fastq.gz",
         single="data/qc/trimm_results/{sample}_singleton.fastq.gz"
     conda:
-        "../../environment_bwa.yml"
+        "environment_bwa.yml"
     log:
         "log/qc/repair_GRCh38_{sample}.log"
     benchmark:
@@ -136,8 +136,8 @@ rule bam_to_fastq:
     input:
         rules.bwa_mem_GRCh38.output.unmapped
     output:
-        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
-        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz"
+        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq",
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq"
     conda:
        "environment_bwa.yml"
     log:
@@ -148,4 +148,23 @@ rule bam_to_fastq:
         """
         samtools sort -n {input} |
         samtools fastq -1 {output.R1} -2 {output.R2} - 2> {log}
+        """
+
+rule re_pair_2:
+    input:
+        R1=rules.bam_to_fastq.output.R1,
+        R2=rules.bam_to_fastq.output.R2
+    output:
+        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz",
+        single="data/qc/bwa_GRCh38_results/{sample}_singleton.fastq.gz"
+    conda:
+        "environment_bwa.yml"
+    log:
+        "log/qc/repair_GRCh38_{sample}.log"
+    benchmark:
+        "benchmarks/qc/repair_{sample}.txt"
+    shell:
+        """
+        repair.sh in={input.R1} in2={input.R2} out={output.R1} out2={output.R2} outs={output.single} 2> {log}
         """
