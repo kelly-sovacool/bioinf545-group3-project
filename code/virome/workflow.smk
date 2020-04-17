@@ -11,6 +11,7 @@ rule virome_assembly:
     threads: num_threads
     shell:
         """
+        rm -rf {params.dir}
         megahit -1 {input.r1} -2 {input.r2} -o {params.dir} -t {threads} \
             --min-contig-len 1000 --k-min 21 --k-max 101 --k-step 20 \
             2> {log}
