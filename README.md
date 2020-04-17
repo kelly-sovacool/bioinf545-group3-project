@@ -35,7 +35,7 @@ conda env update -f environment.yml
 
 Run the [snakemake](https://snakemake.readthedocs.io/en/stable/) workflow with:
 ```bash
-snakemake
+snakemake --use-conda
 ```
 
 Visualize the workflow with:
