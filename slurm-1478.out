@@ -1,0 +1,3 @@
+Building DAG of jobs...
+WorkflowError:
+Conda env file does not exist: /home/csrkang/bf545/Project/bioinf545-group3-project/../../environment_bwa.yml
