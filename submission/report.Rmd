@@ -27,6 +27,7 @@ library(tidyverse)
 
 \newpage
 \todo{Guidelines: https://drive.google.com/file/d/1YNqYiMJYiVWXiSR9yWUbQTPAoUpVa9Id/view}
+
 # Abstract
 
 # Introduction
@@ -42,11 +43,11 @@ The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https:
 All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.
 \todo{make the repo public before submitting}
 
-## 16S rRNA gene preprocessing
+## 16S rRNA gene processing
 
-## Virome preprocessing
+## Virome assembly and classification
 
-## Metagenome preprocessing
+## Metagenome processing
 
 ## Classification modeling
 
@@ -54,17 +55,16 @@ All code used in preparation of this report is available in the following GitHub
 
 # Results
 
-\begin{wrapfigure}{R}{0.4\textwidth}
+\begin{wrapfigure}{R}{0.30\textwidth}
     \begin{center}
-        \includegraphics[width=0.35\textwidth]{../figures/rulegraph.png}  
+        \includegraphics[width=0.29\textwidth]{../figures/rulegraph_metaphlan2.png}  
         \caption{Example}
         \label{fig:example}  
     \end{center}
 \end{wrapfigure}
 
 Example of referring to a figure in text (Fig. \ref{fig:example}) 
-and including it inline with the text.  
-\todo{remove example figure before submitting}
+and including it inline with the text (to be removed before submitting).
 
 # Discussion
 
