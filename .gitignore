@@ -7,3 +7,4 @@
 benchmarks/
 *KLS*
 Rplots.pdf
+slurm*.out

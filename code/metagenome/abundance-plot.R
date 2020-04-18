@@ -4,7 +4,7 @@ library("dplyr")
 library("purrr")
 library("tidyr")
 library("ggplot2")
-#library("vegan")
+# library("vegan")
 
 
 # Import metadata to order samples by name.
@@ -36,10 +36,9 @@ colnames(keggCounts) <-
   c("KeggNo", gsub(".*(SRR.*)_keggCount.txt", "\\1", fileNames)) # rename columns to sample name.
 
 keggCounts <- keggCounts %>%
-  select(paste(c("KeggNo", colOrder))) # reorder by sample type.
+  select(paste(colOrder)) # reorder by sample type.
 
-colnames(keggCounts) <- c("KeggNo", SraRun$subjectid) # keep KeggNo & add the subject id's 
-
+colnames(keggCounts) <- c("KeggNo", SraRun$subjectid) # keep KeggNo & add the subject id's
 keggCounts[is.na(keggCounts)] <- 0 # replace NA with 0
 
 write.table(keggCounts, file = here::here("data", "metagenome", "all_kegg_counts.csv"), sep = ",", row.names = TRUE)
@@ -55,7 +54,7 @@ group <- c(
   rep("C", sum(SraRun$DiseaseClass == "Cancer"))
 )
 
-groupColors <- 
+groupColors <-
   c(
     rep("black", sum(SraRun$DiseaseClass == "Negative")),
     rep("green", sum(SraRun$DiseaseClass == "Healthy")),
@@ -65,8 +64,9 @@ groupColors <-
 
 cds <- keggCounts
 rownames(cds) <- keggCounts$KeggNo # change rownames to KeggNo
-cds <- cds %>% select(-KeggNo) %>% DGEList(group = group) # analyze just the count numbers
-
+cds <- cds %>%
+  select(-KeggNo) %>%
+  DGEList(group = group) # analyze just the count numbers
 # Filter out genes with low counts, keeping those rows where the count
 # per million (cpm) is at least 1 in at least 6 samples:
 keep <- rowSums(cpm(cds) > 1) >= 6
@@ -83,13 +83,11 @@ plotMDS(cds, main = "MDS Plot for Count Data", labels = colnames(cds$counts), co
 #### Did not update following code >>> Need to do pairwise?
 
 
-#Find Differentially Expressed genes healthy and control 
+# Find Differentially Expressed genes healthy and control
 DEgenes.HC <- exactTest(cds, pair = c("H", "C"))
 summary(decideTestsDGE(DEgenes.HC, p.value = 0.05))
 DEgene.table.HC <- topTags(DEgenes.HC, n = nrow(DEgenes.HC$table))$table
 write.table(DEgene.table.HC,
   file = here::here("data", "metagenome", "DEgenes.csv"),
   sep = ",", row.names = TRUE
-  )
-
-
+)
