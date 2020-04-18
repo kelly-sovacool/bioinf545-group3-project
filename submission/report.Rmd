@@ -47,10 +47,14 @@ All code used in preparation of this report is available in the following GitHub
 ## Virome preprocessing
 
 ## Metagenome preprocessing
+Trimmomatic (v.0.39) was used to remove adapter sequences and low-quality reads in metagenome sample sets. The read quality was assessed using FastQC (v.0.11.9) before and after adapter trimming to confirm removal of adapters and low quality reads. Unpaired reads were dropped using the repair function in BBTools (v.37.62). Then, reads mapping to the human GRCh38 reference genome were removed using the bwa mem algorithm (bwa v.0.7.12). The paired unmapped reads were used for taxonomic profiling and gene annotation.
 
 ## Classification modeling
 
-## Metagenome annotation and phylogeny
+## Metagenome taxonomic profiling and gene annotation
+The human genome-free reads were used to profile the metagenomic taxonomy at the species, genus, family, and phylum levels using MetaPhlAn2 [@truong_metaphlan2_2015]. The results were visualized using the R package phyloseq.
+
+The paired reads that did not map to the human genome were aligned to the integrated gene catalog (IGC) of 1267 gut microbiome samples consisting of approximately 10 million genes with the bwa mem algorithm for metagenome annotation [@li_integrated_2014]. Annotated genes were extracted from the alignment results using functions geneList and countKegg modified from the MGS-Fast pipeline [@brown_mgs-fast_2019]. The difference in gene abundance between healthy, adenoma, and cancer groups were assessed using edgeR. The top 500 KEGG numbers of genes that were significantly different between healthy and other groups were selected and the relevant KEGG pathway was determined using the KEGG mapper tool [@kanehisa_kegg_2020].
 
 # Results
 
@@ -70,7 +74,7 @@ and including it inline with the text.
 
 # Acknowledgements
 
-Author order was determined by alphabetizing by last name.
+Author order was determined by alphabetizing by last name. Christina Kang-Yun constructed the workflow for preprocessing metagenome data, taxonomic profiling, and gene annotation and prepared the methods and results for these analyses.
 \todo{insert contribution statement here}
 
 \newpage
