@@ -5,40 +5,20 @@ library(vegan)
 library(tidyverse)
 library(here)
 
-#load data
-#alpha_Summary <- read.delim("~/Desktop/Projects/bioinf545-group3-project/data/16S/mothur_output/alpha_diversity/groups.summary")
-#make the taxa the first column
-#alpha_Summary <- alpha_Summary[,c(2:18)]
-
-#make an OTU table
-# get OTU table from github
 otumat = read.delim("~/Desktop/Projects/bioinf545-group3-project/data/16S/mothur_output/stability.opti_mcc.shared", header = TRUE)
 
-#remove first column and transpose data to match OTU format
-otumat <- t(otumat[,4:90])
+samples <- otumat$Group
 
-rownames(otumat) <- paste0("OTU", 1:nrow(otumat))
-colnames(otumat) <- paste0("Sample", 1:ncol(otumat))
+#remove first column and transpose data to match OTU format
+
+otumat <- t(otumat %>% select(-label, -Group, -numOtus))
+
+#rownames(otumat) <- paste0("OTU", 1:nrow(otumat))
+colnames(otumat) <- samples
 
 OTU = otu_table(otumat, taxa_are_rows = TRUE)
 
-OTU_ord <- ordinate(OTU, "NMDS", "bray")
-p1 = plot_ordination(OTU, OTU_ord, type="taxa", color="Phylum", title="taxa")
-print(p1)
-
-GP.ord <- ordinate(GP1, "NMDS", "bray")
-p1 = plot_ordination(GP1, GP.ord, type="taxa", color="Phylum", title="taxa")
-print(p1)
-
-
-#set up fake taxonomy table
-taxmat = matrix(sample(letters, 70, replace = TRUE), nrow = nrow(otumat), ncol = 7)
-rownames(taxmat) <- rownames(otumat)
-colnames(taxmat) <- c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species")
-taxmat
-
-TAX = tax_table(taxmat)
-#set up real taxonomy table
+#set up taxonomy table
 
 taxonomy <- read_tsv(file=here("data","16S","mothur_output","Hannigan_mcc.0.03.cons.taxonomy")) %>%
   rename_all(tolower) %>%
@@ -50,11 +30,15 @@ taxonomy <- read_tsv(file=here("data","16S","mothur_output","Hannigan_mcc.0.03.c
 
 rownames(taxonomy) <- taxonomy$otu
 
-taxonomy <- tax_table(taxonomy %>% select(-otu))
 
-physeq <- phyloseq(OTU, taxonomy)
 
-plot_bar(physeq, fill = "family")
+taxonomy <- taxonomy %>% select(-otu)
+
+TAX <- tax_table(taxonomy)
+
+physeq <- phyloseq(OTU, TAX)
+
+plot_bar(physeq, fill = "phylum")
 
 
 
