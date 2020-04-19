@@ -24,6 +24,7 @@ rule render_pdf:
         code="code/render.R",
         rmd="submission/{doc}.Rmd",
         preamble="submission/preamble_{doc}.tex",
+        bib="submission/refs_{doc}.bib",
         figures=["figures/rulegraph.png"]
     output:
         file="docs/{doc}.pdf"
