@@ -9,4 +9,4 @@
 #SBATCH --mail-user=YOUR_EMAIL
 #SBATCH --mail-type=BEGIN,END,FAIL
 
-time snakemake -n
+time snakemake -n --use-conda
