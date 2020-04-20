@@ -40,10 +40,11 @@ rule index_contigs:
         fna=rules.concat_contigs.output.fna
     output:
         bwt="data/virome/contigs/contigs.bwt"
-    threads: num_threads
+    conda:
+        "../../environment_bwa.yml"
     shell:
         """
-        bwa index -t {threads} {input.fna}
+        bwa index {input.fna}
         """
 
 rule map:
@@ -58,6 +59,8 @@ rule map:
         "log/virome/mapping/{sample}.txt"
     params:
         index="data/virome/contigs/contigs"
+    conda:
+        "../../environment_bwa.yml"
     threads: num_threads
     shell:
         """
