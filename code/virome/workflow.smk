@@ -23,12 +23,12 @@ rule concat_contigs:
     output:
         fna="data/virome/contigs/contigs.fna"
     run:
-        import Bio
+        from Bio import SeqIO
         contigs = set()  # only keep unique sequences
         for infile in input.fastas:
             contigs.update({record.seq
-                            for record in Bio.SeqIO.parse(infile, 'fasta')})
-        Bio.SeqIO.write(contigs, output, 'fasta')
+                            for record in SeqIO.parse(infile, 'fasta')})
+        SeqIO.write(contigs, output, 'fasta')
 
 rule index_contigs:
     input:
