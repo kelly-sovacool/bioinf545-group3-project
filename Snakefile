@@ -8,15 +8,15 @@ with open('data/metagenome/SRR_Acc_List_metagen.txt', 'r') as infile:
 with open('data/virome/SRR_Acc_List_virome.txt', 'r') as infile:
     virome_samples = [line.strip() for line in infile]
 
-include: "code/16S/workflow.smk"
+#include: "code/16S/workflow.smk"
 include: "code/metagenome/workflow.smk"
-include: "code/virome/workflow.smk"
+#include: "code/virome/workflow.smk"
 
 rule targets:
     input:
         "docs/report.pdf",
-        "data/metagenome/all_kegg_counts.csv",
-        "data/metagenome/metaphlan2_results/merged.txt"#,
+        "data/metagenome/all_kegg_counts.csv"#,
+        #"data/metagenome/metaphlan2_results/merged.txt"#,
         #"data/virome/concoct/clustering_merged.csv"
 
 rule render_pdf:
@@ -24,6 +24,7 @@ rule render_pdf:
         code="code/render.R",
         rmd="submission/{doc}.Rmd",
         preamble="submission/preamble_{doc}.tex",
+        bib="submission/refs_{doc}.bib",
         figures=["figures/rulegraph.png", "figures/taxa_barplot_phylum.png"]
     output:
         file="docs/{doc}.pdf"
@@ -85,7 +86,7 @@ rule re_pair:
         R2="data/qc/trimm_results/{sample}_repaired_2.fastq.gz",
         single="data/qc/trimm_results/{sample}_singleton.fastq.gz"
     conda:
-        "../../environment_bwa.yml"
+        "environment_bwa.yml"
     log:
         "log/qc/repair_GRCh38_{sample}.log"
     benchmark:
@@ -109,7 +110,7 @@ rule get_GRCh38:
 rule bwa_mem_GRCh38:
     input:
         R1=rules.re_pair.output.R1,
-        R2=rules.re_pair.output.R1,
+        R2=rules.re_pair.output.R2,
         ref=rules.get_GRCh38.output
     params:
         index="data/qc/bwa_DB/GRCh38/GRCh38.d1.vd1.fa"
@@ -128,7 +129,7 @@ rule bwa_mem_GRCh38:
         """
         bwa mem -t {threads} {params.index} {input.R1} {input.R2} |
         samtools view -Sbh - > {output.mapped} 2> {log}
-        samtools view -bh -f 8 {output.mapped} > {output.unmapped}
+        samtools view -bh -f 5 {output.mapped} > {output.unmapped}
         samtools flagstat {output.mapped} > {output.flagstat}
         """
 
@@ -136,8 +137,8 @@ rule bam_to_fastq:
     input:
         rules.bwa_mem_GRCh38.output.unmapped
     output:
-        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
-        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz"
+        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq",
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq"
     conda:
        "environment_bwa.yml"
     log:
@@ -148,6 +149,25 @@ rule bam_to_fastq:
         """
         samtools sort -n {input} |
         samtools fastq -1 {output.R1} -2 {output.R2} - 2> {log}
+        """
+
+rule re_pair_2:
+    input:
+        R1=rules.bam_to_fastq.output.R1,
+        R2=rules.bam_to_fastq.output.R2
+    output:
+        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_re1.fastq.gz",
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_re2.fastq.gz",
+        single="data/qc/bwa_GRCh38_results/{sample}_singleton.fastq.gz"
+    conda:
+        "environment_bwa.yml"
+    log:
+        "log/qc/repair_GRCh38_{sample}.log"
+    benchmark:
+        "benchmarks/qc/repair_{sample}.txt"
+    shell:
+        """
+        repair.sh in={input.R1} in2={input.R2} out={output.R1} out2={output.R2} outs={output.single} 2> {log}
         """
 
 rule taxa_bar_plot:

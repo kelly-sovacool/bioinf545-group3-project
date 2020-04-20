@@ -1,7 +1,7 @@
 rule virome_assembly:
     input:
-        r1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
-        r2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz"
+        r1="data/qc/bwa_GRCh38_results/{sample}_unmapped_re1.fastq.gz",
+        r2="data/qc/bwa_GRCh38_results/{sample}_unmapped_re2.fastq.gz"
     output:
         fna="data/virome/assembly/{sample}.megahit_asm/final.contigs.fa"
     params:

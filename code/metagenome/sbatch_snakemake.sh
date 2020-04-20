@@ -9,7 +9,4 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --qos=nolimit
 
-module load anaconda3
-source /home/csrkang/.bashrc
-conda activate bf545
 snakemake --cores 16 --use-conda

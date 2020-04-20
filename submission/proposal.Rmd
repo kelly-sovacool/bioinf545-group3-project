@@ -7,7 +7,7 @@ output:
           in_header: preamble_proposal.tex
 fontsize: 11pt
 geometry: margin=0.5in
-bibliography: bioinf545-group3_proposal.bib
+bibliography: refs_proposal.bib
 csl: mbio.csl
 link-citations: true
 ---
