@@ -19,13 +19,13 @@ rule virome_assembly:
 
 rule concat_contigs:
     input:
-        expand("data/virome/assembly/{sample}.megahit_asm/final.contigs.fa", sample=virome_samples)
+        fastas=expand("data/virome/assembly/{sample}.megahit_asm/final.contigs.fa", sample=virome_samples)
     output:
         fna="data/virome/contigs/contigs.fna"
     run:
         import Bio
         contigs = set()  # only keep unique sequences
-        for infile in input:
+        for infile in input.fastas:
             contigs.update({record.seq
                             for record in Bio.SeqIO.parse(infile, 'fasta')})
         Bio.SeqIO.write(contigs, output, 'fasta')
