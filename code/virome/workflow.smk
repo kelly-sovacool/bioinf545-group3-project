@@ -42,9 +42,11 @@ rule index_contigs:
         bwt="data/virome/contigs/contigs.bwt"
     conda:
         "../../environment_bwa.yml"
+    params:
+        index="data/virome/contigs/contigs"
     shell:
         """
-        bwa index {input.fna}
+        bwa index -p {params.index} {input.fna}
         """
 
 rule map:
