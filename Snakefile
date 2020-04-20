@@ -24,7 +24,7 @@ rule render_pdf:
         code="code/render.R",
         rmd="submission/{doc}.Rmd",
         preamble="submission/preamble_{doc}.tex",
-        figures=["figures/rulegraph.png"]
+        figures=["figures/rulegraph.png", "figures/taxa_barplot_phylum.png"]
     output:
         file="docs/{doc}.pdf"
     params:
@@ -148,4 +148,14 @@ rule bam_to_fastq:
         """
         samtools sort -n {input} |
         samtools fastq -1 {output.R1} -2 {output.R2} - 2> {log}
+        """
+
+rule taxa_bar_plot:
+    input:
+        code="code/16S/taxa_bar_plot.R"
+    output:
+        png="figures/taxa_barplot_phylum.png"
+    shell:
+        """
+        Rscript {input.code}
         """
