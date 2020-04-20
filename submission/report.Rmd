@@ -8,7 +8,7 @@ output:
         toc: true
 fontsize: 11pt
 geometry: margin=1in
-bibliography: bioinf545-group3_report.bib
+bibliography: refs_report.bib
 csl: mbio.csl
 link-citations: true
 title: "Investigating the microbial community of the human gut in colorectal cancer"
@@ -35,22 +35,36 @@ library(tidyverse)
 
 ## Study design and data collection
 
-\todo{study design / data collection based on hannigan paper}
-[@hannigan_diagnostic_2017]
+\todo{study design / data collection based on hannigan and zackular papers}
+[@hannigan_diagnostic_2017; @Zackular_human_2014]
 
 The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927). 
 All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.
 \todo{make the repo public before submitting}
 
-## 16S rRNA gene preprocessing
+## 16S rRNA gene sequence processing
 
-## Virome preprocessing
+## Metagenome and virome quality control
 
-## Metagenome preprocessing
+Trimmomatic (v.0.39) [@bolger_trimmomatic_2014] was used to remove adapter sequences and low-quality reads in metagenome and virome sample sets. 
+The read quality was assessed using FastQC (v.0.11.9) [@andrews_fastqc_2010] before and after adapter trimming to confirm removal of adapters and low quality reads. 
+Unpaired reads were dropped using the repair function in BBTools (v.37.62) [@bushnell_bbtools_2018]. 
+Then, reads mapping to the human GRCh38 reference genome were removed using the BWA-MEM algorithm (BWA v.0.7.12) [@li_aligning_2013].
+The paired unmapped reads were used for taxonomic profiling and gene annotation.
+
+## Virome assembly
 
 ## Classification modeling
 
-## Metagenome annotation and phylogeny
+## Metagenome taxonomic profiling and gene annotation
+
+The human genome-free reads were used to profile the metagenomic taxonomy at the species, genus, family, and phylum levels using MetaPhlAn2 [@truong_metaphlan2_2015]. 
+The results were visualized using the R package phyloseq [@mcmurdie_phyloseq_2013].
+
+The paired reads that did not map to the human genome were aligned to the integrated gene catalog (IGC) [@li_integrated_2014] of 1267 gut microbiome samples consisting of approximately 10 million genes with the BWA MEM algorithm for metagenome annotation [@li_aligning_2013]. 
+Annotated genes were extracted from the alignment results using functions geneList and countKegg modified from the MGS-Fast pipeline [@brown_mgs-fast_2019]. 
+The differences in gene abundance between healthy, adenoma, and cancer groups were assessed using the R package edgeR [@robinson_edger_2009]. 
+The top 500 KEGG numbers of genes that were significantly different between healthy and other groups were selected and the relevant KEGG pathway was determined using the KEGG mapper tool [@kanehisa_kegg_2020].
 
 # Results
 
@@ -70,8 +84,8 @@ and including it inline with the text.
 
 # Acknowledgements
 
-Author order was determined by alphabetizing by last name.
+Author order was determined by alphabetizing by last name. 
+Christina Kang-Yun constructed the workflow for preprocessing metagenome data, taxonomic profiling, and gene annotation and prepared the methods and results for these analyses.
 \todo{insert contribution statement here}
 
-\newpage
 # References

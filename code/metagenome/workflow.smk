@@ -13,7 +13,7 @@ rule metaphlan2_samples:
         "benchmarks/metagenome/metaphlan2_{sample}.txt"
     shell:
         """
-        samtools fasta - | cat |
+        samtools fasta {input} | cat - |
                  metaphlan2.py --input_type fasta --nproc {threads} --bowtie2out {output.bowtie2} > {output.mtphln2}
         2> {log}
         """
@@ -55,8 +55,8 @@ rule get_IGC:
 
 rule bwa_mem_IGC:
     input:
-        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
-        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz",
+        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_re1.fastq.gz",
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_re2.fastq.gz",
         ref=rules.get_IGC.output
     params:
         index="data/metagenome/bwa_DB/IGC/IGC"
@@ -91,7 +91,7 @@ rule extract_geneList:
        "../../environment_bwa.yml"
     shell:
         """
-        samtools view -f 2 {input} |
+        samtools view -F 4 {input} |
         cut -f 3 - | sort - | uniq -c - | sort -b -nr -k 1,1 - | grep -v ":" - > {output.gene}
         sed -i 's/^ *//' {output.gene}
         cut -f 2 -d " " {output.gene} > {output.list}
