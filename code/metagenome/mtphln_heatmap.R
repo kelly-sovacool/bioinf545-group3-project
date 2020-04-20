@@ -1,10 +1,5 @@
-install.packages("ggplot2")
-install.packages("dplyr")
-install.packages("tidyr")
 
-library(ggplot2)
-library(dplyr)
-library(tidyr)
+library(tidyverse)
 
 mapSampleToColor <- function(annotations) {
   # Assign color in heatmap.2() based on disease class
