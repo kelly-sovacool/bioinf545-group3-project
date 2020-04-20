@@ -1,7 +1,7 @@
 library(tidyverse)
 library(here)
 
-otumat <- read.delim("~/Desktop/Projects/bioinf545-group3-project/data/16S/mothur_output/stability.opti_mcc.shared", header = TRUE) %>%
+otumat <- read.delim(file=here("data","16S","mothur_output","stability.opti_mcc.shared"), header = TRUE) %>%
     select(-label, -numOtus) %>%
     pivot_longer(-Group, names_to = "otu", values_to = "abundance")
 
@@ -19,12 +19,17 @@ taxonomy <- read_tsv(file=here("data","16S","mothur_output","Hannigan_mcc.0.03.c
 abun <- inner_join(otumat, taxonomy) %>%
     group_by(Group, taxa) %>%
     mutate(abunsum = sum(abundance))
-#plot abun
-taxa_barplot <- abun %>% filter(taxon_levels == "phylum") %>%
+#plot abun function
+
+plot_abundance <- function(taxon_level) {
+    taxa_barplot <- abun %>% filter(taxon_levels == taxon_level) %>%
     ggplot(aes(x = Group, y = abunsum, fill = taxa)) +
     geom_bar(stat = "identity", position = "stack") +
     theme_classic()+
     theme(axis.text.x = element_text(angle = 90, hjust = 1))+
-    labs(x = "sample", y = "abundance", title = "Taxa Abundance")
-ggsave(filename = here("figures","taxa_barplot_phylum.png"), width = 10, height = 7,  plot = taxa_barplot)
+    labs(x = "sample", y = "abundance", title = paste0(taxon_level, " Abundance"))
+ggsave(filename = here("figures",paste0("taxa_barplot_", taxon_level, ".png")),
+       width = 10, height = 7,  plot = taxa_barplot)
+}
 
+map(c("kingdom", "phylum", "class"), plot_abundance)
