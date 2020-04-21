@@ -83,7 +83,7 @@ plotMDS(cds, main = "MDS Plot for Count Data", labels = colnames(cds$counts), co
 #### Did not update following code >>> Need to do pairwise?
 
 
-# Find Differentially Expressed genes healthy and control
+# Find Differentially Abundant genes healthy and control
 DEgenes.HC <- exactTest(cds, pair = c("H", "C"))
 summary(decideTestsDGE(DEgenes.HC, p.value = 0.05))
 DEgene.table.HC <- topTags(DEgenes.HC, n = nrow(DEgenes.HC$table))$table
@@ -91,3 +91,5 @@ write.table(DEgene.table.HC,
   file = here::here("data", "metagenome", "DEgenes.csv"),
   sep = ",", row.names = TRUE
 )
+
+#to do heatmap of the gene abundance
