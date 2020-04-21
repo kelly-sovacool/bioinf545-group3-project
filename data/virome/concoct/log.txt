@@ -1,12 +1,12 @@
-2020-04-21 11:08:49,725:INFO:root:Results created at /home/britbrow/Desktop/bioinf545-group3-project/data/virome/concoct
-2020-04-21 11:08:50,329:INFO:root:Successfully loaded composition data.
-2020-04-21 11:08:50,339:INFO:root:Successfully loaded coverage data.
-2020-04-21 11:08:50,379:INFO:root:Performed PCA, resulted in 49 dimensions
-2020-04-21 11:08:50,580:INFO:root:Wrote original filtered data file.
-2020-04-21 11:08:50,651:INFO:root:Wrote PCA transformed file.
-2020-04-21 11:08:50,660:INFO:root:Wrote PCA components file.
-2020-04-21 11:08:50,660:INFO:root:PCA transformed data.
-2020-04-21 11:08:50,660:INFO:root:Will call vbgmm with parameters: data/virome/concoct/, 500, 1000, 16, 50
-2020-04-21 11:08:53,960:INFO:root:Wrote assign file.
-2020-04-21 11:08:53,960:INFO:root:CONCOCT Finished
-2020-04-21 11:08:53,960:INFO:root:CONCOCT Finished, the log shows how it went.
+2020-04-21 11:44:14,784:INFO:root:Results created at /home/britbrow/Desktop/bioinf545-group3-project/data/virome/concoct
+2020-04-21 11:44:15,368:INFO:root:Successfully loaded composition data.
+2020-04-21 11:44:15,403:INFO:root:Successfully loaded coverage data.
+2020-04-21 11:44:15,457:INFO:root:Performed PCA, resulted in 66 dimensions
+2020-04-21 11:44:15,804:INFO:root:Wrote original filtered data file.
+2020-04-21 11:44:15,902:INFO:root:Wrote PCA transformed file.
+2020-04-21 11:44:15,917:INFO:root:Wrote PCA components file.
+2020-04-21 11:44:15,917:INFO:root:PCA transformed data.
+2020-04-21 11:44:15,917:INFO:root:Will call vbgmm with parameters: data/virome/concoct/, 500, 1000, 16, 50
+2020-04-21 11:44:22,713:INFO:root:Wrote assign file.
+2020-04-21 11:44:22,713:INFO:root:CONCOCT Finished
+2020-04-21 11:44:22,713:INFO:root:CONCOCT Finished, the log shows how it went.
