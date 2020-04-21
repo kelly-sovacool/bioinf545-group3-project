@@ -26,9 +26,11 @@ rule concat_contigs:
         from Bio import SeqIO
         from Bio.Seq import Seq
         from Bio.SeqRecord import SeqRecord
-        contig_seqs = set()  # only keep unique sequences
-        for infile in input.fastas:
-            contig_seqs.update({record.seq for record in SeqIO.parse(infile, 'fasta')})
+        # only keep unique sequences
+        contig_seqs = {record.seq
+                        for infile in input.fastas
+                        for record in SeqIO.parse(infile, 'fasta')
+                        }
         SeqIO.write([SeqRecord(Seq(seq), id=f"{i}")
                         for i, seq in enumerate(contig_seqs)
                     ],
