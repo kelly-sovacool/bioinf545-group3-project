@@ -27,13 +27,12 @@ rule concat_contigs:
         from Bio.Seq import Seq
         from Bio.SeqRecord import SeqRecord
         contig_seqs = set()  # only keep unique sequences
-        contig_records = list()
         for infile in input.fastas:
-            for record in SeqIO.parse(infile, 'fasta'):
-                if record.seq not in contig_seqs:
-                    contig_records.append(record)
-                    contig_seqs.add(record.seq)
-        SeqIO.write(contig_records, output.fna, 'fasta')
+            contig_seqs.update({record.seq for record in SeqIO.parse(infile, 'fasta')})
+        SeqIO.write([SeqRecord(Seq(seq), id=f"{i}")
+                        for i, seq in enumerate(contig_seqs)
+                    ],
+                    output.fna, 'fasta')
 
 rule index_contigs:
     input:
@@ -68,7 +67,7 @@ rule map:
     shell:
         """
         bwa mem -t {threads} {params.index} {input.fna} |
-        samtools view -Sbh - > {output.map} 2> {log}
+        samtools view -Sbh -F 4 - > {output.map} 2> {log}
         samtools sort {output.map} -o {output.bam}
         samtools flagstat -O tsv {output.bam} > {output.tsv}
         samtools index {output.bam}
