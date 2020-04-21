@@ -80,7 +80,7 @@ rule map:
 rule concoct_prep:
     input:
         contigs=rules.concat_contigs.output.fna,
-        bams=expand("data/virome/mapping/{sample}_mapped.sorted.bam", sample="SRR5665009")
+        bams=expand("data/virome/mapping/{sample}_mapped.sorted.bam", sample=virome_samples)
     output:
         bed="rules/virome/contigs/contigs_10K.bed",
         fna="rules/virome/contigs/contigs_10K.fna",
