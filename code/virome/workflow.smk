@@ -68,7 +68,7 @@ rule map:
     shell:
         """
         bwa mem -t {threads} {params.index} {input.fna} |
-        samtools view -bh - > {output.map} 2> {log}
+        samtools view -Sbh - > {output.map} 2> {log}
         samtools sort {output.map} -o {output.bam}
         samtools flagstat -O tsv {output.bam} > {output.tsv}
         samtools index {output.bam}
