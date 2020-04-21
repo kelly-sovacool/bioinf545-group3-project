@@ -54,7 +54,8 @@ rule map:
         fna=rules.virome_assembly.output.fna,
         bwt=rules.index_contigs.output.bwt
     output:
-        bam="data/virome/mapping/{sample}_mapped.bam",
+        map="data/virome/mapping/{sample}_mapped.bam",
+        bam="data/virome/mapping/{sample}_mapped.sorted.bam",
         tsv="data/virome/mapping/{sample}_flagstat.tsv",
         txt="data/virome/mapping/{sample}_idxstats.txt"
     log:
@@ -67,8 +68,8 @@ rule map:
     shell:
         """
         bwa mem -t {threads} {params.index} {input.fna} |
-        samtools sort - - |
-        samtools view -bh - > {output.bam} 2> {log}
+        samtools view -bh - > {output.map} 2> {log}
+        samtools sort {output.map} -o {output.bam}
         samtools flagstat -O tsv {output.bam} > {output.tsv}
         samtools index {output.bam}
         samtools idxstats {output.bam} > {output.txt}
@@ -77,7 +78,7 @@ rule map:
 rule concoct_prep:
     input:
         contigs=rules.concat_contigs.output.fna,
-        bams=expand("data/virome/mapping/{sample}_mapped.bam", sample=virome_samples)
+        bams=expand("data/virome/mapping/{sample}_mapped.sorted.bam", sample=virome_samples)
     output:
         bed="rules/virome/contigs/contigs_10K.bed",
         fna="rules/virome/contigs/contigs_10K.fna",
