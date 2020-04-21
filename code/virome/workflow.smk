@@ -31,7 +31,8 @@ rule concat_contigs:
                         for infile in input.fastas
                         for record in SeqIO.parse(infile, 'fasta')
                         }
-        SeqIO.write([SeqRecord(Seq(seq), id=f"{i}")
+        #edited the following code so that SeqRecord properly recognizes seq as object
+        SeqIO.write([SeqRecord((seq), id=f"{i}") 
                         for i, seq in enumerate(contig_seqs)
                     ],
                     output.fna, 'fasta')
@@ -79,14 +80,17 @@ rule map:
 rule concoct_prep:
     input:
         contigs=rules.concat_contigs.output.fna,
-        bams=expand("data/virome/mapping/{sample}_mapped.sorted.bam", sample=virome_samples)
+        bams=expand("data/virome/mapping/{sample}_mapped.sorted.bam", sample="SRR5665009")
     output:
         bed="rules/virome/contigs/contigs_10K.bed",
         fna="rules/virome/contigs/contigs_10K.fna",
         tsv="rules/virome/contigs/coverage_table.tsv"
+    conda:
+       "../../environment_concoct.yml"
     shell:
         """
-        cut_up_fasta.py {input.contigs} -c 10000 > {output.fna}
+        #added ouput.bed as output for cut_up_fasta.py
+        cut_up_fasta.py {input.contigs} -c 10000 -b {output.bed} > {output.fna}
         concoct_coverage_table.py {output.bed} {input.bams} > {output.tsv}
         """
 
@@ -100,12 +104,15 @@ rule concoct_cluster:
     params:
         dir="data/virome/concoct/"
     threads: num_threads
+    conda:
+        "../../environment_concoct.yml"
     shell:
         """
-        concoct --coverage_file {input.tsv} --composition_file = {input.fna} \
-            --clusters 500 --kmer_length 4 --length_threshold 1000 \
-            --read_length 150 --basename {params.dir} --no_total_coverage \
-            --iterations 50 -t {threads} --seed 545
+        #corrected option names, it didn't respond well with the longer flags
+        concoct --coverage_file {input.tsv} --composition_file {input.fna} \
+            -c 500 -k 4 -l 1000 \
+            -r 150 -b {params.dir} --no_total_coverage \
+            -i 50 -t {threads} -s 545
         merge_cutup_clustering.py {output.csv1} > {output.csv2}
         """
 
@@ -115,6 +122,8 @@ rule extract_viromes:
         csv=rules.concoct_cluster.output.csv2
     output:
         directory("data/virome/concoct/fasta_bins")
+    conda:
+        "../../environment_concoct.yml"
     shell:
         """
         extract_fasta_bins.py {input.fna} {input.csv} --output_path
