@@ -1,5 +1,5 @@
-﻿KEGG Pathway,,Number of Genes,KEGG No.
-**Metabolism**,,,
+KEGG Pathway,,Number of Genes,KEGG No.
+Metabolism,,,
 Global and overview maps,Metabolic pathways,104,K00064
 ,,,K00090
 ,,,K00101
@@ -421,7 +421,7 @@ Xenobiotics biodegradation and metabolism,Benzoate degradation,4,K00632
 ,,,K00799
 ,Drug metabolism - other enzymes,2,K00758
 ,,,K00799
-**Genetic Information Processing**,,,
+Genetic Information Processing,,,
 "Folding, sorting and degradation",Protein export,1,K03425
 ,Sulfur relay system,1,K11179
 ,RNA degradation,1,K03732
@@ -432,7 +432,7 @@ Replication and repair,DNA replication,1,K02344
 ,,,K02344
 ,,,K02686
 ,,,K03583
-**Environmental Information Processing**,,,
+Environmental Information Processing,,,
 Membrane transport,ABC transporters,33,K02062
 ,,,K02063
 ,,,K02064
@@ -519,7 +519,7 @@ Signal transduction,Two-component system,36,K00246
 ,,,K10001
 ,,,K10004
 ,MAPK signaling pathway - yeast,1,K06665
-**Cellular Processes**,,,
+Cellular Processes,,,
 Cell growth and death,Cell cycle - yeast,1,K06665
 Cellular community - prokaryotes,Quorum sensing,6,K00494
 ,,,K02402
@@ -565,10 +565,10 @@ Cell motility,Bacterial chemotaxis,7,K03414
 ,,,K02394
 ,,,K02399
 ,,,K02402
-**Organismal Systems**,,,
+Organismal Systems,,,
 Immune system,Complement and coagulation cascades,1,K01344
 Aging,Longevity regulating pathway - worm,1,K00799
-**Human Diseases**,,,
+Human Diseases,,,
 Cancer: overview,Pathways in cancer,1,K00799
 ,Chemical carcinogenesis,2,K00121
 ,,,K00799

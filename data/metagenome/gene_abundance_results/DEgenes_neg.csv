@@ -1,13 +1,13 @@
-﻿KEGG Pathway,,Number of Genes,KEGG No.
-**Metabolism**,,,
+KEGG Pathway,,Number of Genes,KEGG No.
+Metabolism,,,
 Global and overview maps,Metabolic pathways,3,K01184
 ,,,K03280
 ,,,K11694
 Carbohydrate metabolism,Pentose and glucuronate interconversions,1,K01184
 Glycan biosynthesis and metabolism,Lipopolysaccharide biosynthesis,1,K03280
 ,Peptidoglycan biosynthesis,1,K11694
-**Genetic Information Processing**,,,
+Genetic Information Processing,,,
 "Folding, sorting and degradation",Ubiquitin mediated proteolysis,1,K10595
 Replication and repair,Homologous recombination,1,K10875
-**Cellular Processes**,,,
+Cellular Processes,,,
 Transport and catabolism,Autophagy - yeast,1,K01336
