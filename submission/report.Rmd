@@ -49,7 +49,6 @@ library(tidyverse)
 
 The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927). 
 All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.
-\todo{make the repo public before submitting}
 
 ## 16S rRNA gene sequence processing
 
