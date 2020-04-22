@@ -16,6 +16,7 @@ rule process_seqs:
         rdp_fna="data/16S/refs/rdp.bacteria.fasta",
         rdp_tax="data/16S/refs/rdp.bacteria.tax",
         mock="data/16S/refs/HMP_MOCK.v35.fasta"
+    log: "log/16S/process_seqs.log"
     threads: num_threads
     params:
         indir="data/raw/",
@@ -23,6 +24,7 @@ rule process_seqs:
     shell:
         """
         mothur '#
+        set.logfile(name={log});
         set.dir(input={params.indir}, output={params.outdir});
         make.contigs(file={input.names}, inputDir={params.indir}, processors={threads});
         summary.seqs(fasta=current);
