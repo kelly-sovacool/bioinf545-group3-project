@@ -25,7 +25,9 @@ rule render_pdf:
         rmd="submission/{doc}.Rmd",
         preamble="submission/preamble_{doc}.tex",
         bib="submission/refs_{doc}.bib",
-        figures=["figures/rulegraph.png"]
+        figures=["figures/gene_abundance_MDS.pdf"],
+        tables=["data/metagenome/gene_abundance_results/DEgenes_pos.csv",
+                "data/metagenome/gene_abundance_results/DEgenes_neg.csv"]
     output:
         file="docs/{doc}.pdf"
     params:

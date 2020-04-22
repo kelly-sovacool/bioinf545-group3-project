@@ -3,8 +3,9 @@
 \usepackage{fontspec}
 \setmainfont{Arial}
 \usepackage{wrapfig}
+\usepackage{float}
 \usepackage[toc,page]{appendix}
-\usepackage[font=footnotesize]{caption}
+\usepackage[font={footnotesize,it}, labelfont={bf}]{caption}
 \usepackage[margin=1in]{geometry}
 \usepackage[compact]{titlesec} % http://ctan.mirrors.hoobly.com/macros/latex/contrib/titlesec/titlesec.pdf
 \usepackage{paralist}
@@ -19,6 +20,6 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \hypersetup{colorlinks=true, urlcolor=blue, linkcolor=black}
 \usepackage{blindtext}
-\presetkeys%
-    {todonotes}%
+\presetkeys
+    {todonotes}
     {inline, backgroundcolor=yellow}{}
