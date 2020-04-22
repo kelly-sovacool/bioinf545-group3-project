@@ -16,7 +16,8 @@ rule process_seqs:
         rdp_fna="data/16S/refs/rdp.bacteria.fasta",
         rdp_tax="data/16S/refs/rdp.bacteria.tax",
         mock="data/16S/refs/HMP_MOCK.v35.fasta"
-    log: "log/16S/process_seqs.log"
+    log:
+        "log/16S/process_seqs.log"
     threads: num_threads
     params:
         indir="data/raw/",
