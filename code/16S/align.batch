@@ -1,5 +1,0 @@
-set.dir(input=~/Desktop/bioinf545-group3-project/data/mothur_output)
-set.dir(tempdefault=~/Desktop/bioinf545-group3-project/data/mothur_output)
-set.dir(output=~/Desktop/bioinf545-group3-project/data/mothur_output/)
-
-align.seqs(fasta=stability.trim.contigs.good.unique.fasta, reference=silva.nr_v132.pcr.align)
