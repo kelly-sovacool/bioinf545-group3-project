@@ -8,16 +8,16 @@ with open('data/metagenome/SRR_Acc_List_metagen.txt', 'r') as infile:
 with open('data/virome/SRR_Acc_List_virome.txt', 'r') as infile:
     virome_samples = [line.strip() for line in infile]
 
-#include: "code/16S/workflow.smk"
+include: "code/16S/workflow.smk"
 include: "code/metagenome/workflow.smk"
-#include: "code/virome/workflow.smk"
+include: "code/virome/workflow.smk"
 
 rule targets:
     input:
         "docs/report.pdf",
-        "data/metagenome/all_kegg_counts.csv"#,
-        #"data/metagenome/metaphlan2_results/merged.txt"#,
-        #"data/virome/concoct/clustering_merged.csv"
+        "data/metagenome/all_kegg_counts.csv",
+        "data/metagenome/metaphlan2_results/merged.txt",
+        "data/virome/concoct/clustering_merged.csv"
 
 rule render_pdf:
     input:
