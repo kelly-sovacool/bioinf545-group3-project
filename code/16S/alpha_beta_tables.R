@@ -1,26 +1,47 @@
 library(here)
+library(tidyverse)
+library(vegan)
 #input is the otu table
 #map is the metadata table
-#testing getting metadata
 
-read.delim("https://github.com/SchlossLab/Hannigan_CRCVirome_mBio_2018/blob/master/data/metadata/MasterMeta.tsv", header=T)
+input <- read_tsv(file=here("data","16S","mothur_output","stability.opti_mcc.shared"))
+input$Group<- gsub("Adenoma", "A", input$Group) %>%
+    gsub("Ademona", "A", .) %>%
+    gsub("ADenoma", "A", .) %>%
+    gsub("Cancer", "C", .) %>%
+    gsub("Healthy", "H", .) %>%
+    gsub('(.*)_\\w+', '\\1', .)
 
 
+#input<- pivot_longer(input, col = Otu0001:Otu3904)
+input<-input %>% select(-label, -numOtus)
+
+map <- read.table(here::here("data", "SraRunTable.txt"),
+                  header = T,
+                  sep = ",", stringsAsFactors = F
+) %>%
+    filter(samp_mat_process == "WholeMetagenome") %>% # Filter out virome samples
+    arrange(subjectid) %>% # rearrange by patient type
+    arrange(factor(DiseaseClass,
+                   levels = c("Negative", "Healthy", "Adenoma", "Cancer")
+    ))
+
+##alpha diversity function
 AlphaDiversity <- function(intable, mapping) {
-    # Fix the names in the headers
-    names(intable) <- gsub("_R2", "", names(intable))
-    # Get rid of the missing values
-    tabledrop <- intable[, -grep("X", colnames(intable))]
-    ttable <- as.matrix(t(tabledrop)[-1,])
+
+    ttable <- as.matrix((input)[,-1])
+    rownames(ttable) <- input$Group
+
     class(ttable) <- "numeric"
     divtable <- diversity(ttable, index=c("shannon"))
     divtable <- data.frame(divtable)
     colnames(divtable) <- "shannon"
-    divtable$ID <- row.names(divtable)
+    divtable$subjectid <- row.names(divtable)
+
     # Merge in the mapping file
-    mapsub <- mapping[,c(2,30)]
-    merged <- merge(divtable, mapsub, by.x="ID", by.y="V2")
-    plot <- ggplot(merged, aes(x=V30, y=shannon, colour=V30)) +
+    mapsub <- map[,c("subjectid","DiseaseClass")]
+    merged <- merge(divtable, mapsub, by.x="subjectid", by.y="subjectid")
+    plot <- ggplot(merged, aes(x=DiseaseClass, y=shannon, colour=DiseaseClass)) +
         theme_classic() +
         theme(
             axis.line.x = element_line(colour = 'black', size=0.5, linetype='solid'),
@@ -28,26 +49,31 @@ AlphaDiversity <- function(intable, mapping) {
         geom_jitter() +
         scale_colour_brewer(palette="Set1") +
         geom_boxplot(outlier.colour=NA, alpha=0) +
-        ggtitle("Virome Shannon Diversity")
+        ggtitle("16S Shannon Diversity")
     return(plot)
 }
 
 BetaDiversity <- function(intable, mapping) {
     # Fix the names in the headers
-    names(intable) <- gsub("_R2", "", names(intable))
+   # names(intable) <- gsub("_R2", "", names(intable))
     # Get rid of the missing values
-    tabledrop <- intable[, -grep("X", colnames(intable))]
-    ttable <- as.matrix(t(tabledrop)[-1,])
+    #tabledrop <- intable[, -grep("X", colnames(intable))]
+    #ttable <- as.matrix(t(tabledrop)[-1,])
+    #class(ttable) <- "numeric"
+
+    ttable <- as.matrix((input)[,-1])
+    rownames(ttable) <- input$Group
     class(ttable) <- "numeric"
+
     # Create dist matrix
     gothedistance <- vegdist(ttable, method = "bray")
     ordnmds <- metaMDS(gothedistance,k=2)
     ordnmdsfit = data.frame(MDS1 = ordnmds$points[,1], MDS2 = ordnmds$points[,2])
     ordnmdsfit$ID <- rownames(ordnmdsfit)
     # Merge in the mapping file
-    mapsub <- mapping[,c(2,30)]
-    merged <- merge(ordnmdsfit, mapsub, by.x="ID", by.y="V2")
-    plot <- ggplot(merged, aes(x=MDS1, y=MDS2, colour=V30)) +
+    mapsub <- map[,c("subjectid","DiseaseClass")]
+    merged <- merge(ordnmdsfit, mapsub, by.x="ID", by.y="subjectid")
+    plot <- ggplot(merged, aes(x=MDS1, y=MDS2, colour=DiseaseClass)) +
         theme_classic() +
         theme(
             axis.line.x = element_line(colour = 'black', size=0.5, linetype='solid'),
@@ -60,16 +86,17 @@ BetaDiversity <- function(intable, mapping) {
 
 
 ############
-# Run Data #
+# Run Alpha Diversity Function #
 ############
-
-input <- read.delim(file=here("data","16S","mothur_output","alpha_diversity","groups.summary"), sep="\t", header=T)
-map <- read.delim(file=opt$map, sep="\t", header=F)
-
-pdf(file="../figures/alphadiversity.pdf", width=4, height=4)
 AlphaDiversity(input, map)
-dev.off()
+BetaDiversity(input, map)
+##where they save it - change to our project
+pdf(file=here("figures",paste0("alphadiversity.pdf"), width=4, height=4))
+AlphaDiversity(input, map)
 
-pdf(file="../figures/betadiversity.pdf", width=5, height=4)
+pdf(file=here("figures",paste0("betadiversity.pdf"), width=5, height=4))
 BetaDiversity(input, map)
 dev.off()
+
+
+
