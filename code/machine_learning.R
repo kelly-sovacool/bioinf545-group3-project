@@ -21,7 +21,7 @@ run_rf <- function(training_data,
         indexFinal = NULL,
         savePredictions = TRUE
     )
-    pcluster <- doParallel::makePSOCKcluster(ncores)
+    pcluster <- parallel::makePSOCKcluster(ncores)
     doParallel::registerDoParallel(pcluster)
     model <- caret::train(
         DiseaseClass ~ .,
@@ -31,7 +31,7 @@ run_rf <- function(training_data,
         metric = "Mean_AUC",
         tuneLength = tune_length
     )
-    doParallel::stopCluster(pcluster)
+    parallel::stopCluster(pcluster)
     return(model)
 }
 
