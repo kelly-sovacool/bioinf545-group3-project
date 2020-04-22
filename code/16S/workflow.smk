@@ -1,3 +1,5 @@
+include: "references.smk"
+
 rule make_names_file:
     input:
         code="code/16S/make_names_file.R",
@@ -7,30 +9,17 @@ rule make_names_file:
     script:
         "{input.code}"
 
-rule get_silva:
-    output:
-        fna="data/references/silva.v4.align"
-
-rule get_rdp:
-    output:
-        fna="data/references/trainset14_032015.pds.fasta",
-        tax="reftax=data/references/trainset14_032015.pds.tax"
-
-rule get_hmp_mock:
-    output:
-        fna="data/references/HMP_MOCK.fasta"
-
 rule process_seqs:
     input:
         names=rules.make_names_file.output.file,
-        silva=rules.get_silva.ouput.fna,
-        rdp_fna=rules.get_rdp.output.fna,
-        rdp_tax=rules.get_rdp.output.tax,
-        mock=rules.get_hmp.output.fna
+        silva="data/16S/refs/silva.v4.fasta",
+        rdp_fna="data/16S/refs/rdp.bacteria.fasta",
+        rdp_tax="data/16S/refs/rdp.bacteria.tax",
+        mock="data/16S/refs/HMP_MOCK.v35.fasta"
     threads: num_threads
     params:
         indir="data/raw/",
-        outdir="data/16S/processed"
+        outdir="data/16S/processed/"
     shell:
         """
         mothur '#
@@ -59,7 +48,3 @@ rule process_seqs:
         seq.error(fasta=current, count=current, reference={input.mock}, aligned=F)
         '
         """
-
-rule cluster:
-    input:
-        rules.preprocess.output
