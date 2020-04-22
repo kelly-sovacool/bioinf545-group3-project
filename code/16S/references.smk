@@ -40,13 +40,15 @@ rule download_rdp:
 
 rule download_mock:
     output:
-        "data/16S/refs/HMP_MOCK.v35.fasta"
+        fasta="data/16S/refs/HMP_MOCK.v35.fasta",
+        zip=temp("data/16S/refs/miseqsopdata.zip")
     params:
         workdir="data/16S/refs/"
     shell:
         """
         wget -N -P {params.workdir} https://mothur.s3.us-east-2.amazonaws.com/wiki/miseqsopdata.zip
         unzip -d {params.workdir} {params.workdir}miseqsopdata.zip MiSeq_SOP/HMP_MOCK.v35.fasta
+        mv {params.workdir}MiSeq_SOP/HMP_MOCK.v35.fasta {output.fasta}
         """
 
 rule get_bacteria:
