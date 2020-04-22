@@ -46,7 +46,7 @@ rule download_mock:
     shell:
         """
         wget -N -P {params.workdir} https://mothur.s3.us-east-2.amazonaws.com/wiki/miseqsopdata.zip
-        unzip -d {params.workdir} miseqsopdata.zip MiSeq_SOP/HMP_MOCK.v35.fasta
+        unzip -d {params.workdir} {params.workdir}miseqsopdata.zip MiSeq_SOP/HMP_MOCK.v35.fasta
         """
 
 rule get_bacteria:
@@ -81,7 +81,7 @@ rule subset_v4_region:
         sum="data/16S/refs/silva.bacteria.summary",
         fasta_v4="data/16S/refs/silva.v4.fasta"
     params:
-        screen="data/16S/refs/silva.bacteria.good.pcr.align",
+        screen="data/16S/refs/silva.bacteria.good.pcr.fasta",
         workdir="data/16S/refs/"
     threads: num_threads
     log:
