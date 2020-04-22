@@ -24,6 +24,7 @@ rule render_pdf:
         code="code/render.R",
         rmd="submission/{doc}.Rmd",
         preamble="submission/preamble_{doc}.tex",
+        bib="submission/refs_{doc}.bib",
         figures=["figures/rulegraph.png"]
     output:
         file="docs/{doc}.pdf"
@@ -155,8 +156,8 @@ rule re_pair_2:
         R1=rules.bam_to_fastq.output.R1,
         R2=rules.bam_to_fastq.output.R2
     output:
-        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_1.fastq.gz",
-        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_2.fastq.gz",
+        R1="data/qc/bwa_GRCh38_results/{sample}_unmapped_re1.fastq.gz",
+        R2="data/qc/bwa_GRCh38_results/{sample}_unmapped_re2.fastq.gz",
         single="data/qc/bwa_GRCh38_results/{sample}_singleton.fastq.gz"
     conda:
         "environment_bwa.yml"
