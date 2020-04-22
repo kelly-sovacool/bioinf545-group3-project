@@ -17,7 +17,8 @@ rule targets:
         "docs/report.pdf",
         "data/metagenome/all_kegg_counts.csv",
         "data/metagenome/metaphlan2_results/merged.txt",
-        "data/virome/concoct/clustering_merged.csv"
+        "data/virome/concoct/clustering_merged.csv",
+        "data/model/rf_model_bacteria.tsv"
 
 rule render_pdf:
     input:
@@ -171,3 +172,25 @@ rule re_pair_2:
         """
         repair.sh in={input.R1} in2={input.R2} out={output.R1} out2={output.R2} outs={output.single} 2> {log}
         """
+
+rule model_OTU:
+    input:
+        code="code/predict_OTU.R",
+        fcns="code/machine_learning.R",
+        data="data/16S/mothur_output/stability.opti_mcc.shared"
+    output:
+        tsv="data/model/rf_model_bacteria.tsv",
+        rds="data/model/conf_mat_bacteria.rds"
+    script:
+        "{input.code}"
+
+rule model_OVU:
+    input:
+        code="code/predict_OVU.R",
+        fcns="code/machine_learning.R",
+        data="data/virome/concoct/clustering_merged.csv"
+    output:
+        tsv="data/model/rf_model_virus.tsv",
+        rds="data/model/conf_mat_virus.rds"
+    script:
+        "{input.code}"

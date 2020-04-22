@@ -126,7 +126,24 @@ inTraining <-
                         list = FALSE)
 training_data <- otu_abun_data[inTraining, ]
 testing_data  <- otu_abun_data[-inTraining, ]
-otu_model <- run_rf(training_data)
+train_control <- trainControl(
+    method = "repeatedcv",
+    repeats = 5,
+    number = 5,
+    returnResamp = "final",
+    classProbs = TRUE,
+    summaryFunction = twoClassSummary,
+    indexFinal = NULL,
+    savePredictions = TRUE
+)
+otu_model <- train(
+    DiseaseClass ~ .,
+    data = training_data,
+    trControl = train_control,
+    method = "rf",
+    metric = "Mean_AUC",
+    tuneLength = 15
+)
 testing_data <- testing_data %>% 
     mutate(prediction = predict(otu_model, newdata= testing_data),
            DiseaseClass = as.factor(DiseaseClass))
@@ -140,19 +157,65 @@ prec_recall
 
 ### OTU (bacteria)
 ```{r}
-otu_abun <- read_tsv(here("data", '16S', 'mothur_output', 'stability.opti_mcc.shared'))
+source(here('code', "machine_learning.R"))
+otu_abun <-
+    read_tsv(here("data", '16S', 'mothur_output', 'stability.opti_mcc.shared')) %>%
+    mutate(
+        subject_id = str_to_title(Group) %>%
+            str_replace("([A-Z])[a-z]*([0-9]{1,2})_[_0-9]*", "\\1\\2"),
+        DiseaseClass = case_when(
+            startsWith(Group, 'A') ~ 'Adenoma',
+            startsWith(Group, 'C') ~ 'Cancer',
+            startsWith(Group, 'H') ~ 'Healthy'
+        )
+    ) %>%
+    filter(DiseaseClass %in% c("Cancer", "Healthy")) %>% 
+    select(-label, -Group, -numOtus, -subject_id) %>%
+    select(DiseaseClass, everything())
 head(otu_abun)
-otu_abun %>% mutate(subject_id = 
-                        str_to_title(Group) %>% 
-                        str_replace("([A-Z])[a-z]*([0-9]{1,2})_[_0-9]*", 
-                                    "\\1\\2"),
-                    DiseaseClass = case_when(
-                        startsWith(Group, 'A') ~ 'Adenoma',
-                        startsWith(Group, 'C') ~ 'Cancer',
-                        startsWith(Group, 'H') ~ 'Healthy'
-                    )
-                    ) %>% 
-    pull(subject_id)
+set.seed(545)
+inTraining <- as.vector(
+    createDataPartition(otu_abun %>% pull(DiseaseClass),
+                        p = 0.6,
+                        list = FALSE
+                        )
+    )
+training_data <- otu_abun[inTraining, ]
+testing_data  <- otu_abun[-inTraining, ]
+train_control <- trainControl(
+    method = "repeatedcv",
+    repeats = 5,
+    number = 5,
+    returnResamp = "final",
+    classProbs = TRUE,
+    summaryFunction = twoClassSummary,
+    indexFinal = NULL,
+    savePredictions = TRUE
+)
+otu_model <- train(
+    DiseaseClass ~ .,
+    data = training_data,
+    trControl = train_control,
+    method = "rf",
+    metric = "Mean_AUC",
+    tuneLength = 15
+)
+testing_data <- testing_data %>% 
+    mutate(prediction = predict(otu_model, newdata= testing_data),
+           DiseaseClass = as.factor(DiseaseClass))
+prec_recall <- confusionMatrix(
+    data = testing_data$prediction,
+    reference = testing_data$DiseaseClass,
+    mode = "prec_recall"
+)
+```
+```{r plot_roc}
+rf_model <- otu_model
+best_mtry <- rf_model$bestTune$mtry
+best_model <- rf_model$pred %>% filter(mtry == best_mtry)
+ggplot2::ggplot(best_model, aes(d = obs, m = Healthy)) + 
+    plotROC::geom_roc() +
+    coord_equal()
 ```
 
 ### OVU (viruses)
