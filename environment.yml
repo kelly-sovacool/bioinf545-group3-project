@@ -1,4 +1,4 @@
-name: bf545b
+name: bf545
 channels:
   - conda-forge
   - bioconda
