@@ -1,5 +1,5 @@
 ﻿KEGG Pathway,,Number of Genes,KEGG No.
-**Metabolism**,,,
+Metabolism,,,
 Global and overview maps,Metabolic pathways,5,K00750
 ,,,K00895
 ,,,K01184
@@ -15,14 +15,14 @@ Carbohydrate metabolism,Glycolysis / Gluconeogenesis,1,K00895
 ,Starch and sucrose metabolism,1,K00750
 Glycan biosynthesis and metabolism,Lipopolysaccharide biosynthesis,1,K03280
 ,Peptidoglycan biosynthesis,1,K11694
-**Genetic Information Processing**,,,
+Genetic Information Processing,,,
 "Folding, sorting and degradation",Ubiquitin mediated proteolysis,1,K10595
 Replication and repair,Homologous recombination,1,K10875
-**Environmental Information Processing**,,,
+Environmental Information Processing,,,
 Signal transduction,Two-component system,1,K07770
-**Cellular Processes**,,,
+Cellular Processes,,,
 Transport and catabolism,Autophagy - yeast,1,K01336
-**Organismal Systems**,,,
+Organismal Systems,,,
 Immune system,Toll and Imd signaling pathway,1,K01446
-**Human Diseases**,,,
+Human Diseases,,,
 Infectious disease: bacterial,Vibrio cholerae infection,1,K10954
