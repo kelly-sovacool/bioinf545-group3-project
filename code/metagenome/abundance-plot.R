@@ -12,13 +12,13 @@ SraRun <- read.table(here::here("data", "SraRunTable.txt"),
   sep = ",", stringsAsFactors = F
 ) %>%
   filter(samp_mat_process == "WholeMetagenome") %>% # Filter out virome samples
-  filter(Run != 'SRR5665024' & # remove negative control and samples with extremely low read count
-           Run != 'SRR5665060' &
-           Run != 'SRR5665081' &
-           Run != 'SRR5665121' &
-           Run != 'SRR5665138' &
-           Run != 'SRR5665117' &
-           Run != 'SRR5665160') %>%
+  filter(Run != "SRR5665024" & # remove negative control and samples with extremely low read count
+    Run != "SRR5665060" &
+    Run != "SRR5665081" &
+    Run != "SRR5665121" &
+    Run != "SRR5665138" &
+    Run != "SRR5665117" &
+    Run != "SRR5665160") %>%
   arrange(subjectid) %>% # rearrange by patient type
   arrange(factor(DiseaseClass,
     levels = c("Negative", "Healthy", "Adenoma", "Cancer")
@@ -103,13 +103,21 @@ DEgene_table_HC <- DEgene_table_HC %>% filter(PValue <= 0.05)
 
 DEgenes <- inner_join(DEgene_table_HA, DEgene_table_HC, by = "KeggNo", suffix = c("_HA", "_HC"))
 
-DEgenes_pos <- DEgenes %>% filter(logFC_HA > 1 & logFC_HC > 1) %>% select(KeggNo) %>% head(500)
-DEgenes_neg <- DEgenes %>% filter(logFC_HA < -1 & logFC_HC < -1) %>% select(KeggNo) %>% head(500)
+DEgenes_pos <- DEgenes %>%
+  filter(logFC_HA > 1 & logFC_HC > 1) %>%
+  select(KeggNo) %>%
+  head(500)
+DEgenes_neg <- DEgenes %>%
+  filter(logFC_HA < -1 & logFC_HC < -1) %>%
+  select(KeggNo) %>%
+  head(500)
 
 write.table(DEgenes_pos,
-            file = here::here('data', 'metagenome', 'gene_abundance_results', 'DEgenes_pos.txt'),
-            sep = '\t', row.names = T, quote = F, col.names = F)
+  file = here::here("data", "metagenome", "gene_abundance_results", "DEgenes_pos.txt"),
+  sep = "\t", row.names = T, quote = F, col.names = F
+)
 
 write.table(DEgenes_neg,
-            file = here::here('data', 'metagenome', 'gene_abundance_results', 'DEgenes_neg.txt'),
-            sep = '\t', row.names = T, quote = F, col.names = F)
+  file = here::here("data", "metagenome", "gene_abundance_results", "DEgenes_neg.txt"),
+  sep = "\t", row.names = T, quote = F, col.names = F
+)
