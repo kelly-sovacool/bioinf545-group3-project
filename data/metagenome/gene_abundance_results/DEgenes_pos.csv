@@ -1,6 +1,6 @@
 ﻿KEGG Pathway,,Number of Genes,KEGG No.
 **Metabolism**,,,
-Global and overview maps,Metabolic pathways,104,K00064
+Global and overview maps,Metabolic pathways,97,K00064
 ,,,K00090
 ,,,K00101
 ,,,K00116
@@ -19,6 +19,7 @@ Global and overview maps,Metabolic pathways,104,K00064
 ,,,K00370
 ,,,K00371
 ,,,K00483
+,,,K00619
 ,,,K00631
 ,,,K00632
 ,,,K00673
@@ -36,8 +37,7 @@ Global and overview maps,Metabolic pathways,104,K00064
 ,,,K01194
 ,,,K01460
 ,,,K01484
-,,,K01525
-,,,K01630
+,,,K01497
 ,,,K01637
 ,,,K01682
 ,,,K01690
@@ -52,10 +52,8 @@ Global and overview maps,Metabolic pathways,104,K00064
 ,,,K02298
 ,,,K02300
 ,,,K02302
-,,,K02446
 ,,,K02496
 ,,,K02509
-,,,K02535
 ,,,K02560
 ,,,K02609
 ,,,K02610
@@ -68,7 +66,6 @@ Global and overview maps,Metabolic pathways,104,K00064
 ,,,K02850
 ,,,K02851
 ,,,K03078
-,,,K03185
 ,,,K03277
 ,,,K03472
 ,,,K03638
@@ -81,8 +78,6 @@ Global and overview maps,Metabolic pathways,104,K00064
 ,,,K05526
 ,,,K05710
 ,,,K05780
-,,,K05851
-,,,K05915
 ,,,K05921
 ,,,K06132
 ,,,K06162
@@ -99,12 +94,10 @@ Global and overview maps,Metabolic pathways,104,K00064
 ,,,K09470
 ,,,K09471
 ,,,K09472
-,,,K11258
+,,,K09882
 ,,,K12339
 ,,,K12525
-,,,K12972
-,,,K14187
-,Biosynthesis of secondary metabolites,31,K00064
+,Biosynthesis of secondary metabolites,28,K00064
 ,,,K00090
 ,,,K00116
 ,,,K00117
@@ -113,6 +106,7 @@ Global and overview maps,Metabolic pathways,104,K00064
 ,,,K00242
 ,,,K00246
 ,,,K00276
+,,,K00619
 ,,,K00631
 ,,,K00632
 ,,,K00769
@@ -120,6 +114,7 @@ Global and overview maps,Metabolic pathways,104,K00064
 ,,,K01058
 ,,,K01087
 ,,,K01194
+,,,K01497
 ,,,K01637
 ,,,K01682
 ,,,K01782
@@ -127,15 +122,10 @@ Global and overview maps,Metabolic pathways,104,K00064
 ,,,K01825
 ,,,K02302
 ,,,K02364
-,,,K02446
 ,,,K02496
-,,,K03185
 ,,,K05358
-,,,K11258
 ,,,K12525
-,,,K12972
-,,,K14187
-,Microbial metabolism in diverse environments,40,K00064
+,Microbial metabolism in diverse environments,38,K00064
 ,,,K00090
 ,,,K00116
 ,,,K00121
@@ -156,7 +146,6 @@ Global and overview maps,Metabolic pathways,104,K00064
 ,,,K01782
 ,,,K01825
 ,,,K02302
-,,,K02446
 ,,,K02496
 ,,,K02509
 ,,,K02609
@@ -174,8 +163,7 @@ Global and overview maps,Metabolic pathways,104,K00064
 ,,,K10678
 ,,,K10680
 ,,,K12525
-,,,K12972
-,Carbon metabolism,12,K00116
+,Carbon metabolism,11,K00116
 ,,,K00121
 ,,,K00163
 ,,,K00242
@@ -186,87 +174,75 @@ Global and overview maps,Metabolic pathways,104,K00064
 ,,,K01690
 ,,,K01782
 ,,,K01825
-,,,K02446
-,2-Oxocarboxylic acid metabolism,3,K00813
+,2-Oxocarboxylic acid metabolism,3,K00619
+,,,K00813
 ,,,K01682
-,,,K11258
 ,Fatty acid metabolism,5,K00632
 ,,,K01716
 ,,,K01782
 ,,,K01825
 ,,,K06445
-,Biosynthesis of amino acids,6,K00813
+,Biosynthesis of amino acids,5,K00619
+,,,K00813
 ,,,K01682
-,,,K11258
 ,,,K12339
 ,,,K12525
-,,,K14187
 ,Degradation of aromatic compounds,6,K00121
 ,,,K00151
 ,,,K00483
 ,,,K04073
 ,,,K05710
 ,,,K05921
-Carbohydrate metabolism,Glycolysis / Gluconeogenesis,4,K00121
+Carbohydrate metabolism,Glycolysis / Gluconeogenesis,3,K00121
 ,,,K00163
 ,,,K01085
-,,,K02446
 ,Citrate cycle (TCA cycle),5,K00116
 ,,,K00163
 ,,,K00242
 ,,,K00246
 ,,,K01682
-,Pentose phosphate pathway,4,K00090
+,Pentose phosphate pathway,3,K00090
 ,,,K00117
 ,,,K01690
-,,,K02446
 ,Pentose and glucuronate interconversions,1,K03078
-,Fructose and mannose metabolism,2,K00064
-,,,K02446
-,Ascorbate and aldarate metabolism,3,K00064
-,,,K01630
+,Fructose and mannose metabolism,1,K00064
+,Ascorbate and aldarate metabolism,2,K00064
 ,,,K03078
 ,Starch and sucrose metabolism,2,K01087
 ,,,K01194
-,Pyruvate metabolism,8,K00090
+,Pyruvate metabolism,7,K00090
 ,,,K00101
 ,,,K00116
 ,,,K00163
 ,,,K00246
 ,,,K03777
 ,,,K04073
-,,,K12972
-,Glyoxylate and dicarboxylate metabolism,5,K00090
+,Glyoxylate and dicarboxylate metabolism,4,K00090
 ,,,K01637
 ,,,K01682
 ,,,K07246
-,,,K12972
 ,Propanoate metabolism,4,K00932
 ,,,K01682
 ,,,K01782
 ,,,K01825
-,Butanoate metabolism,8,K00242
+,Butanoate metabolism,7,K00242
 ,,,K00246
 ,,,K01782
 ,,,K01825
 ,,,K04073
 ,,,K07246
 ,,,K08324
-,,,K11258
-,C5-Branched dibasic acid metabolism,1,K11258
 ,Inositol phosphate metabolism,1,K01093
 Energy metabolism,Oxidative phosphorylation,5,K00242
 ,,,K00246
 ,,,K02297
 ,,,K02298
 ,,,K02300
-,Carbon fixation in photosynthetic organisms,2,K00855
-,,,K02446
+,Carbon fixation in photosynthetic organisms,1,K00855
 ,Carbon fixation pathways in prokaryotes,3,K00242
 ,,,K00246
 ,,,K01682
-,Methane metabolism,2,K00121
-,,,K02446
+,Methane metabolism,1,K00121
 ,Nitrogen metabolism,3,K00370
 ,,,K00371
 ,,,K01725
@@ -289,18 +265,15 @@ Lipid metabolism,Fatty acid biosynthesis,1,K01716
 ,Linoleic acid metabolism,1,K01058
 ,alpha-Linolenic acid metabolism,2,K00632
 ,,,K01058
-Nucleotide metabolism,Purine metabolism,5,K00364
+Nucleotide metabolism,Purine metabolism,3,K00364
 ,,,K00769
 ,,,K01139
-,,,K01525
-,,,K05851
 ,Pyrimidine metabolism,1,K00758
 Amino acid metabolism,"Alanine, aspartate and glutamate metabolism",2,K00813
 ,,,K08324
-,"Glycine, serine and threonine metabolism",4,K00090
+,"Glycine, serine and threonine metabolism",3,K00090
 ,,,K00276
 ,,,K12525
-,,,K12972
 ,Cysteine and methionine metabolism,4,K00813
 ,,,K01920
 ,,,K12339
@@ -308,11 +281,11 @@ Amino acid metabolism,"Alanine, aspartate and glutamate metabolism",2,K00813
 ,"Valine, leucine and isoleucine degradation",3,K00632
 ,,,K01782
 ,,,K01825
-,"Valine, leucine and isoleucine biosynthesis",1,K11258
 ,Lysine biosynthesis,1,K12525
 ,Lysine degradation,2,K01782
 ,,,K01825
-,Arginine biosynthesis,1,K00813
+,Arginine biosynthesis,2,K00619
+,,,K00813
 ,Arginine and proline metabolism,9,K00673
 ,,,K00813
 ,,,K00840
@@ -345,12 +318,10 @@ Amino acid metabolism,"Alanine, aspartate and glutamate metabolism",2,K00813
 ,,,K01825
 ,"Phenylalanine, tyrosine and tryptophan biosynthesis",3,K00813
 ,,,K05358
-,,,K14187
 Metabolism of other amino acids,beta-Alanine metabolism,3,K00276
 ,,,K01782
 ,,,K01825
-,Phosphonate and phosphinate metabolism,8,K05780
-,,,K05915
+,Phosphonate and phosphinate metabolism,7,K05780
 ,,,K06162
 ,,,K06163
 ,,,K06164
@@ -361,32 +332,31 @@ Metabolism of other amino acids,beta-Alanine metabolism,3,K00276
 ,,,K01460
 ,,,K01920
 ,,,K07751
-Glycan biosynthesis and metabolism,Lipopolysaccharide biosynthesis,8,K02535
-,,,K02560
+Glycan biosynthesis and metabolism,Lipopolysaccharide biosynthesis,6,K02560
 ,,,K02841
 ,,,K02849
 ,,,K02850
 ,,,K03277
-,,,K12973
 ,,,K12974
 ,Peptidoglycan biosynthesis,1,K05365
 ,Arabinogalactan biosynthesis - Mycobacterium,1,K02851
-Metabolism of cofactors and vitamins,Riboflavin metabolism,4,K00299
+Metabolism of cofactors and vitamins,Riboflavin metabolism,5,K00299
 ,,,K01093
+,,,K01497
 ,,,K03788
 ,,,K05368
 ,Vitamin B6 metabolism,1,K03472
 ,Nicotinate and nicotinamide metabolism,2,K00322
 ,,,K08324
-,Pantothenate and CoA biosynthesis,1,K11258
 ,Biotin metabolism,1,K02170
-,Folate biosynthesis,2,K03638
+,Folate biosynthesis,3,K01497
+,,,K03638
 ,,,K06879
 ,Retinol metabolism,1,K00121
-,Porphyrin and chlorophyll metabolism,3,K02302
+,Porphyrin and chlorophyll metabolism,4,K02302
 ,,,K02496
 ,,,K05368
-,Ubiquinone and other terpenoid-quinone biosynthesis,1,K03185
+,,,K09882
 Metabolism of terpenoids and polyketides,Limonene and pinene degradation,2,K01782
 ,,,K01825
 ,Geraniol degradation,3,K00632
@@ -399,8 +369,7 @@ Biosynthesis of other secondary metabolites,Isoquinoline alkaloid biosynthesis,2
 ,"Tropane, piperidine and pyridine alkaloid biosynthesis",2,K00276
 ,,,K00813
 ,Monobactam biosynthesis,1,K12525
-,Novobiocin biosynthesis,2,K00813
-,,,K14187
+,Novobiocin biosynthesis,1,K00813
 Xenobiotics biodegradation and metabolism,Benzoate degradation,4,K00632
 ,,,K01782
 ,,,K01825
@@ -422,10 +391,11 @@ Xenobiotics biodegradation and metabolism,Benzoate degradation,4,K00632
 ,Drug metabolism - other enzymes,2,K00758
 ,,,K00799
 **Genetic Information Processing**,,,
+Transcription,RNA polymerase,1,K03053
 "Folding, sorting and degradation",Protein export,1,K03425
-,Sulfur relay system,1,K11179
 ,RNA degradation,1,K03732
 Replication and repair,DNA replication,1,K02344
+,Base excision repair,1,K05522
 ,Mismatch repair,2,K01141
 ,,,K02344
 ,Homologous recombination,4,K02317
@@ -442,13 +412,13 @@ Membrane transport,ABC transporters,33,K02062
 ,,,K06159
 ,,,K06858
 ,,,K07323
-,,,K09996
 ,,,K10001
 ,,,K10004
 ,,,K10013
 ,,,K10014
 ,,,K10016
 ,,,K10017
+,,,K10037
 ,,,K10038
 ,,,K10111
 ,,,K10537
@@ -456,7 +426,7 @@ Membrane transport,ABC transporters,33,K02062
 ,,,K10539
 ,,,K10544
 ,,,K10545
-,,,K10556
+,,,K10558
 ,,,K11073
 ,,,K11074
 ,,,K12368
@@ -467,10 +437,8 @@ Membrane transport,ABC transporters,33,K02062
 ,,,K13893
 ,,,K13894
 ,Phosphotransferase system (PTS),1,K08484
-,Bacterial secretion system,15,K03194
-,,,K03195
+,Bacterial secretion system,13,K03195
 ,,,K03196
-,,,K03199
 ,,,K03200
 ,,,K03201
 ,,,K03203
@@ -482,12 +450,11 @@ Membrane transport,ABC transporters,33,K02062
 ,,,K11903
 ,,,K11906
 ,,,K11907
-Signal transduction,Two-component system,36,K00246
+Signal transduction,Two-component system,34,K00246
 ,,,K00370
 ,,,K00371
 ,,,K00373
 ,,,K00494
-,,,K02402
 ,,,K03776
 ,,,K04771
 ,,,K05874
@@ -513,7 +480,6 @@ Signal transduction,Two-component system,36,K00246
 ,,,K07773
 ,,,K07788
 ,,,K07789
-,,,K08348
 ,,,K08350
 ,,,K09475
 ,,,K10001
@@ -522,14 +488,13 @@ Signal transduction,Two-component system,36,K00246
 **Cellular Processes**,,,
 Cell growth and death,Cell cycle - yeast,1,K06665
 Cellular community - prokaryotes,Quorum sensing,6,K00494
-,,,K02402
+,,,K01497
 ,,,K07666
 ,,,K07711
-,,,K10556
+,,,K10558
 ,,,K11530
-,Biofilm formation - Vibrio cholerae,,K03087
+,Biofilm formation - Vibrio cholerae,4,K03087
 ,,,K03557
-,,,K05851
 ,,,K07689
 ,,,K10918
 ,Biofilm formation - Pseudomonas aeruginosa,8,K07689
@@ -540,10 +505,7 @@ Cellular community - prokaryotes,Quorum sensing,6,K00494
 ,,,K11902
 ,,,K11903
 ,,,K11907
-,Biofilm formation - Escherichia coli,12,K02402
-,,,K02425
-,,,K03087
-,,,K05851
+,Biofilm formation - Escherichia coli,9,K03087
 ,,,K07638
 ,,,K07648
 ,,,K07659
@@ -559,12 +521,11 @@ Cell motility,Bacterial chemotaxis,7,K03414
 ,,,K05876
 ,,,K05877
 ,,,K12368
-,Flagellar assembly,6,K02386
+,Flagellar assembly,5,K02386
 ,,,K02391
 ,,,K02393
 ,,,K02394
 ,,,K02399
-,,,K02402
 **Organismal Systems**,,,
 Immune system,Complement and coagulation cascades,1,K01344
 Aging,Longevity regulating pathway - worm,1,K00799
@@ -583,10 +544,9 @@ Infectious disease: bacterial,Epithelial cell signaling in Helicobacter pylori i
 ,Pertussis,4,K07326
 ,,,K07345
 ,,,K07347
-,,,K12973
+,,,K12681
 ,Bacterial invasion of epithelial cells,1,K13285
 Drug resistance: antimicrobial,beta-Lactam resistance,1,K09475
-,Cationic antimicrobial peptide (CAMP) resistance,3,K04771
+,Cationic antimicrobial peptide (CAMP) resistance,2,K04771
 ,,,K07640
-,,,K12973
-Drug resistance: antineoplastic,Platinum drug resistance,1,K00799
+Drug resistance: antineoplastic,Platinum drug resistance,1,
