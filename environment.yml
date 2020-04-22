@@ -15,8 +15,10 @@ dependencies:
   - r-broom
   - r-caret=6.0
   - r-doParallel
+  - r-e1071
   - r-here
   - r-kableExtra
+  - r-randomForest
   - r-rcolorbrewer
   - r-rmarkdown=2.1
   - r-pROC
