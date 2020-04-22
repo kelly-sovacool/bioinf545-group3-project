@@ -32,7 +32,7 @@ rule concat_contigs:
                         for record in SeqIO.parse(infile, 'fasta')
                         }
         #edited the following code so that SeqRecord properly recognizes seq as object
-        SeqIO.write([SeqRecord((seq), id=f"{i}") 
+        SeqIO.write([SeqRecord((seq), id=f"{i}")
                         for i, seq in enumerate(contig_seqs)
                     ],
                     output.fna, 'fasta')
@@ -82,9 +82,9 @@ rule concoct_prep:
         contigs=rules.concat_contigs.output.fna,
         bams=expand("data/virome/mapping/{sample}_mapped.sorted.bam", sample=virome_samples)
     output:
-        bed="rules/virome/contigs/contigs_10K.bed",
-        fna="rules/virome/contigs/contigs_10K.fna",
-        tsv="rules/virome/contigs/coverage_table.tsv"
+        bed="data/virome/contigs/contigs_10K.bed",
+        fna="data/virome/contigs/contigs_10K.fna",
+        tsv="data/virome/contigs/coverage_table.tsv"
     conda:
        "../../environment_concoct.yml"
     shell:
