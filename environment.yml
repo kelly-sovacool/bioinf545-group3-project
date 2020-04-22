@@ -19,6 +19,8 @@ dependencies:
   - r-kableExtra
   - r-rcolorbrewer
   - r-rmarkdown=2.1
+  - r-pROC
+  - r-plotROC
   - r-styler
   - r-tidyverse=1.3.0
   - r-usethis=1.5.1
