@@ -1,4 +1,4 @@
-﻿KEGG Pathway,,Number of Genes,KEGG No.
+KEGG Pathway,,Number of Genes,KEGG No.
 Metabolism,,,
 Global and overview maps,Metabolic pathways,97,K00064
 ,,,K00090
@@ -549,4 +549,4 @@ Infectious disease: bacterial,Epithelial cell signaling in Helicobacter pylori i
 Drug resistance: antimicrobial,beta-Lactam resistance,1,K09475
 ,Cationic antimicrobial peptide (CAMP) resistance,2,K04771
 ,,,K07640
-Drug resistance: antineoplastic,Platinum drug resistance,1,
+Drug resistance: antineoplastic,Platinum drug resistance,1,K00799
