@@ -68,6 +68,8 @@ groupColors <-
     rep("red", sum(SraRun$DiseaseClass == "Cancer"))
   )
 
+keggCounts <- keggCounts %>% filter(KeggNo != "unknown") # remove unknown genes
+
 cds <- keggCounts
 rownames(cds) <- keggCounts$KeggNo # change rownames to KeggNo
 cds <- cds %>%
