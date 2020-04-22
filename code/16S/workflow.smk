@@ -27,7 +27,7 @@ rule process_seqs:
         mothur '#
         set.logfile(name={log});
         set.dir(input={params.indir}, output={params.outdir});
-        make.contigs(file={input.names}, inputDir={params.indir}, processors={threads});
+        make.contigs(file={input.names}, inputdir={params.indir}, processors={threads});
         summary.seqs(fasta=current);
         screen.seqs(fasta=current, group=current, summary=current, maxambig=0, maxlength=275);
         summary.seqs(fasta=current);
