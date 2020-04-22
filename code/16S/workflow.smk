@@ -6,8 +6,8 @@ rule make_names_file:
         metadata="data/SraRunTable.txt"
     output:
         file="data/16S/crc.files"
-    script:
-        "{input.code}"
+    shell:
+        "Rscript {input.code}"
 
 rule process_seqs:
     input:
