@@ -43,6 +43,9 @@ All code used in preparation of this report is available in the following GitHub
 \todo{make the repo public before submitting}
 
 ## 16S rRNA gene sequence processing
+The 16S rRNA gene sequences associated with this study were previously reported by [@Zackular_human_2014]Sequence (fastq) and metadata files were downloaded from the following site: http://www.mothur.org/MicrobiomeBiomarkerCRC.
+The 16S rRNA gene sequences were analyzed with the mothur software package (v1.37.0) [@kozich_Development_2013] [@schloss_introducing_2009]. Mothur allows contigs from forward and reverse fastq files to be generated, pre-processing steps for primer removal and quality screening, and the identification of unique sequences. After these steps were taken to reduce sequencing and PCR errors, sequences were aligned to the SILVA database [@pruesse_SILVA_2007], screened for chimeras using VSEARCH, and binned into operational taxonomic units (OTUs) using a 97% similarity threshold. 
+
 
 ## Metagenome and virome quality control
 
@@ -53,6 +56,8 @@ Then, reads mapping to the human GRCh38 reference genome were removed using the 
 The paired unmapped reads were used for taxonomic profiling and gene annotation.
 
 ## Virome assembly
+Closely related viral contig sequences were categorized into operational viral units (OVUs) in the absence of taxonomic identity. OVUs were defined with the CONCOCT algorithm (v0.4.0). This algorithm applies a variation-based Bayesian approach that bins related contigs by similar tetramer and coabundance profiles within samples [@alneberg_binning_2014].
+
 
 ## Classification modeling
 
