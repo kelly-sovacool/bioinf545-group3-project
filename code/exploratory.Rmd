@@ -138,3 +138,21 @@ prec_recall <- confusionMatrix(
 prec_recall
 ```
 
+### OTU (bacteria)
+```{r}
+otu_abun <- read_tsv(here("data", '16S', 'mothur_output', 'stability.opti_mcc.shared'))
+head(otu_abun)
+otu_abun %>% mutate(subject_id = 
+                        str_to_title(Group) %>% 
+                        str_replace("([A-Z])[a-z]*([0-9]{1,2})_[_0-9]*", 
+                                    "\\1\\2"),
+                    DiseaseClass = case_when(
+                        startsWith(Group, 'A') ~ 'Adenoma',
+                        startsWith(Group, 'C') ~ 'Cancer',
+                        startsWith(Group, 'H') ~ 'Healthy'
+                    )
+                    ) %>% 
+    pull(subject_id)
+```
+
+### OVU (viruses)
