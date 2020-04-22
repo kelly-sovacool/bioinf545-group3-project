@@ -28,7 +28,7 @@ run_rf <- function(training_data,
         data = training_data,
         trControl = train_control,
         method = "rf",
-        metric = "Mean_AUC",
+        metric = "ROC",
         tuneLength = tune_length
     )
     parallel::stopCluster(pcluster)
@@ -66,7 +66,7 @@ predict_rf <- function(data,
     best_model <- rf_model$pred %>% filter(mtry == best_mtry)
     readr::write_tsv(best_model, path = model_filename)
     testing_data <- testing_data %>%
-        mutate(prediction = predict(otu_model, newdata= testing_data),
+        mutate(prediction = predict(rf_model, newdata= testing_data),
                DiseaseClass = as.factor(DiseaseClass))
     conf_mat <- caret::confusionMatrix(data = testing_data$prediction,
                                        reference = testing_data$DiseaseClass,
