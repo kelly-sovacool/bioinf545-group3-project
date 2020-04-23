@@ -40,14 +40,52 @@ library(tidyverse)
 
 # Abstract
 
+Colorectal cancer is the third leading cause of cancer related deaths globally [@rawla_epidemiology_2019]. 
+Colorectal cancer (CRC) initiates in the large intestine emerging from glandular epithelial cells. 
+Due to a selective advantage, obtained from a series of genetic or epigenetic mutations, these unregulated cells grow and can potentially develop into colorectal adenocarcinoma [@ewing_molecular_2014]. 
+Many studies have used the cancer microbiome to investigate how these mutations occur, however, they have almost exclusively focused on bacteria. 
+Human viruses have been implicated in the development of many cancers such as HPV, HTLV-1 and HIV [@liao_viruses_2006]. 
+Through mutagenic and manipulative abilities, viruses cause unregulated growth by disrupting the normal function of cells. 
+The association of colorectal cancer and the gut virome remains unknown, therefore, in this study we propose to investigate the differences in the bacterial and viral community composition and their effect on CRC development. 
+We performed operational taxonomic unit (OTU) clustering of 16S sequences for bacterial taxonomy and operational viromic unit (OVU) clustering of metaviromes for viral taxonomy to investigate the differences in human colorectal bacterial and viral community composition. 
+Using machine learning classification of OTUs and OVUs from healthy or cancerous samples, we aim to compare performance of the random forest model vs logistic regression. 
+Overall, the goal of the current study is to classify whether samples are healthy or cancerous based on bacterial and viral taxa. These results provide… 
+
 # Introduction
+
+Colorectal cancer is a leading cause of cancer-related death in the United States and worldwide. Its risk and severity have been linked to colonic bacterial community composition
+The leading cancer-related death in the United States is colorectal cancer [@hannigan_diagnostic_2018]. 
+Due to screening techniques and improvements in treatment the rate of colorectal cancer has fallen. 
+The primary screening technique is colonoscopy. A new technique gaining popularity is Exact Sciences Cologuard, a combination test which looks for both the genetic material found in colon cancer and some more advanced colon polyps and it detects hemoglobin in the stool using fecal immunochemical testing (Cologuard). 
+While colon cancer screening techniques are advancing, we aim to understand the environment of colorectal cancer.
+
+Gut dysbiosis is any change to the normal microbiome that could change the relationship between the host and associated microbes [@neto_upper_2017]. 
+This is well documented gastrointestinal (GI) disorders including irritable bowel syndrome, peptic ulcers, and even gastric and colon cancers [@neto_upper_2017]. 
+Gut dysbiosis is documented in patients with colorectal cancers [@nakatsu_alterations_2018]. 
+
+At present, the majority of cancer microbiome studies focus on the bacteria(citation needed). 
+Colorectal cancer is previously linked to changes to the colonic bacterial composition yet the gut virome is vastly unexplored [@nakatsu_alterations_2018].
+
+Virome is a viral community associated with a particular ecosystem or holobiont. 
+In mammals, the viruses infect host cells and the variety of organisms that inhabit us. 
+Identifying and understanding the virome within a host requires genetic and transcriptional identification of the mammal.  This virome may be able to shed light on the host’s genetics in states of health and states of disease. 
+The virome is composed of both nucleic acids (DNA and RNA).
+
+Human viruses associated with many cancers, due to their manipulative and mutagenic abilities [@hannigan_diagnostic_2018]. 
+Viral metagenomic taxa can distinguish colorectal cancer patients from control subjects [@nakatsu_alterations_2018]. 
+Furthermore, a subset of markers were identified as high-risk from a subset of patients with colorectal cancer.  
+
+Here we address the knowledge gap with respect to whether bacterial and viral community composition differ between healthy patients and those diagnosed with adenoma and carcinoma. 
+
+We used the data from __hannigan paper___ and __sited in report_ to try to understand the viruses and bacteria in the gut microbiome in colorectal cancer.
+
 
 # Methods
 
 ## Study design and data collection
 
 \todo{study design / data collection based on hannigan and zackular papers}
-[@hannigan_diagnostic_2017; @Zackular_human_2014]
+[@hannigan_diagnostic_2018; @zackular_human_2014]
 
 The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927).
 All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.
