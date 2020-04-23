@@ -33,60 +33,83 @@ library(tidyverse)
 \newpage
 # Abstract
 
-Colorectal cancer is the third leading cause of cancer related deaths globally [@rawla_epidemiology_2019]. 
-Colorectal cancer (CRC) initiates in the large intestine emerging from glandular epithelial cells. 
+Colorectal cancer (CRC) is the third leading cause of cancer related deaths globally [@rawla_epidemiology_2019]. 
+CRC initiates in the large intestine emerging from glandular epithelial cells. 
 Due to a selective advantage, obtained from a series of genetic or epigenetic mutations, these unregulated cells grow and can potentially develop into colorectal adenocarcinoma [@ewing_molecular_2014]. 
 Many studies have used the cancer microbiome to investigate how these mutations occur, however, they have almost exclusively focused on bacteria. 
 Human viruses have been implicated in the development of many cancers such as HPV, HTLV-1 and HIV [@liao_viruses_2006]. 
+<<<<<<< HEAD
 Through mutagenic and manipulative abilities, viruses cause unregulated growth by disrupting the normal function of cells. In addition, some bacteriophages have been shown to influence cancer processes through the immunological response [@budynek_bacteriophages_2010]
 The association of colorectal cancer and the gut virome remains unknown, therefore, in this study we propose to investigate the differences in the bacterial and viral community composition and their effect on CRC development. 
+=======
+Through mutagenic and manipulative abilities, viruses cause unregulated growth by disrupting the normal function of cells. In addition, some bacteriophages have been shown to influence cancer processes through the immunological response [@budynek_bacteriophages_2010].
+The association of CRC and the gut virome remains unknown, therefore, in this study we propose to investigate the differences in the bacterial and viral community composition and their effect on CRC development. 
+>>>>>>> 4d04063d5565b708f92c869210bcb4bee033a379
 We performed operational taxonomic unit (OTU) clustering of 16S sequences for bacterial taxonomy and operational viromic unit (OVU) clustering of metaviromes for viral taxonomy to investigate the differences in human colorectal bacterial and viral community composition. 
 Using machine learning classification of OTUs and OVUs from healthy or cancerous samples, we aim to compare performance of the random forest model vs logistic regression. 
+In addition, gene abundance was calculated from metagenomes in healthy vs adenoma or CRC patients and were mapped to pathways to identify key genes and/or pathways that may have a role in CRC.
 Overall, the goal of the current study is to classify whether samples are healthy or cancerous based on bacterial and viral taxa. These results provide evidence that the gut microbiome of patients with CRC differ from healthy patients. 
 
 # Introduction
 
-The leading cancer-related death in the United States is colorectal cancer [@hannigan_diagnostic_2018]. 
-Due to screening techniques and improvements in treatment the rate of colorectal cancer has fallen. 
+The leading cancer-related death in the United States is colorectal cancer (CRC) [@hannigan_diagnostic_2018]. 
+Due to screening techniques and improvements in treatment the rate of CRC has fallen. 
 The primary screening technique is colonoscopy. 
 A new technique gaining popularity is Exact Sciences Cologuard, a combination test which looks for both the genetic material found in colon cancer and some more advanced colon polyps and it detects hemoglobin in the stool using fecal immunochemical testing (Cologuard). 
-While colon cancer screening techniques are advancing, we aim to understand the environment of colorectal cancer. 
+While colon cancer screening techniques are advancing, we aim to understand the environment of CRC. 
 
 Gut dysbiosis is any change to the normal microbiome that could change the relationship between the host and associated microbes [@neto_upper_2017]. 
 This is well documented gastrointestinal (GI) disorders including irritable bowel syndrome, peptic ulcers, and even gastric and colon cancers [@neto_upper_2017]. 
-Gut dysbiosis is documented in patients with colorectal cancers [@nakatsu_alterations_2018]. 
-Though the underlying mechanisms of these microbes is yet unknown, some bacteria were found to be associated with colorectal cancer [@ternes_microbiome_2020-1]. 
+Gut dysbiosis is documented in patients with CRC [@nakatsu_alterations_2018]. 
+Though the underlying mechanisms of these microbes is yet unknown, some bacteria were found to be associated with CRC [@ternes_microbiome_2020-1]. 
 These include *Fusobacterium*, *Peptostreptococcus*, *Porphyromonas*, *Prevotella*, *Parvimonas*, *Bacteroides*, and *Gemella*, and they may be able to affect the disease state via metabolite secretion, host tissue invasion, and inducing host immune response [@ternes_microbiome_2020-1]. 
 
-At present, the majority of cancer microbiome studies focus on the bacteria [@neto_upper_2017]. Colorectal cancer is previously linked to changes to the colonic bacterial composition, yet the gut virome is vastly unexplored [@nakatsu_alterations_2018].
+At present, the majority of cancer microbiome studies focus on the bacteria [@neto_upper_2017]. CRC was previously linked to changes to the colonic bacterial composition, yet the gut virome is vastly unexplored [@nakatsu_alterations_2018].
 
 Virome is a viral community associated with a particular ecosystem or holobiont. 
 In mammals, the viruses infect host cells and the variety of organisms that inhabit us. 
-Identifying and understanding the virome within a host requires genetic and transcriptional identification of the mammal.  This virome may be able to shed light on the host’s genetics in states of health and states of disease. The virome is composed of both nucleic acids (DNA and RNA).
+Identifying and understanding the virome within a host requires genetic and transcriptional identification of the mammal. 
+This virome may be able to shed light on the host’s genetics in states of health and states of disease. 
+The virome is composed of both nucleic acids (DNA and RNA).
  
 Human viruses are associated with many cancers, due to their manipulative and mutagenic abilities [@hannigan_diagnostic_2018]. 
-Viral metagenomic taxa can distinguish colorectal cancer patients from control subjects [@nakatsu_alterations_2018]. 
-Furthermore, a subset of markers were identified as high-risk from a subset of patients with colorectal cancer.  
+Viral metagenomic taxa can distinguish CRC patients from control subjects [@nakatsu_alterations_2018]. 
+Furthermore, a subset of markers were identified as high-risk from a subset of patients with CRC.  
 
-The composition of the microbiome is further affected by the presence and population of bacteriophages [@hsu_dynamic_2019].  Hsu *et al.* [@hsu_dynamic_2019] introduces lytic phages colonized with human gut bacteria.  The phages showed direct effects, that phage predation decreases the susceptible bacterial species, while resistant populations flourish.  Indirect effects include cascading effects on other bacterial species through interbacterial interactions.  Shifts in the microbiome caused by phage predation have a direct effect on the gut metabolome [@hsu_dynamic_2019]. 
+The composition of the microbiome is further affected by the presence and population of bacteriophages [@hsu_dynamic_2019].  Hsu *et al.* [@hsu_dynamic_2019] introduces lytic phages colonized with human gut bacteria. 
+The phages showed direct effects, that phage predation decreases the susceptible bacterial species, while resistant populations flourish. 
+Indirect effects include cascading effects on other bacterial species through interbacterial interactions. 
+Shifts in the microbiome caused by phage predation have a direct effect on the gut metabolome [@hsu_dynamic_2019]. 
 
 Here we address the knowledge gap with respect to whether bacterial and viral community composition differ between healthy patients and those diagnosed with adenoma and carcinoma. 
 
-We used the data from Hannigan *et al.* [@hannigan_diagnostic_2018] and NCBI BioProject ID: PRJA389927 to try to understand the differences in the bacterial and viral community composition between human stool samples from patients diagnosed as normal, adenoma, and carcinoma. We also try to illuminate if there differences in bacterial & viral community composition between human stool samples from patients of the three groups. In order to do this, we use the same approach of Hannigan *et al.* [@hannigan_diagnostic_2018] with a random forest model with OTUs or OVUs as features.  We also seek to understand differences in functional potential between metagenomes of the three samples groups.  This would be demonstrated by differences in OTU levels between the three conditions: cancer, adenoma, and heatlhy control.
+We used the data from Hannigan *et al.* [@hannigan_diagnostic_2018] and NCBI BioProject ID: PRJA389927 to try to understand the differences in the bacterial and viral community composition between human stool samples from patients diagnosed as normal, adenoma, and carcinoma. 
+We also try to illuminate if there differences in bacterial & viral community composition between human stool samples from patients of the three groups. 
+In order to do achieve these objectives, we use the same approach as Hannigan *et al.* [@hannigan_diagnostic_2018] with a random forest model with OTUs or OVUs as features. 
+We also seek to understand differences in functional potential between metagenomes of the three samples groups by examining the relative gene abundance and pathways. 
+This would be demonstrated by differences in OTU levels between the three conditions: cancer, adenoma, and heatlhy control.
 
 
 # Methods
 
 ## Study design and data collection
 
-The data used for our evaluation have been previously reported [@hannigan_diagnostic_2018; @zackular_human_2014]. Whole evacuated stool was collected from patients. Patient requirements included a minimum age of 18 years of age, informed consent, a histologically confirmed colonic disease status from a previous colonoscopy, no history of surgery or chemotherapy, and free of known comorbidities. These comorbities included chronic viral hepatitis, inflammatory bowel disease, hereditary nonpolyposis colorectal cancer (HNPCC), HIV, and familial adenomatous polyposis (FAP). Ninety patients were recruited to the study. Three designated disease classes were designated: adenoma, carinoma, and healthy. Of these three disease classes, thirty patients were classified into each. Samples were collected from four geographic locations: Ann Arbor (MI, USA), Boston (MA, USA), Houston (TX, USA), and Toronto (Ontario, Canada).
+The data used for our evaluation have been previously reported [@hannigan_diagnostic_2018; @zackular_human_2014]. 
+Whole evacuated stool was collected from patients. 
+Patient requirements included a minimum age of 18 years of age, informed consent, a histologically confirmed colonic disease status from a previous colonoscopy, no history of surgery or chemotherapy, and free of known comorbidities. 
+These comorbities included chronic viral hepatitis, inflammatory bowel disease, hereditary nonpolyposis colorectal cancer (HNPCC), HIV, and familial adenomatous polyposis (FAP). 
+Ninety patients were recruited to the study. 
+Three designated disease classes were designated: adenoma, carinoma, and healthy. 
+Of these three disease classes, thirty patients were classified into each. 
+Samples were collected from four geographic locations: Ann Arbor (MI, USA), Boston (MA, USA), Houston (TX, USA), and Toronto (Ontario, Canada).
 
 The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927).
 All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.
 
 ## 16S rRNA gene sequence processing
 
-The 16S rRNA gene sequences associated with this study were previously reported by [@zackular_human_2014]. The fastq sequence and metadata files were downloaded from the NCBI sequence read archive with the sra toolkit.
+The 16S rRNA gene sequences associated with this study were previously reported by [@zackular_human_2014]. 
+The fastq sequence and metadata files were downloaded from the NCBI sequence read archive with the sra toolkit.
 The 16S rRNA gene sequences were analyzed with the mothur software package (v1.43.0) [@schloss_introducing_2009] according to the MiSeq standard operating procedure [@kozich_development_2013].
 Mothur allows contigs from forward and reverse reads to be assembled, pre-processing steps for primer removal and quality screening, and the identification of unique sequences.
 After these steps were taken to reduce sequencing and PCR errors, sequences were aligned to the SILVA database [@pruesse_silva_2007], screened for chimeras using VSEARCH, and clustered into operational taxonomic units (OTUs) using the default 97\% similarity threshold.
@@ -128,18 +151,18 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
 
 ## Bacterial diversity in colorectal cancer
 
-The influence of colorectal cancer on bacterial diversity was evaluated amongst the three disease classes.
+The influence of CRC on bacterial diversity was evaluated amongst the three disease classes.
 A total of 3,904 OTUs were identified.
 Alpha and beta diversity metrics are used to characterize and distinguish ecological communities in broad strokes.
 As a metric of alpha diversity, the Shannon diversity index describes diversity within communities in terms of richness and evenness, taking into account the abundance of the species present [@tuomisto_diversity_2010].
 As seen in Fig. \ref{fig:diversity}A, individuals with healthy colons do not appear to have a distinctly different gut microbiome from a species richness and evenness perspective.
 Although the mean Shannon diversity decreased along the progression from healthy, to adenoma, to cancer (Fig. \ref{fig:diversity}A),
-these perceived differences were not statistically significant among the disease groups (analysis of variance [ANOVA] p-value = 0.3).
+these perceived differences were not statistically significant among the disease groups (analysis of variance [ANOVA] *p*-value = 0.3).
 This result suggests that individuals with cancerous and healthy colons may have a select group of OTUs that dominate the environment since their index values are not relatively high.
 
 \begin{figure}[ht]
   \includegraphics[width=1\textwidth, center]{../figures/alpha_beta_diversity.png}  
-  \caption{(A) Shannon diversity index across disease states and (B) Multi-dimensional scaling plot of Bray-Curtis Distances.}
+  \caption{(A) Shannon diversity index across disease states and (B) multi-dimensional scaling plot of Bray-Curtis Distances.}
   \label{fig:diversity}
 \end{figure}
 
@@ -171,6 +194,7 @@ Previous work by Hannigan _et al._ additionally included models trained on bacte
 
 The taxonomic profiles were constructed based on the bacterial metagenomes extracted from the gut microbiomes of healthy, adenoma, and cancer patients using MetaPhlAn2 (Fig. \ref{fig:taxabun}).
 There are subtle differences of community composition between healthy patients and those who were diagnosed with adenoma or cancer.
+
 At the phylum level, some healthy patients have more members of the phyla Verrucomicrobia, Bacteroidetes, and Actinobacteria as compared to other patient groups.
 In addition, some patients with adenoma or cancer have a greater abundance of species belonging to the Proteobacteria phylum.
 The gut microbiome of healthy patients are relatively more abundant with members of the families *Ruminococcaceae*, *Lachnospiraceae*, *Bifidobacteriaceae*, and *Akkermansiaceae*.
@@ -205,7 +229,8 @@ In the subsequent differential gene abundance analysis, abundance of 6,104 disti
 In both cases, there were approximately 130 genes that were less abundant in adenoma and cancer patients, whereas around 600 to 1,000 genes were more abundant.
 Differentially abundant genes that were found in both adenoma and cancer patient groups were selected and used to map to metabolic pathways using the KEGG mapper (see Table \ref{tab:genes_pos}).
 
-The less and more abundant genes found in adenoma and cancer patients mapped to approximately 20 and 550 genes in the KEGG pathways, respectively.
+The less and more abundant genes found in adenoma and cancer patients mapped to approximately 20 and 550 genes in the KEGG pathways, respectively. 
+The number of genes mapped may be different from the query list due to lack of mapping or genes involved in multiple pathways.
 Less abundant genes in adenoma and cancer patients were slightly enriched in pathways in metabolism, genetic information processing, signal transduction, transport and catabolism, immune system, and bacterial infectious disease.
 Contrastingly, more abundant genes in adenoma and cancer patients were most enriched in pathways in metabolism, environmental information processing, and cellular proccesses amongst other pathways.
 Though human genome was filtered out through pre-processing, pathways pertaining to human diseases and organismal systems were also enriched in the case of genes more abundant in adenoma and cancer patients.
@@ -237,29 +262,29 @@ kable(
 # Discussion
 
 Some differences in the gut microbiome community composition between the patient groups may reflect prior findings. 
-Members of the *Peptostreptococacceae* and *Porphyromonadaceae* family are slightly more abundant in adenoma or cancer patients, which were previously found to be associated with colorectal cancer [@ternes_microbiome_2020-1]. 
-In addition, the enrichment of species included in the *Lachnospiraceae* family in the healthy patients also support prior studies indicating lower abundance of these butyrate-producing bacteria in colorectal cancer patients [@rinninella_what_2019]. 
+Members of the *Peptostreptococacceae* and *Porphyromonadaceae* family are slightly more abundant in adenoma or cancer patients, which were previously found to be associated with CRC [@ternes_microbiome_2020-1]. 
+In addition, the enrichment of species included in the *Lachnospiraceae* family in the healthy patients also support prior studies indicating lower abundance of these butyrate-producing bacteria in CRC patients [@rinninella_what_2019]. 
 
 Moreover, higher abundance of Proteobacteria and lower abundance of Bacteroidetes in some patients with adenoma or carcinoma as compared to healthy patients in this study also demonstrate previous findings by Shen *et al.* [@shen_molecular_2010, @burns_virulence_2015]. 
-Gene abundance analysis using the metagenomes from patients indicated enrichment in genes and pathways previously shown to be associated with gastrointestinal diseases including colorectal cancer. 
+Gene abundance analysis using the metagenomes from patients indicated enrichment in genes and pathways previously shown to be associated with GI diseases including CRC. 
 Genes K07345 and K07347 corresponding to fimbriae genes *fimA*, *fimD* that are associated with inflammatory bowel disease were found to be enriched in patients with adenoma or cancer [@minot_clustering_2019]. 
 Virulence genes, specifically bacterial secretion systems, two-component systems, bacterial flagellar assembly, and biofilm formation, each part of membrane transport, signal transduction, bacterial cell motility, and prokaryotic cellular community pathways, respectively, were highly enriched in patients with adenoma or cancer. 
 This is in line with previous studies, where virulence genes were found to be closely associated with colorectal tumor microenvironments [@burns_virulence_2015].
 
-The alpha and beta diversity of bacteria of the gut microbiome did not significantly shift in response to the presence of colorectal cancer.
+The alpha and beta diversity of bacteria of the gut microbiome did not significantly shift in response to the presence of CRD.
 Standard alpha and beta diversity metrics did not adequately capture bacterial community differences of the healthy and cancerous gut.
 This illuminates that examining diversity metrics alone may not be an adequate tool for identifying a healthy versus a cancerous colon.
 
 \todo{random forest discriminates disease classes better than diversity metrics}
 
-Kostic *et al.* [@kostic_genomic_2012] have previously shown that members of the genus *Fusobacterium* are associated with colorectal cancer. 
+Kostic *et al.* [@kostic_genomic_2012] have previously shown that members of the genus *Fusobacterium* are associated with CRC 
 The results of our study also support this finding, as an OTU containing members of this genus was the most important feature of the bacterial classification model.
 
-Overall, the taxonomic and gene abundance analyses gave insight into enriched members that have previously established association with colorectal cancer. 
-In addition, alpha and beta diversity metrics were not sufficient to identify colorectal cancer in patients, but the random forest model performed better in classifying disease states. 
+Overall, the taxonomic and gene abundance analyses gave insight into enriched members that have previously established association with CRC. 
+In addition, alpha and beta diversity metrics were not sufficient to identify CRC in patients, but the random forest model performed better in classifying disease states. 
 Interesting analyses that were not included in this study due to time constraints are taxonomic and gene co-abundance analysis, gut microbiome network analysis to identify hubs important in cancer disease state, and...
 \todo{PLEASE ADD MORE ANALYSES YOU WANTED TO COMPLETE!!}
-A more stringent statistical analysis of taxonomic and gene abundance results would provide a measure to identify key members that are important in colorectal cancer.
+A more stringent statistical analysis of taxonomic and gene abundance results would provide a measure to identify key members that are important in CRC.
 
 # Acknowledgements and project contributions
 
