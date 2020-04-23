@@ -97,12 +97,12 @@ This would be demonstrated by differences in OTU levels between the three condit
 ## Study design and data collection
 
 The data used for our evaluation have been previously reported [@hannigan_diagnostic_2018; @zackular_human_2014]. 
-Whole evacuated stool was collected from patients. 
+Whole bacterial metagenomes and viromes were isolated from whole evacuated stool samples collected from patients. 
 Patient requirements included a minimum age of 18 years of age, informed consent, a histologically confirmed colonic disease status from a previous colonoscopy, no history of surgery or chemotherapy, and free of known comorbidities. 
 These comorbities included chronic viral hepatitis, inflammatory bowel disease, hereditary nonpolyposis colorectal cancer (HNPCC), HIV, and familial adenomatous polyposis (FAP). 
 Ninety patients were recruited to the study. 
-Three designated disease classes were designated: adenoma, carinoma, and healthy. 
-Of these three disease classes, thirty patients were classified into each. 
+Three disease classes were designated: adenoma, carinoma, and healthy. 
+Thirty patients were classified into each of these classes.
 Samples were collected from four geographic locations: Ann Arbor (MI, USA), Boston (MA, USA), Houston (TX, USA), and Toronto (Ontario, Canada).
 
 The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927).
@@ -183,7 +183,7 @@ There was no statistically significant clustering of the disease groups ([ANOVA]
 
 ## Classification modeling discriminates disease states
 
-\begin{wrapfigure}{L}{0.5\textwidth}
+\begin{wrapfigure}{R}{0.5\textwidth}
     \begin{center}
         \includegraphics[width=0.5\textwidth]{../figures/auroc.png}  
         \caption{Model performance as measured by the receiver operating characteristic (ROC) curve for models trained on bacterial abundance or viral abundance data.}
@@ -221,24 +221,26 @@ Conversely, the gut microbiome of patients with adenoma or cancer seem to have g
 
 ## Metagenome annotation and quantification
 
-\begin{wrapfigure}{R}{0.5\textwidth}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \vspace{-12pt}
     \begin{center}
         \includegraphics[width=0.5\textwidth]{../figures/gene_abundance_MDS.pdf}  
         \caption{Multidimensional scaling (MDS) abundance plot based on log2 fold-change (logFC) of KEGG annotation counts derived from gut microbiome of patients that are healthy, or diagnosed with adenoma or carcinoma.}
         \label{fig:MDS_KeggNo}  
     \end{center}
+    \vspace{-12pt}
 \end{wrapfigure}
 
-The gut metagenomes from patients that are healthy or diagnosed with adenoma or cancer were aligned to the IGC database to annotate the genes with KEGG numbers.
+The metagenomes isolated from stool samples of patients that were healthy or diagnosed with adenoma or cancer were aligned to the IGC database to annotate the genes with KEGG numbers.
 KEGG number counts were calculated for all samples, then were used to determine whether specific genes were more or less abundant in patients with adenoma or cancer as compared to those who are healthy using edgeR.
-Seven samples, including the negative control, with extremely low read counts were excluded from subsequent analyses, as they strongly skewed the results.
-Multidimensional scaling (MDS) analysis of the KEGG number counts between different groups did not show clear clustering within groups (Fig. \ref{fig:MDS_KeggNo}).
+There were seven samples including the negative control with extremely low read counts which were excluded from subsequent analyses, as they strongly skewed the results.
+Multidimensional scaling (MDS) analysis of the KEGG number counts between different groups did not show any distinct clustering within groups (Fig. \ref{fig:MDS_KeggNo}).
 
-In the subsequent differential gene abundance analysis, abundance of 6,104 distinct genes were compared between healthy vs adenoma and healthy vs cancer patients.
-In both cases, there were approximately 130 genes that were less abundant in adenoma and cancer patients, whereas around 600 to 1,000 genes were more abundant.
-Differentially abundant genes that were found in both adenoma and cancer patient groups were selected and used to map to metabolic pathways using the KEGG mapper (see Table \ref{tab:genes_pos}).
+In the subsequent differential gene abundance analysis, the abundances of 6,104 distinct genes were compared between healthy vs adenoma and healthy vs cancer patients.
+In both cases, there were approximately 130 genes that were less abundant in adenoma and cancer patients, whereas around 600 to 1,000 genes were more abundant compared to healthy patients.
+Differentially abundant genes that were found in both adenoma and cancer patient groups were selected and mapped to metabolic pathways using the online KEGG mapper tool (see Table \ref{tab:genes_pos}).
 
-The less and more abundant genes found in adenoma and cancer patients mapped to approximately 20 and 550 genes in the KEGG pathways, respectively. 
+The differentially-abundant genes found in adenoma and cancer patients mapped to approximately 20 and 550 genes in the KEGG pathways, respectively. 
 The number of genes mapped may be different from the query list due to lack of mapping or genes involved in multiple pathways.
 Less abundant genes in adenoma and cancer patients were slightly enriched in pathways in metabolism, genetic information processing, signal transduction, transport and catabolism, immune system, and bacterial infectious disease.
 Contrastingly, more abundant genes in adenoma and cancer patients were most enriched in pathways in metabolism, environmental information processing, and cellular proccesses amongst other pathways.
@@ -322,3 +324,4 @@ Katelyn Polemi and Nicole Bowers worked together to create figures for analyses 
 Kelly Sovacool wrote the virome assembly pipeline, wrote and performed the classification modeling steps, collaborated in developing the metagenome quality control steps, integrated others' methods into a cohesive workflow, helped others troubleshoot at various steps, and participated in writing and editing the subsections of this report associated with the 16S data processing, virome pipeline, quality control, and classification modeling analyses.
 
 # References
+\small
