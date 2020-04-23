@@ -118,9 +118,18 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
 
 ## Bacterial diversity
 
+\begin{figure}[h]
+  \includegraphics[width=1\textwidth, center]{../figures/alpha_beta_diversity.png}  
+  \caption{}
+  \label{fig:diversity}
+\end{figure}
+
+\todo{caption for the diversity plot and describe results}
+Shannon diversity showed a general decreasing trend along the progression from healthy, adenoma, to cancer (Fig. \ref{fig:diversity}).
+
 ## Classification modeling
 
-\begin{wrapfigure}{L}{0.4\textwidth}
+\begin{wrapfigure}{r}{0.4\textwidth}
     \begin{center}
         \includegraphics[width=0.39\textwidth]{../figures/auroc.png}  
         \caption{Model performance as measured by the receiver operating characteristic (ROC) curve for models trained on 16S bacterial OTU abundance or virus OVU abundance.}
@@ -135,7 +144,7 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
 
 ## Metagenome annotation and quantification
 
-\begin{wrapfigure}{R}{0.5\textwidth}
+\begin{wrapfigure}{l}{0.5\textwidth}
     \begin{center}
         \includegraphics[width=0.49\textwidth]{../figures/gene_abundance_MDS.pdf}  
         \caption{Multidimensional scaling (MDS) abundance plot based on KEGG annotation counts derived from gut microbiome of patients that are healthy (H) or diagnosed with adenoma (A) or cancer (C).}
