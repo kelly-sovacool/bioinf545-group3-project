@@ -91,6 +91,9 @@ The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https:
 All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.
 
 ## 16S rRNA gene sequence processing
+The 16S rRNA gene sequences associated with this study were previously reported by [@Zackular_human_2014]Sequence (fastq) and metadata files were downloaded from the following site: http://www.mothur.org/MicrobiomeBiomarkerCRC.
+The 16S rRNA gene sequences were analyzed with the mothur software package (v1.37.0) [@kozich_Development_2013] [@schloss_introducing_2009]. Mothur allows contigs from forward and reverse fastq files to be generated, pre-processing steps for primer removal and quality screening, and the identification of unique sequences. After these steps were taken to reduce sequencing and PCR errors, sequences were aligned to the SILVA database [@pruesse_SILVA_2007], screened for chimeras using VSEARCH, and binned into operational taxonomic units (OTUs) using a 97% similarity threshold. 
+
 
 \todo{mothur}
 Alpha and beta diversity metrics were calculated with the vegan R package [@oksanen_vegan_2018].
@@ -104,6 +107,10 @@ Then, reads mapping to the human GRCh38 reference genome were removed using the 
 The paired unmapped reads were used for taxonomic profiling and gene annotation.
 
 ## Virome assembly
+Closely related viral contig sequences were categorized into operational viral units (OVUs) in the absence of taxonomic identity. 
+OVUs were defined with the CONCOCT algorithm (v0.4.0). 
+This algorithm applies a variation-based Bayesian approach that bins related contigs by similar tetramer and coabundance profiles within samples [@alneberg_binning_2014].
+
 
 \todo{virome pipeline}
 
@@ -135,10 +142,12 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
   \label{fig:diversity}
 \end{figure}
 
+The influence of colorectal cancer on bacterial OTU diversity was evaluated amongst the three disease classes. 
 Shannon diversity index of the 16S bacterial abundance data showed a general decreasing trend along the progression from healthy, to adenoma, to cancer (Fig. \ref{fig:diversity}A). 
 As a metric of alpha diversity, the Shannon diversity index describes diversity within communities in terms of richness and evenness.
 In contrast to Shannon diversity, Bray-Curtis distance is a beta diversity metric that quantifies diversity between communities [@tuomisto_diversity_2010].
 The pairwise Bray-Curtis distances of sample-wise OTU abundances were calculated and plotted as a multi-dimensional scaling plot, but there is no distinguishable separation among the disease classes (Fig. \ref{fig:diversity}B).
+This is further supported by analysis of variance (ANOVA) analyses for both alpha and beta diversity (P value > 0.23 and P value > 0.3 respectively).
 These alpha and beta diversity metrics characterize and distinguish communities in broad strokes.
 
 ## Classification modeling
@@ -239,6 +248,10 @@ kable(
 
 
 # Discussion
+
+Based upon the alpha and beta diversity of the OTUs, it is possible that the gut microbiome does not significantly shift in response to the presence of colorectal cancer. 
+Standard alpha and beta diversity metrics do not adequately capture community differences of the bacterial community. 
+This illuminates that examining the 16S sequences of the gut microbiome may not be an adequate tool for identifying a healthy versus a cancerous colon.
 
 \todo{discuss: taxonomic abundance, random forest discriminates disease classes better than diversity metrics, gene abundance}
 
