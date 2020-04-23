@@ -176,6 +176,15 @@ rule re_pair_2:
         repair.sh in={input.R1} in2={input.R2} out={output.R1} out2={output.R2} outs={output.single} 2> {log}
         """
 
+rule taxa_bar_plot:
+    input:
+        code="code/16S/taxa_bar_plot.R"
+    output:
+        png="figures/taxa_barplot_phylum.png"
+    shell:
+        """
+        Rscript {input.code}
+
 rule model_OTU:
     input:
         code="code/predict_OTU.R",

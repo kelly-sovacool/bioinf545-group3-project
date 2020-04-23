@@ -122,4 +122,5 @@ write.table(DEgenes_pos,
 write.table(DEgenes_neg,
   file = here::here("data", "metagenome", "gene_abundance_results", "DEgenes_neg.txt"),
   sep = "\t", row.names = T, quote = F, col.names = F
+
 )
