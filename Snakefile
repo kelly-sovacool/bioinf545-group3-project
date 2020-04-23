@@ -16,9 +16,7 @@ rule targets:
     input:
         "docs/report.pdf",
         "data/metagenome/all_kegg_counts.csv",
-        "data/metagenome/metaphlan2_results/merged.txt",
-        "data/model/rf_model_bacteria.tsv",
-        "data/model/rf_model_virus.tsv"
+        "data/metagenome/metaphlan2_results/merged.txt"
 
 rule render_pdf:
     input:
