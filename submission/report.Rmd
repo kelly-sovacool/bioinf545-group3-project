@@ -3,9 +3,6 @@ title: "Investigating the microbial community of the human gut in colorectal can
 author: "Nicole Bowers, Brittany Hicks, Christina Kang-Yun, Katelyn Polemi, Kelly Sovacool"
 csl: mbio.csl
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   pdf_document:
     includes:
       in_header: preamble_report.tex
@@ -14,10 +11,14 @@ output:
     toc: yes
   word_document:
     toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
 geometry: margin=1in
 link-citations: yes
 fontsize: 11pt
 bibliography: refs_report.bib
+subparagraph: true # fixed error that says "! Argument of \paragraph has an extra }."
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, 
@@ -77,6 +78,10 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
 
 # Results
 
+## Taxnomonic abundance based on metagenome
+
+
+
 ## Metagenome annotation and quantification
 
 \begin{wrapfigure}{R}{0.5\textwidth}
@@ -92,9 +97,14 @@ KEGG number counts were calculated for all samples, then were used to determine 
 Seven samples, including the negative control, with extremely low read counts were excluded from subsequent analyses, as they strongly skewed the results. 
 Multidimensional scaling (MDS) analysis of the KEGG number counts between different groups did not show clear clustering within groups (Fig. \ref{fig:MDS_KeggNo}). 
 
-In the subsequent differential gene abundance analysis, abundance of 5,821 distinct genes were compared between healthy vs adenoma and healthy vs cancer patients. 
-In both cases, there were approximately 100 genes that were less abundant in adenoma and cancer patients, whereas around 1,200 to 1,500 genes were more abundant. 
-Differentially abundant genes that were found in both adenoma and cancer patient groups were selected and used to map to metabolic pathways using the KEGG mapper (see Table \ref{tab:genes_neg} and Table \ref{tab:genes_pos}). 
+In the subsequent differential gene abundance analysis, abundance of 6,104 distinct genes were compared between healthy vs adenoma and healthy vs cancer patients. 
+In both cases, there were approximately 130 genes that were less abundant in adenoma and cancer patients, whereas around 600 to 1,000 genes were more abundant. 
+Differentially abundant genes that were found in both adenoma and cancer patient groups were selected and used to map to metabolic pathways using the KEGG mapper (see Tables \ref{tab:genes_neg} and \ref{tab:genes_pos}). 
+
+The less and more abundant genes found in adenoma and cancer patients mapped to approximately 20 and 550 genes in the KEGG pathways, respectively. 
+Less abundant genes in adenoma and cancer patients were slightly enriched in pathways in metabolism, genetic information processing, signal transduction, transport and catabolism, immune system, and bacterial infectious disease (Table \ref{tab:genes_neg}).
+Contrastingly, more abundant genes in adenoma and cancer patients were most enriched in pathways in metabolism, environmental information processing, and cellular proccesses amongst other pathways. 
+Though human genome was filtered out through pre-processing, pathways pertaining to human diseases and organismal systems were also enriched in the case of genes more abundant in adenoma and cancer patients.
 
 
 ```{r kegg_genes_neg}
@@ -113,7 +123,7 @@ kable(
   caption = "Genes that are less abundant in adenoma or cancer patients as compared to healthy patients. \\label{tab:genes_neg}"
 ) %>%
   kable_styling(font_size = 8) %>%
-  row_spec(c(1, 8, 11), bold = TRUE)
+  row_spec(c(1, 17, 20, 22, 24, 26), bold = TRUE)
 ```
 
 
@@ -125,25 +135,22 @@ DEgenes_pos <-
     "gene_abundance_results",
     "DEgenes_pos.csv"
   ))
-DEgenes_pos$Number.of.Genes <-
-  DEgenes_pos$Number.of.Genes %>% replace_na("")
+DEgenes_pos <- DEgenes_pos %>% replace(., is.na(.), '')
 DEgenes_pos <-
-  DEgenes_pos %>% select(-KEGG.No.) %>% filter(KEGG.Pathway != "")
+  DEgenes_pos %>% filter(Total.Number.of.Genes != "" | KEGG.Pathway != "")
+DEgenes_pos$etc <- as.numeric(DEgenes_pos$Total.Number.of.Genes) - as.numeric(DEgenes_pos$Number.of.Genes)
+DEgenes_pos$X <- paste(DEgenes_pos$X, if_else(DEgenes_pos$etc == 0, "", ", etc.", ""), sep = '')
+DEgenes_pos <- DEgenes_pos %>% select(KEGG.Pathway, X, Total.Number.of.Genes)
 kable(
   DEgenes_pos,
   col.names = c("KEGG Pathway", "", "Number of Genes"),
   caption = "Genes that are more abundant in adenoma or cancer patients as compared to healthy patients. \\label{tab:genes_pos}"
 ) %>%
   kable_styling(font_size = 8) %>%
-  row_spec(c(1, 14, 17, 20, 24, 27), bold = TRUE)
+  row_spec(c(1, 14, 18, 21, 25, 28), bold = TRUE)
 ```
 
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 871a11fac658bce197830d0bdfae13a4feb0ab6a
 # Discussion
 
 # Acknowledgements
