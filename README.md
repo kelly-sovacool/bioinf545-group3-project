@@ -1,5 +1,7 @@
 # bioinf545-group3-project
 
+[![badge](https://img.shields.io/badge/report-PDF-blue.svg)](https://sovacool.dev/bioinf545-group3-project/report.pdf)
+
 Group members:
 
 - Nicole Bowers

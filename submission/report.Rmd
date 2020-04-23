@@ -1,32 +1,43 @@
 ---
-output:
-    pdf_document:
-        latex_engine: xelatex
-        keep_tex: false
-        includes:
-          in_header: preamble_report.tex
-        toc: true
-fontsize: 11pt
-geometry: margin=1in
-bibliography: refs_report.bib
-csl: mbio.csl
-link-citations: true
 title: "Investigating the microbial community of the human gut in colorectal cancer"
 author: "Nicole Bowers, Brittany Hicks, Christina Kang-Yun, Katelyn Polemi, Kelly Sovacool"
+csl: mbio.csl
+output:
+  pdf_document:
+    includes:
+      in_header: preamble_report.tex
+    keep_tex: no
+    latex_engine: xelatex
+    toc: yes
+  word_document:
+    toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
+geometry: margin=1in
+link-citations: yes
+fontsize: 11pt
+bibliography: refs_report.bib
+subparagraph: true # fixed error that says "! Argument of \paragraph has an extra }."
 ---
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, 
-                      fig.path = here::here("figures/"))
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE,
+                      fig.path = here::here("figures/")
+                      )
 ```
 ```{r load}
 library(broom)
 library(here)
+library(kableExtra)
 library(knitr)
 library(tidyverse)
 ```
 
 \newpage
 \todo{Guidelines: https://drive.google.com/file/d/1YNqYiMJYiVWXiSR9yWUbQTPAoUpVa9Id/view}
+
 # Abstract
 
 Colorectal cancer is the third leading cause of cancer related deaths globally [@rawla_epidemiology_2019]. 
@@ -76,17 +87,16 @@ We used the data from __hannigan paper___ and __sited in report_ to try to under
 \todo{study design / data collection based on hannigan and zackular papers}
 [@hannigan_diagnostic_2018; @Zackular_human_2014]
 
-The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927). 
+The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927).
 All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.
-\todo{make the repo public before submitting}
 
 ## 16S rRNA gene sequence processing
 
 ## Metagenome and virome quality control
 
 Trimmomatic (v.0.39) [@bolger_trimmomatic_2014] was used to remove adapter sequences and low-quality reads in metagenome and virome sample sets. 
-The read quality was assessed using FastQC (v.0.11.9) [@andrews_fastqc_2010] before and after adapter trimming to confirm removal of adapters and low quality reads. 
-Unpaired reads were dropped using the repair function in BBTools (v.37.62) [@bushnell_bbtools_2018]. 
+The read quality was assessed using FastQC (v.0.11.9) [@andrews_fastqc_2010] before and after adapter trimming to confirm removal of adapters and low quality reads.
+Unpaired reads were dropped using the repair function in BBTools (v.37.62) [@bushnell_bbtools_2018].
 Then, reads mapping to the human GRCh38 reference genome were removed using the BWA-MEM algorithm (BWA v.0.7.12) [@li_aligning_2013].
 The paired unmapped reads were used for taxonomic profiling and gene annotation.
 
@@ -96,33 +106,94 @@ The paired unmapped reads were used for taxonomic profiling and gene annotation.
 
 ## Metagenome taxonomic profiling and gene annotation
 
-The human genome-free reads were used to profile the metagenomic taxonomy at the species, genus, family, and phylum levels using MetaPhlAn2 [@truong_metaphlan2_2015]. 
+The human genome-free reads were used to profile the metagenomic taxonomy at the species, genus, family, and phylum levels using MetaPhlAn2 [@truong_metaphlan2_2015].
 The results were visualized using the R package phyloseq [@mcmurdie_phyloseq_2013].
 
-The paired reads that did not map to the human genome were aligned to the integrated gene catalog (IGC) [@li_integrated_2014] of 1267 gut microbiome samples consisting of approximately 10 million genes with the BWA MEM algorithm for metagenome annotation [@li_aligning_2013]. 
+The paired reads that did not map to the human genome were aligned to the Integrated Gene Catalog (IGC) [@li_integrated_2014] of 1,267 gut microbiome samples consisting of approximately 10 million genes with the BWA MEM algorithm for metagenome annotation [@li_aligning_2013]. 
 Annotated genes were extracted from the alignment results using functions geneList and countKegg modified from the MGS-Fast pipeline [@brown_mgs-fast_2019]. 
 The differences in gene abundance between healthy, adenoma, and cancer groups were assessed using the R package edgeR [@robinson_edger_2009]. 
-The top 500 KEGG numbers of genes that were significantly different between healthy and other groups were selected and the relevant KEGG pathway was determined using the KEGG mapper tool [@kanehisa_kegg_2020].
+Up to 480 top KEGG numbers of genes that were significantly different between healthy and other groups were selected and the relevant KEGG pathway was determined using the KEGG mapper tool [@kanehisa_kegg_2020].
 
 # Results
 
-\begin{wrapfigure}{R}{0.4\textwidth}
+## Taxnomonic abundance based on metagenome
+
+
+
+## Metagenome annotation and quantification
+
+\begin{wrapfigure}{R}{0.5\textwidth}
     \begin{center}
-        \includegraphics[width=0.35\textwidth]{../figures/rulegraph.png}  
-        \caption{Example}
-        \label{fig:example}  
+        \includegraphics[width=0.49\textwidth]{../figures/gene_abundance_MDS.pdf}  
+        \caption{Multidimensional scaling (MDS) abundance plot based on KEGG annotation counts derived from gut microbiome of patients that are healthy (H) or diagnosed with adenoma (A) or cancer (C).}
+        \label{fig:MDS_KeggNo}  
     \end{center}
 \end{wrapfigure}
 
-Example of referring to a figure in text (Fig. \ref{fig:example}) 
-and including it inline with the text.  
-\todo{remove example figure before submitting}
+The gut metagenome from patients that are healthy or diagnosed with adenoma or cancer was aligned to the IGC database to annotate the genes with KEGG numbers.
+KEGG number counts were calculated for all samples, then were used to determine whether specific genes were more or less abundant in patients with adenoma or cancer as compared to those who are healthy using edgeR.
+Seven samples, including the negative control, with extremely low read counts were excluded from subsequent analyses, as they strongly skewed the results.
+Multidimensional scaling (MDS) analysis of the KEGG number counts between different groups did not show clear clustering within groups (Fig. \ref{fig:MDS_KeggNo}).
+
+In the subsequent differential gene abundance analysis, abundance of 6,104 distinct genes were compared between healthy vs adenoma and healthy vs cancer patients. 
+In both cases, there were approximately 130 genes that were less abundant in adenoma and cancer patients, whereas around 600 to 1,000 genes were more abundant. 
+Differentially abundant genes that were found in both adenoma and cancer patient groups were selected and used to map to metabolic pathways using the KEGG mapper (see Tables \ref{tab:genes_neg} and \ref{tab:genes_pos}). 
+
+The less and more abundant genes found in adenoma and cancer patients mapped to approximately 20 and 550 genes in the KEGG pathways, respectively. 
+Less abundant genes in adenoma and cancer patients were slightly enriched in pathways in metabolism, genetic information processing, signal transduction, transport and catabolism, immune system, and bacterial infectious disease (Table \ref{tab:genes_neg}).
+Contrastingly, more abundant genes in adenoma and cancer patients were most enriched in pathways in metabolism, environmental information processing, and cellular proccesses amongst other pathways. 
+Though human genome was filtered out through pre-processing, pathways pertaining to human diseases and organismal systems were also enriched in the case of genes more abundant in adenoma and cancer patients.
+
+
+```{r kegg_genes_neg}
+DEgenes_neg <-
+  read.csv(file = here(
+    "data",
+    "metagenome",
+    "gene_abundance_results",
+    "DEgenes_neg.csv"
+  ))
+DEgenes_neg$Number.of.Genes <-
+  DEgenes_neg$Number.of.Genes %>% replace_na("")
+kable(
+  DEgenes_neg,
+  col.names = c("KEGG Pathway", "", "Number of Genes", "KEGG No."),
+  caption = "Genes that are less abundant in adenoma or cancer patients as compared to healthy patients. \\label{tab:genes_neg}"
+) %>%
+  kable_styling(font_size = 8) %>%
+  row_spec(c(1, 17, 20, 22, 24, 26), bold = TRUE)
+```
+
+
+```{r kegg_genes_pos}
+DEgenes_pos <-
+  read.csv(file = here(
+    "data",
+    "metagenome",
+    "gene_abundance_results",
+    "DEgenes_pos.csv"
+  ))
+DEgenes_pos <- DEgenes_pos %>% replace(., is.na(.), '')
+DEgenes_pos <-
+  DEgenes_pos %>% filter(Total.Number.of.Genes != "" | KEGG.Pathway != "")
+DEgenes_pos$etc <- as.numeric(DEgenes_pos$Total.Number.of.Genes) - as.numeric(DEgenes_pos$Number.of.Genes)
+DEgenes_pos$X <- paste(DEgenes_pos$X, if_else(DEgenes_pos$etc == 0, "", ", etc.", ""), sep = '')
+DEgenes_pos <- DEgenes_pos %>% select(KEGG.Pathway, X, Total.Number.of.Genes)
+kable(
+  DEgenes_pos,
+  col.names = c("KEGG Pathway", "", "Number of Genes"),
+  caption = "Genes that are more abundant in adenoma or cancer patients as compared to healthy patients. \\label{tab:genes_pos}"
+) %>%
+  kable_styling(font_size = 8) %>%
+  row_spec(c(1, 14, 18, 21, 25, 28), bold = TRUE)
+```
+
 
 # Discussion
 
 # Acknowledgements
 
-Author order was determined by alphabetizing by last name. 
+Author order was determined by alphabetizing by last name.
 Christina Kang-Yun constructed the workflow for preprocessing metagenome data, taxonomic profiling, and gene annotation and prepared the methods and results for these analyses.
 \todo{insert contribution statement here}
 
