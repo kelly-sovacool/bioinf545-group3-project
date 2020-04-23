@@ -172,6 +172,7 @@ This result suggests that individuals with cancerous and healthy colons may have
   \includegraphics[width=1\textwidth, center]{../figures/alpha_beta_diversity.png}  
   \caption{(A) Shannon diversity index across disease states and (B) multi-dimensional scaling plot of Bray-Curtis Distances of pairwise OTU abundance.}
   \label{fig:diversity}
+  \vspace{10pt}
 \end{figure}
 
 In contrast to Shannon diversity, which quantifies diversity within communities, Bray-Curtis dissimilarity is a beta diversity metric that quantifies diversity _between_ communities [@tuomisto_diversity_2010].
@@ -182,18 +183,18 @@ There was no statistically significant clustering of the disease groups ([ANOVA]
 
 ## Classification modeling discriminates disease states
 
-Random forest models were trained on OTU abundances from 16S bacterial sequence data and on OVU abundances from viral metagenomes to classify samples as healthy or cancerous.
-Both models had modest performance with an AUROC of 0.765 for the bacterial model and an AUROC of 0.73 for the viral model (Fig. \ref{fig:auroc}).
-The bacterial abundance data consisted of 3,704 OTUs, while the viral abundance data contained only 70 OVUs.
-This discrepancy in the number of features as inputs to the random forest models may have contributed to the bacterial model outperforming the viral model for classifying samples as healthy or cancerous.
-
-\begin{wrapfigure}{r}{0.4\textwidth}
+\begin{wrapfigure}{L}{0.5\textwidth}
     \begin{center}
-        \includegraphics[width=0.4\textwidth]{../figures/auroc.png}  
+        \includegraphics[width=0.5\textwidth]{../figures/auroc.png}  
         \caption{Model performance as measured by the receiver operating characteristic (ROC) curve for models trained on bacterial abundance or viral abundance data.}
         \label{fig:auroc}  
     \end{center}
 \end{wrapfigure}
+
+Random forest models were trained on OTU abundances from 16S bacterial sequence data and on OVU abundances from viral metagenomes to classify samples as healthy or cancerous.
+Both models had modest performance with an AUROC of 0.765 for the bacterial model and an AUROC of 0.73 for the viral model (Fig. \ref{fig:auroc}).
+The bacterial abundance data consisted of 3,704 OTUs, while the viral abundance data contained only 70 OVUs.
+This discrepancy in the number of features as inputs to the random forest models may have contributed to the bacterial model outperforming the viral model for classifying samples as healthy or cancerous.
 
 An OTU containing members of the genus _Fusobacterium_ was by far the most important feature of the bacterial model.
 The viral metagenomes were not aligned to a reference database, so OVUs were not able to be taxonomically identified for feature importance determination.
@@ -285,16 +286,31 @@ This is in line with previous studies, where virulence genes were found to be cl
 The alpha and beta diversity of bacteria of the gut microbiome did not significantly shift in response to the presence of CRD.
 Standard alpha and beta diversity metrics did not adequately capture bacterial community differences of the healthy and cancerous gut.
 This illuminates that examining diversity metrics alone may not be an adequate tool for identifying a healthy versus a cancerous colon.
+While traditional diversity metrics could not discriminate between disease states, 
+random forest models trained on bacterial or viral taxa abundances performed modestly well at this task.
+This concords with previous studies [@hannigan_diagnostic_2018; @zackular_human_2014] of this CRC microbiome dataset.
+An explanation for better discrimination of machine learning models is that diversity metrics characterize communities in broad strokes, 
+but models using abundance data take into account more granular similarities, differences, and perhaps interactions within communities of interest.
 
-\todo{random forest discriminates disease classes better than diversity metrics}
-
-Kostic *et al.* [@kostic_genomic_2012] have previously shown that members of the genus *Fusobacterium* are associated with CRC 
+Kostic *et al.* [@kostic_genomic_2012] have previously shown that members of the genus *Fusobacterium* are associated with CRC.
 The results of our study also support this finding, as an OTU containing members of this genus was the most important feature of the bacterial classification model.
+Interestingly, this phylum was not the most abundant in any samples.
+The most important members of communities may not always be the most abundant,
+but their metabolic activities may mediate important interactions that cannot be investigated 
+through genetic sequence analysis alone [@li_effects_2018].
+
+Hannigan _et al._ achieved better performance compared to those achieved here, with their OTU and OVU-based random forest models respectively yielding AUCs of 0.809 and 0.792.
+Minor differences between methods of processing 16S sequence data, such as an updated OTU clustering algorithm, may account for this difference in OTU model performance.
+Hannigan _et al._ also implemented a more robust modeling pipeline which repeated the data splitting
+step for 20 iterations with different random seeds; 
+due to time constraints we were unable to implement this level of robustness here.
 
 Overall, the taxonomic and gene abundance analyses gave insight into enriched members that have previously established association with CRC. 
 In addition, alpha and beta diversity metrics were not sufficient to identify CRC in patients, but the random forest model performed better in classifying disease states. 
-Interesting analyses that were not included in this study due to time constraints are taxonomic and gene co-abundance analysis, gut microbiome network analysis to identify hubs important in cancer disease state, and...
-\todo{PLEASE ADD MORE ANALYSES YOU WANTED TO COMPLETE!!}
+Interesting analyses that were not included in this study due to time constraints are taxonomic and gene co-abundance analysis, 
+gut microbiome network analysis to identify hubs important in cancer disease state, 
+aligning OVUs to a virome reference for taxonomic identification,
+and a more thorough machine learning pipeline to select the best model for the questions at hand.
 A more stringent statistical analysis of taxonomic and gene abundance results would provide a measure to identify key members that are important in CRC.
 
 # Acknowledgements and project contributions
@@ -305,5 +321,4 @@ Christina Kang-Yun constructed the workflow for preprocessing metagenome data, t
 Katelyn Polemi and Nicole Bowers worked together to create figures for analyses including alpha and beta diversity plots, gene abundance MDS, taxa bar plots, OTU heatmaps (some plots not included in final paper, see GitHub), prepared the abstract and introduction for the paper, and contributed to the conclusions.
 Kelly Sovacool wrote the virome assembly pipeline, wrote and performed the classification modeling steps, collaborated in developing the metagenome quality control steps, integrated others' methods into a cohesive workflow, helped others troubleshoot at various steps, and participated in writing and editing the subsections of this report associated with the 16S data processing, virome pipeline, quality control, and classification modeling analyses.
 
-\pagebreak
 # References
