@@ -1,0 +1,279 @@
+---
+title: "exploratory"
+author: "Kelly Sovacool"
+date: "2020 Apr 03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Random Forest model
+
+Useful links:
+
+- caret docs: https://topepo.github.io/caret/measuring-performance.html#measures-for-predicted-classes
+- Geoff's paper: https://mbio.asm.org/content/9/6/e02248-18
+- Geoff's code: https://github.com/SchlossLab/Hannigan_CRCVirome_mBio_2018/blob/master/bin/predictVirome.R
+- Begüm's code: https://github.com/SchlossLab/Topcuoglu_ML_XXX_2019/blob/master/code/learning/individual_models/RandomForest.R
+- confusion matrix: https://en.wikipedia.org/wiki/Confusion_matrix
+
+### First, try on example data
+```{r}
+library(mlbench)
+data(Sonar)
+head(Sonar)
+```
+
+### Split the data into training & testing
+```{r}
+library(caret)
+set.seed(998)
+inTraining <- createDataPartition(Sonar$Class, p = .75, list = FALSE)
+training <- Sonar[ inTraining,]
+testing  <- Sonar[-inTraining,]
+```
+
+### 5-fold Cross-validation
+```{r}
+cross_val <- trainControl(method="repeatedcv",
+                     repeats = 1,
+                     number=5,
+                     returnResamp="final",
+                     classProbs=TRUE,
+                     summaryFunction=twoClassSummary,
+                     indexFinal=NULL,
+                     savePredictions = TRUE)
+```
+
+### Training
+```{r}
+model <- train(Class ~ ., 
+               data = training, 
+               trControl = cross_val, 
+               method="rf", 
+               metric="ROC", 
+               tuneLength=5)
+model
+```
+
+
+### Feature importance
+```{r}
+rf_imp <- varImp(model)
+plot(rf_imp, top=20)
+sort(rf_imp$Overall, decreasing = TRUE)
+rf_imp_final <- varImp(model$finalModel)
+sort(rf_imp_final$Overall, decreasing = TRUE)
+```
+
+### Measuring performance
+```{r}
+#roc_imp <- filterVarImp(x = training[, -ncol(training)], y = training$Class)
+#head(roc_imp)
+testing$pred = predict(model, newdata = testing)
+model_prec_recall <- confusionMatrix(
+    data = testing$pred,
+    reference = testing$Class,
+    mode = "prec_recall"
+)
+print(model_prec_recall)
+model_sens_spec <- confusionMatrix(
+    data = testing$pred,
+    reference = testing$Class)
+print(model_sens_spec)
+```
+
+### Now try it on some of our metadata + fake data
+
+```{r}
+library(here)
+library(tidyverse)
+metadata <- read_csv(here('data', 'SraRunTable.txt'))
+head(metadata)
+```
+
+Eventually, we'll need to merge the metadata with the mothur shared file (OTU abundances).
+
+For now, let's make up some stuff.
+
+First, only use samples that are cancerious or healthy.
+```{r}
+metadata %>% group_by(DiseaseClass) %>% summarise(n = n())
+diagnoses <- metadata %>% filter(DiseaseClass %in% c("Cancer", "Healthy"))
+head(diagnoses)
+```
+
+Rename sonar data classes to cancer/healthy for fake data for development purposes.
+```{r}
+otu_abun_data <- Sonar %>% 
+    mutate(DiseaseClass = case_when(
+        Class == 'R' ~ 'Cancer',
+        Class == 'M' ~ 'Healthy'
+    )) %>% 
+    select(-Class)
+head(otu_abun_data)
+```
+
+Test our machine learning code:
+```{r}
+source(here('code', "machine_learning.R"))
+set.seed(999)
+inTraining <-
+    createDataPartition(otu_abun_data %>% pull(DiseaseClass),
+                        p = 0.75,
+                        list = FALSE)
+training_data <- otu_abun_data[inTraining, ]
+testing_data  <- otu_abun_data[-inTraining, ]
+train_control <- trainControl(
+    method = "repeatedcv",
+    repeats = 5,
+    number = 5,
+    returnResamp = "final",
+    classProbs = TRUE,
+    summaryFunction = twoClassSummary,
+    indexFinal = NULL,
+    savePredictions = TRUE
+)
+otu_model <- train(
+    DiseaseClass ~ .,
+    data = training_data,
+    trControl = train_control,
+    method = "rf",
+    metric = "Mean_AUC",
+    tuneLength = 15
+)
+testing_data <- testing_data %>% 
+    mutate(prediction = predict(otu_model, newdata= testing_data),
+           DiseaseClass = as.factor(DiseaseClass))
+prec_recall <- confusionMatrix(
+    data = testing_data$prediction,
+    reference = testing_data$DiseaseClass,
+    mode = "prec_recall"
+)
+prec_recall
+```
+
+### OTU (bacteria)
+```{r}
+source(here('code', "machine_learning.R"))
+otu_abun <-
+    read_tsv(here("data", '16S', 'mothur_output', 'stability.opti_mcc.shared')) %>%
+    mutate(
+        subject_id = str_to_title(Group) %>%
+            str_replace("([A-Z])[a-z]*([0-9]{1,2})_[_0-9]*", "\\1\\2"),
+        DiseaseClass = case_when(
+            startsWith(Group, 'A') ~ 'Adenoma',
+            startsWith(Group, 'C') ~ 'Cancer',
+            startsWith(Group, 'H') ~ 'Healthy'
+        )
+    ) %>%
+    filter(DiseaseClass %in% c("Cancer", "Healthy")) %>% 
+    select(-label, -Group, -numOtus, -subject_id) %>%
+    select(DiseaseClass, everything())
+head(otu_abun)
+set.seed(545)
+inTraining <- as.vector(
+    createDataPartition(otu_abun %>% pull(DiseaseClass),
+                        p = 0.6,
+                        list = FALSE
+                        )
+    )
+training_data <- otu_abun[inTraining, ]
+testing_data  <- otu_abun[-inTraining, ]
+train_control <- trainControl(
+    method = "repeatedcv",
+    repeats = 5,
+    number = 5,
+    returnResamp = "final",
+    classProbs = TRUE,
+    summaryFunction = twoClassSummary,
+    indexFinal = NULL,
+    savePredictions = TRUE
+)
+otu_model <- train(
+    DiseaseClass ~ .,
+    data = training_data,
+    trControl = train_control,
+    method = "rf",
+    metric = "Mean_AUC",
+    tuneLength = 15
+)
+testing_data <- testing_data %>% 
+    mutate(prediction = predict(otu_model, newdata= testing_data),
+           DiseaseClass = as.factor(DiseaseClass))
+prec_recall <- confusionMatrix(
+    data = testing_data$prediction,
+    reference = testing_data$DiseaseClass,
+    mode = "prec_recall"
+)
+```
+
+### OVU (viruses)
+```{r}
+bins <- read_csv(here("data","virome","concoct","clustering_merged.csv"), col_types = 'cc') %>% 
+    rename(contig = contig_id)
+coverage <- read_tsv(here("data","virome","contigs","coverage_table.tsv")) %>% 
+    rename_at(vars(contains("SRR")), funs(str_replace(., ".*(SRR.*)_mapped.sorted", "\\1"))) %>% 
+    mutate(contig = str_replace(contig, "([0-9]*)\\..*", "\\1")) %>% 
+    pivot_longer(-contig, names_to = "Run", values_to = "abun")
+metadata <- read_csv(here('data', 'SraRunTable.txt')) %>% 
+    select(subjectid, Run, DiseaseClass)
+ovu_abun <- coverage %>% 
+    inner_join(metadata, by = "Run") %>%  
+    inner_join(bins, by = "contig") %>% 
+    select(subjectid, DiseaseClass, contig, abun, cluster_id) %>% 
+    mutate(cluster_id = str_replace(cluster_id, "(.*)", "OVU\\1")) %>% 
+    group_by(subjectid, cluster_id, DiseaseClass) %>% 
+    summarize(abunsum = sum(abun)) %>% 
+    pivot_wider(names_from = cluster_id, values_from = abunsum)
+head(ovu_abun)
+```
+
+### Plot AUROC
+```{r plot_roc}
+library(plotROC)
+library(RColorBrewer)
+color_disease <- brewer.pal(3, "Dark2")
+color_seq <- brewer.pal(3, "Paired")
+otu <- read_tsv(here("data", "model", "rf_model_bacteria.tsv")) %>% 
+    mutate(seqtype = "16S Bacteria")
+ovu <- read_tsv(here("data", "model", "rf_model_virus.tsv")) %>% 
+    mutate(seqtype = "Virus")
+models <- rbind(otu, ovu)
+ggplot(models, aes(d = obs, 
+                   m = Healthy, 
+                   color = seqtype)) + 
+    geom_roc(n.cuts=0) +
+    style_roc(theme = theme_gray()) +
+    coord_equal() +
+    #theme_classic() +
+    scale_color_manual(values = c("#1F78B4", "#B2DF8A")) +
+	theme(
+		legend.position = c(0.75, 0.25),
+		legend.title=element_blank()
+	) +
+    ggtitle("Random Forest Model Performance")
+```
+
+### Feature importance
+
+```{r}
+feat_imp_virus <- readRDS(here("data", "model", "feat_imp_virus.rds"))
+feat_imp_bact <- readRDS(here("data", "model", "feat_imp_bacteria.rds"))
+feat_imp_bact$otu = rownames(feat_imp_bact)
+feat_imp_bact <- feat_imp_bact %>% 
+    as_tibble() %>% 
+    arrange(desc(Overall)) %>% 
+    rename(importance = Overall)
+# TODO: link OTU to tax
+```
+
+### Performance
+```{r}
+conf_mat_bact <- readRDS(here("data", "model", "conf_mat_bacteria.rds"))
+conf_mat_bact
+
+```
+

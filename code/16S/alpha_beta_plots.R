@@ -1,3 +1,4 @@
+library(cowplot)
 library(here)
 library(tidyverse)
 library(vegan)
@@ -24,7 +25,8 @@ map <- read.table(here::here("data", "SraRunTable.txt"),
   arrange(subjectid) %>% # rearrange by patient type
   arrange(factor(DiseaseClass,
     levels = c("Negative", "Healthy", "Adenoma", "Cancer")
-  ))
+  )) %>%
+  mutate(DiseaseClass = fct_relevel(DiseaseClass, "Negative", "Healthy", "Adenoma", "Cancer"))
 
 ## alpha diversity function
 AlphaDiversity <- function(intable, mapping) {
@@ -44,12 +46,15 @@ AlphaDiversity <- function(intable, mapping) {
     theme_classic() +
     theme(
       axis.line.x = element_line(colour = "black", size = 0.5, linetype = "solid"),
-      axis.line.y = element_line(colour = "black", size = 0.5, linetype = "solid")
+      axis.line.y = element_line(colour = "black", size = 0.5, linetype = "solid"),
+      legend.position = "none"
     ) +
     geom_jitter() +
-    scale_colour_brewer(palette = "Set1") +
+    scale_colour_brewer(palette = "Dark2") +
     geom_boxplot(outlier.colour = NA, alpha = 0) +
-    ggtitle("16S Shannon Diversity")
+    ggtitle("16S Shannon Diversity") +
+    ylab("Shannon Diversity Index") +
+    xlab("Disease Status")
   return(plot)
 }
 
@@ -77,24 +82,25 @@ BetaDiversity <- function(intable, mapping) {
     theme_classic() +
     theme(
       axis.line.x = element_line(colour = "black", size = 0.5, linetype = "solid"),
-      axis.line.y = element_line(colour = "black", size = 0.5, linetype = "solid")
+      axis.line.y = element_line(colour = "black", size = 0.5, linetype = "solid"),
+      legend.title = element_blank(),
+      legend.position = c(0.85, 0.15),
+      legend.background = element_rect(colour = "black")
     ) +
     geom_point(size = 1.5) +
-    scale_colour_brewer(palette = "Set1") +
-    ggtitle("16S Bray-Curtis")
+    scale_colour_brewer(palette = "Dark2") +
+    ggtitle("Bray-Curtis Distance")
   return(plot)
 }
 
 
 ############
-# Run Alpha Diversity Function #
+# Run Alpha & Beta Diversity Functions #
 ############
-AlphaDiversity(input, map)
-BetaDiversity(input, map)
-## where they save it - change to our project
-pdf(file = here("figures", paste0("alphadiversity.pdf"), width = 4, height = 4))
-AlphaDiversity(input, map)
-
-pdf(file = here("figures", paste0("betadiversity.pdf"), width = 5, height = 4))
-BetaDiversity(input, map)
-dev.off()
+alpha_plot <- AlphaDiversity(input, map)
+beta_plot <- BetaDiversity(input, map)
+diversity_plot <- plot_grid(alpha_plot, beta_plot,
+                            labels = c('A', 'B'))
+ggsave(here("figures", "alpha_beta_diversity.png"),
+       diversity_plot,
+       width = 8, height = 4)
