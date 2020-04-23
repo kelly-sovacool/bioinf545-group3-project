@@ -270,3 +270,10 @@ feat_imp_bact <- feat_imp_bact %>%
 # TODO: link OTU to tax
 ```
 
+### Performance
+```{r}
+conf_mat_bact <- readRDS(here("data", "model", "conf_mat_bacteria.rds"))
+conf_mat_bact
+
+```
+

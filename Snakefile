@@ -28,7 +28,8 @@ rule render_pdf:
         bib="submission/refs_{doc}.bib",
         figures=["figures/gene_abundance_MDS.pdf",
                 "figures/auroc.png",
-                "figures/alpha_beta_diversity.png"],
+                "figures/alpha_beta_diversity.png",
+                "figures/metag_taxa_heatmap_phy_fam.png"],
         tables=["data/metagenome/gene_abundance_results/DEgenes_pos.csv",
                 "data/metagenome/gene_abundance_results/DEgenes_neg.csv"]
     output:
