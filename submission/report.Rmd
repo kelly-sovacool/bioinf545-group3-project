@@ -83,6 +83,13 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
 
 # Results
 
+## Bacterial diversity in colorectal cancer
+
+The influence of colorectal cancer on bacterial OTU diversity was evaluated amongst the three disease classes. A total of 3,904 OTUs were identified. Alpha diversity was evaluated based upon Shannon diversity metrics. Shannon’s diversity index accounts for both the abundance and the evenness of the species present. As seen in Figure XX, individuals with healthy colons do not appear to have a distinctly different gut microbiome from an evenness perspective. The figure suggests that individuals with cancerous and healthy colons may have a select group of OTUs that dominate the environment since their index values are not relatively high. There was no statistically significant clustering of the disease groups (analysis of variance [ANOVA] P value = 0.3).
+
+The beta diversity was evaluated based upon Bray-Curtis metrics. Bray-Curtis dissimilarity allows for the calculation of statistical dissimilarity between the three disease classes relative to each other. As seen in Figure XX, there does not appear to be distinct clustering of the disease classes. Instead, each disease class is fairly dispersed. There was no statistically significant clustering of the disease groups ([ANOVA] P value > 0.23). 
+
+
 ## Taxnomonic abundance based on metagenome
 
 
@@ -157,6 +164,9 @@ kable(
 
 
 # Discussion
+
+Based upon the alpha and beta diversity of the OTUs, it is possible that the gut microbiome does not significantly shift in response to the presence of colorectal cancer. Standard alpha and beta diversity metrics do not adequately capture community differences of the bacterial community. This illuminates that examining the 16S sequences of the gut microbiome may not be an adequate tool for identifying a healthy versus a cancerous colon.
+
 
 # Acknowledgements
 
