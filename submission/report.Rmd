@@ -70,11 +70,11 @@ Human viruses are associated with many cancers, due to their manipulative and mu
 Viral metagenomic taxa can distinguish colorectal cancer patients from control subjects [@nakatsu_alterations_2018]. 
 Furthermore, a subset of markers were identified as high-risk from a subset of patients with colorectal cancer.  
 
-The composition of the microbiome is further affected by the presence and population of bacteriophages [@Hsu_Dynamic_2019].  Hsu et al. introduces lytic phages colonized with human gut bacteria.  The phages showed direct effects, that phage predation decreases the susceptible bacterial species, while resistant populations flourish.  Indirect effects include cascading effects on other bacterial species through interbacterial interactions.  Shifts in the microbiome caused by phage predation have a direct effect on the gut metabolome [@Hsu_Dynamic_2019]. 
+The composition of the microbiome is further affected by the presence and population of bacteriophages [@hsu_dynamic_2019].  Hsu *et al.* [@hsu_dynamic_2019] introduces lytic phages colonized with human gut bacteria.  The phages showed direct effects, that phage predation decreases the susceptible bacterial species, while resistant populations flourish.  Indirect effects include cascading effects on other bacterial species through interbacterial interactions.  Shifts in the microbiome caused by phage predation have a direct effect on the gut metabolome [@hsu_dynamic_2019]. 
 
 Here we address the knowledge gap with respect to whether bacterial and viral community composition differ between healthy patients and those diagnosed with adenoma and carcinoma. 
 
-We used the data from Hannigan et al 2017 and NCBI BioProject ID: PRJA389927 to try to understand the differences in the bacterial and viral community composition between human stool samples from patients diagnosed as normal, adenoma, and carcinoma. We also try to illuminate if there differences in bacterial & viral community composition between human stool samples from patients of the three groups. In order to do this, we use the same approach of Hannigan et al with a random forest model with OTUs or OVUs as features.  We also seek to understand differences in functional potential between metagenomes of the three samples groups.  This would be demonstrated by differences in OTU levels between the three conditions: cancer, adenoma, and heatlhy control.
+We used the data from Hannigan *et al.* [@hannigan_diagnostic_2018] and NCBI BioProject ID: PRJA389927 to try to understand the differences in the bacterial and viral community composition between human stool samples from patients diagnosed as normal, adenoma, and carcinoma. We also try to illuminate if there differences in bacterial & viral community composition between human stool samples from patients of the three groups. In order to do this, we use the same approach of Hannigan *et al.* [@hannigan_diagnostic_2018] with a random forest model with OTUs or OVUs as features.  We also seek to understand differences in functional potential between metagenomes of the three samples groups.  This would be demonstrated by differences in OTU levels between the three conditions: cancer, adenoma, and heatlhy control.
 
 
 # Methods
@@ -227,7 +227,7 @@ DEgenes_pos <- DEgenes_pos %>% replace(., is.na(.), '')
 DEgenes_pos <-
   DEgenes_pos %>% filter(Total.Number.of.Genes != "" | KEGG.Pathway != "")
 DEgenes_pos$etc <- as.numeric(DEgenes_pos$Total.Number.of.Genes) - as.numeric(DEgenes_pos$Number.of.Genes)
-DEgenes_pos$X <- paste(DEgenes_pos$X, if_else(DEgenes_pos$etc = 0, "", ", etc.", ""), sep = '')
+DEgenes_pos$X <- paste(DEgenes_pos$X, if_else(DEgenes_pos$etc == 0, "", ", etc.", ""), sep = '')
 DEgenes_pos <- DEgenes_pos %>% select(KEGG.Pathway, X, Total.Number.of.Genes)
 kable(
   DEgenes_pos,
@@ -265,14 +265,15 @@ The results of our study also support this finding, as an OTU containing members
 
 Overall, the taxonomic and gene abundance analyses gave insight into enriched members that have previously established association with colorectal cancer. 
 In addition, alpha and beta diversity metrics were not sufficient to identify colorectal cancer in patients, but the random forest model performed better in classifying disease states. 
-Interesting analyses that were not included in this study due to time constraints are taxonomic and gene co-abundance analysis, gut microbiome network analysis to identify hubs important in cancer disease state, and (PLEASE ADD MORE ANALYSES YOU WANTED TO COMPLETE!!).
+Interesting analyses that were not included in this study due to time constraints are taxonomic and gene co-abundance analysis, gut microbiome network analysis to identify hubs important in cancer disease state, and **(PLEASE ADD MORE ANALYSES YOU WANTED TO COMPLETE!!)**.
 A more stringent statistical analysis of taxonomic and gene abundance results would provide a measure to identify key members that are important in colorectal cancer.
 
 # Project Contributions
 
 Author order was determined by alphabetizing by last name.
 Brittany Hicks processed 16S sequencing data, collaborated for processing virome data, and assisted in preparing the methods, results, and discussion for these analyses.
-Christina Kang-Yun constructed the workflow for preprocessing metagenome data, taxonomic profiling, and gene annotation and prepared the methods, results, and discussion for these analyses. Katelyn Polemi and Nicole Bowers worked together to create figures for analyses including alpha and beta diversity plots, gene abundance mds, taxa bar plots, OUT heat maps (some plots not included in final paper, see GitHub), prepared the abstract and introduction for the paper, and contributed to the conclusions.
+Christina Kang-Yun constructed the workflow for preprocessing metagenome data, taxonomic profiling, and gene annotation and prepared the methods, results, and discussion for these analyses. 
+Katelyn Polemi and Nicole Bowers worked together to create figures for analyses including alpha and beta diversity plots, gene abundance MDS, taxa bar plots, OTU heatmaps (some plots not included in final paper, see GitHub), prepared the abstract and introduction for the paper, and contributed to the conclusions.
 \todo{insert contribution statement here}
 
 # References
