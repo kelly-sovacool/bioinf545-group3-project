@@ -40,19 +40,63 @@ library(tidyverse)
 
 # Abstract
 
+Colorectal cancer is the third leading cause of cancer related deaths globally [@rawla_epidemiology_2019]. 
+Colorectal cancer (CRC) initiates in the large intestine emerging from glandular epithelial cells. 
+Due to a selective advantage, obtained from a series of genetic or epigenetic mutations, these unregulated cells grow and can potentially develop into colorectal adenocarcinoma [@ewing_molecular_2014]. 
+Many studies have used the cancer microbiome to investigate how these mutations occur, however, they have almost exclusively focused on bacteria. 
+Human viruses have been implicated in the development of many cancers such as HPV, HTLV-1 and HIV [@liao_viruses_2006]. 
+Through mutagenic and manipulative abilities, viruses cause unregulated growth by disrupting the normal function of cells. 
+The association of colorectal cancer and the gut virome remains unknown, therefore, in this study we propose to investigate the differences in the bacterial and viral community composition and their effect on CRC development. 
+We performed operational taxonomic unit (OTU) clustering of 16S sequences for bacterial taxonomy and operational viromic unit (OVU) clustering of metaviromes for viral taxonomy to investigate the differences in human colorectal bacterial and viral community composition. 
+Using machine learning classification of OTUs and OVUs from healthy or cancerous samples, we aim to compare performance of the random forest model vs logistic regression. 
+Overall, the goal of the current study is to classify whether samples are healthy or cancerous based on bacterial and viral taxa. These results provide… 
+
 # Introduction
+
+Colorectal cancer is a leading cause of cancer-related death in the United States and worldwide. Its risk and severity have been linked to colonic bacterial community composition
+The leading cancer-related death in the United States is colorectal cancer [@hannigan_diagnostic_2018]. 
+Due to screening techniques and improvements in treatment the rate of colorectal cancer has fallen. 
+The primary screening technique is colonoscopy. A new technique gaining popularity is Exact Sciences Cologuard, a combination test which looks for both the genetic material found in colon cancer and some more advanced colon polyps and it detects hemoglobin in the stool using fecal immunochemical testing (Cologuard). 
+While colon cancer screening techniques are advancing, we aim to understand the environment of colorectal cancer.
+
+Gut dysbiosis is any change to the normal microbiome that could change the relationship between the host and associated microbes [@neto_upper_2017]. 
+This is well documented gastrointestinal (GI) disorders including irritable bowel syndrome, peptic ulcers, and even gastric and colon cancers [@neto_upper_2017]. 
+Gut dysbiosis is documented in patients with colorectal cancers [@nakatsu_alterations_2018]. 
+
+At present, the majority of cancer microbiome studies focus on the bacteria(citation needed). 
+Colorectal cancer is previously linked to changes to the colonic bacterial composition yet the gut virome is vastly unexplored [@nakatsu_alterations_2018].
+
+Virome is a viral community associated with a particular ecosystem or holobiont. 
+In mammals, the viruses infect host cells and the variety of organisms that inhabit us. 
+Identifying and understanding the virome within a host requires genetic and transcriptional identification of the mammal.  This virome may be able to shed light on the host’s genetics in states of health and states of disease. 
+The virome is composed of both nucleic acids (DNA and RNA).
+
+Human viruses associated with many cancers, due to their manipulative and mutagenic abilities [@hannigan_diagnostic_2018]. 
+Viral metagenomic taxa can distinguish colorectal cancer patients from control subjects [@nakatsu_alterations_2018]. 
+Furthermore, a subset of markers were identified as high-risk from a subset of patients with colorectal cancer.  
+
+Here we address the knowledge gap with respect to whether bacterial and viral community composition differ between healthy patients and those diagnosed with adenoma and carcinoma. 
+
+We used the data from __hannigan paper___ and __sited in report_ to try to understand the viruses and bacteria in the gut microbiome in colorectal cancer.
+
 
 # Methods
 
 ## Study design and data collection
 
 \todo{study design / data collection based on hannigan and zackular papers}
-[@hannigan_diagnostic_2017; @Zackular_human_2014]
+[@hannigan_diagnostic_2018; @zackular_human_2014]
 
 The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927).
 All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.
 
 ## 16S rRNA gene sequence processing
+
+The 16S rRNA gene sequences associated with this study were previously reported by [@zackular_human_2014]. The fastq sequence and metadata files were downloaded from the NCBI sequence read archive with the sra toolkit.
+The 16S rRNA gene sequences were analyzed with the mothur software package (v1.43.0) [@schloss_introducing_2009] according to the MiSeq standard operating procedure [@kozich_development_2013]. 
+Mothur allows contigs from forward and reverse reads to be assembled, pre-processing steps for primer removal and quality screening, and the identification of unique sequences. 
+After these steps were taken to reduce sequencing and PCR errors, sequences were aligned to the SILVA database [@pruesse_silva_2007], screened for chimeras using VSEARCH, and clustered into operational taxonomic units (OTUs) using the default 97\% similarity threshold. 
+Alpha and beta diversity metrics were calculated with the vegan R package [@oksanen_vegan_2018].
 
 ## Metagenome and virome quality control
 
@@ -64,7 +108,17 @@ The paired unmapped reads were used for taxonomic profiling and gene annotation.
 
 ## Virome assembly
 
+Closely related viral contig sequences were categorized into operational viral units (OVUs) in the absence of taxonomic identity. 
+OVUs were defined with the CONCOCT algorithm (v0.4.0). 
+This algorithm applies a variation-based Bayesian approach that bins related contigs by similar tetramer and coabundance profiles within samples [@alneberg_binning_2014].
+
 ## Classification modeling
+
+The caret R package [@kuhn_caret_2013] was used to train random forest models to classify samples as healthy or cancerous based on taxonomic abundance data.
+Only binary classifier models were trained, rather than three-class models, to reduce the time and computing resources required.
+Two models were trained; one with OTU (bacterial) abundances as features and the other with OVU (viral) abundances as features.
+For both models, the data were split into training and test sets with 65\% of the data for training.
+The models were validated with five-fold cross validation and tuned for mtry values to maximize the area under the receiver operating curve (AUC).
 
 ## Metagenome taxonomic profiling and gene annotation
 
@@ -78,22 +132,64 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
 
 # Results
 
+
+
+## Bacterial diversity in colorectal cancer
+
+The influence of colorectal cancer on bacterial diversity was evaluated amongst the three disease classes. 
+A total of 3,904 OTUs were identified. 
+Alpha and beta diversity metrics are used to characterize and distinguish ecological communities in broad strokes.
+As a metric of alpha diversity, the Shannon diversity index describes diversity within communities in terms of richness and evenness, taking into account the abundance of the species present [@tuomisto_diversity_2010]. 
+As seen in Fig. \ref{fig:diversity}A, individuals with healthy colons do not appear to have a distinctly different gut microbiome from a species richness and evenness perspective. 
+Although the mean Shannon diversity decreased along the progression from healthy, to adenoma, to cancer (Fig. \ref{fig:diversity}A),
+these perceived differences were not statistically significant among the disease groups (analysis of variance [ANOVA] p-value = 0.3).
+This result suggests that individuals with cancerous and healthy colons may have a select group of OTUs that dominate the environment since their index values are not relatively high.
+
+In contrast to Shannon diversity, which quantifies diversity within communities, Bray-Curtis dissimilarity is a beta diversity metric that quantifies diversity _between_ communities [@tuomisto_diversity_2010]. 
+The pairwise Bray-Curtis distances of sample-wise OTU abundances were calculated and plotted as a multi-dimensional scaling plot (Fig. \ref{fig:diversity}B). 
+There does not appear to be distinct clustering of the disease classes. 
+Instead, each disease class is fairly dispersed. 
+There was no statistically significant clustering of the disease groups ([ANOVA] p-value > 0.23). 
+
+\begin{figure}[ht]
+  \includegraphics[width=1\textwidth, center]{../figures/alpha_beta_diversity.png}  
+  \caption{(A) Shannon diversity index across disease states and (B) Multi-dimensional scaling plot of Bray-Curtis Distances.}
+  \label{fig:diversity}
+\end{figure}
+
+## Classification modeling
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \begin{center}
+        \includegraphics[width=0.39\textwidth]{../figures/auroc.png}  
+        \caption{Model performance as measured by the receiver operating characteristic (ROC) curve for models trained on bacterial abundance or viral abundance data.}
+        \label{fig:auroc}  
+    \end{center}
+\end{wrapfigure}
+
+Random forest models were trained on OTU abundances from 16S bacterial sequence data and on OVU abundances from viral metagenomes to classify samples as healthy or cancerous. 
+Both models had modest performance with an AUROC of 0.765 for the bacterial model and an AUROC of 0.73 for the viral model (Fig. \ref{fig:auroc}). 
+The bacterial abundance data consisted of 3,704 OTUs, while the viral abundance data contained only 70 OVUs.
+This discrepancy in the number of features as inputs to the random forest models may have contributed to the bacterial model outperforming the viral model for classifying samples as healthy or cancerous.
+An OTU containing members of the genus _Fusobacterium_ was by far the most important feature of the bacterial model.
+The viral metagenomes were not aligned to a reference database, so OVUs were not able to be identified for feature importance determination.
+Previous work by Hannigan _et al._ additionally included models trained on bacterial whole metagenomes and models combining bacterial and viral abundance data.
+
 ## Taxnomonic profile based on metagenome
 
-The taxonomic profile was constructed based on the gut microbiome of healthy, adenoma, and cancer patients using MetaPhlAn2 (Fig. \ref{fig:heat_metaphlan}). 
+The taxonomic profile was constructed based on the gut microbiome of healthy, adenoma, and cancer patients using MetaPhlAn2 (Fig. \ref{fig:taxabun}). 
 There are subtle differences of composition between healthy patients and those who were diagnosed with adenoma or cancer. 
 At the phylum level, some healthy patients have an more members of the phyla Verrucomicrobia, Bacteroidetes, and Actinobacteria as compared to other patient groups. 
 In addition, some patients with adenoma or cancer have a greater abundance of species belonging to the Proteobacteria phylum. 
 The gut microbiome of healthy patients are relatively more abundant with members of the families *Ruminococcaceae*, *Lachnospiraceae*, *Bifidobacteriaceae*, and *Akkermansiaceae*. 
 Conversely, the gut microbiome of patients with adenoma or cancer seem to have greater abundance of members of the families *Enterobacteriaceae* and *Coriobacteriaceae*. 
 
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
-        \includegraphics[width=0.98\textwidth]{../figures/metag_taxa_heatmap_phy_fam.png}  
+        \includegraphics[width=1\textwidth]{../figures/metag_taxa_heatmap_phy_fam.png}  
         \caption{Taxonomic profile constructed using MetaPhlAn2 at the (a) phylum and (b) family level based on metagenome of gut microbiome of patients that are healthy (H) or diagnosed with adenoma (A) or cancer (C).}
-        \label{fig:heat_metaphlan}  
+        \label{fig:taxabun}  
     \end{center}
-\end{figure}
 
 ## Metagenome annotation and quantification
 
@@ -107,9 +203,9 @@ Conversely, the gut microbiome of patients with adenoma or cancer seem to have g
     \end{center}
 \end{wrapfigure}
 
-The gut metagenome from patients that are healthy or diagnosed with adenoma or cancer was aligned to the IGC database to annotate the genes with KEGG numbers. 
-KEGG number counts were calculated for all samples, then were used to determine whether specific genes were more or less abundant in patients with adenoma or cancer as compared to those who are healthy using edgeR. 
-Seven samples, including the negative control, with extremely low read counts were excluded from subsequent analyses, as they strongly skewed the results. 
+The gut metagenomes from patients that are healthy or diagnosed with adenoma or cancer were aligned to the IGC database to annotate the genes with KEGG numbers.
+KEGG number counts were calculated for all samples, then were used to determine whether specific genes were more or less abundant in patients with adenoma or cancer as compared to those who are healthy using edgeR.
+Seven samples, including the negative control, with extremely low read counts were excluded from subsequent analyses, as they strongly skewed the results.
 Multidimensional scaling (MDS) analysis of the KEGG number counts between different groups did not show clear clustering within groups (Fig. \ref{fig:MDS_KeggNo}). 
 
 In the subsequent differential gene abundance analysis, abundance of 6,104 distinct genes were compared between healthy vs adenoma and healthy vs cancer patients. 
@@ -147,9 +243,16 @@ kable(
 
 # Discussion
 
+\todo{taxonomic abundance, gene abundance}
+
+The alpha and beta diversity of bacteria of the gut microbiome did not significantly shift in response to the presence of colorectal cancer. 
+Standard alpha and beta diversity metrics did not adequately capture bacterial community differences of the healthy and cancerous gut.
+This illuminates that examining diversity metrics alone may not be an adequate tool for identifying a healthy versus a cancerous colon.
+
+\todo{random forest discriminates disease classes better than diversity metrics}
 
 
-# Acknowledgements
+# Project Contributions
 
 Author order was determined by alphabetizing by last name.
 Christina Kang-Yun constructed the workflow for preprocessing metagenome data, taxonomic profiling, and gene annotation and prepared the methods, results, and discussion for these analyses.

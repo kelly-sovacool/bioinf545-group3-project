@@ -129,4 +129,13 @@ rule extract_viromes:
         extract_fasta_bins.py {input.fna} {input.csv} --output_path
         """
 
-# TODO: Get OVU abundance
+rule ovu_abundance:
+    input:
+        cov=rules.concoct_prep.output.tsv,
+        bins=rules.concoct_cluster.output.csv2,
+        meta="data/SraRunTable.txt",
+        code="code/virome/ovu_abundance.R"
+    output:
+        "data/virome/ovu_abundance.tsv"
+    shell:
+        "Rscript {input.code}"
