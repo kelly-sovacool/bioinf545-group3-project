@@ -107,7 +107,9 @@ Then, reads mapping to the human GRCh38 reference genome were removed using the 
 The paired unmapped reads were used for taxonomic profiling and gene annotation.
 
 ## Virome assembly
-Closely related viral contig sequences were categorized into operational viral units (OVUs) in the absence of taxonomic identity. OVUs were defined with the CONCOCT algorithm (v0.4.0). This algorithm applies a variation-based Bayesian approach that bins related contigs by similar tetramer and coabundance profiles within samples [@alneberg_binning_2014].
+Closely related viral contig sequences were categorized into operational viral units (OVUs) in the absence of taxonomic identity. 
+OVUs were defined with the CONCOCT algorithm (v0.4.0). 
+This algorithm applies a variation-based Bayesian approach that bins related contigs by similar tetramer and coabundance profiles within samples [@alneberg_binning_2014].
 
 
 \todo{virome pipeline}
@@ -140,7 +142,7 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
   \label{fig:diversity}
 \end{figure}
 
-The influence of colorectal cancer on bacterial OTU diversity was evaluated amongst the three disease classes. A total of 3,904 OTUs were identified. 
+The influence of colorectal cancer on bacterial OTU diversity was evaluated amongst the three disease classes. 
 Shannon diversity index of the 16S bacterial abundance data showed a general decreasing trend along the progression from healthy, to adenoma, to cancer (Fig. \ref{fig:diversity}A). 
 As a metric of alpha diversity, the Shannon diversity index describes diversity within communities in terms of richness and evenness.
 In contrast to Shannon diversity, Bray-Curtis distance is a beta diversity metric that quantifies diversity between communities [@tuomisto_diversity_2010].
@@ -160,7 +162,7 @@ These alpha and beta diversity metrics characterize and distinguish communities 
 
 Random forest models were trained on OTU abundances from 16S bacterial sequence data and on OVU abundances from viral metagenomes to classify samples as healthy or cancerous. 
 Both models had modest performance with an AUROC of 0.765 for the bacterial model and an AUROC of 0.73 for the viral model (Fig. \ref{fig:auroc}). 
-The bacterial abundance data consisted of 3,04 OTUs, while the viral abundance data contained only 70 OVUs.
+The bacterial abundance data consisted of 3,704 OTUs, while the viral abundance data contained only 70 OVUs.
 This discrepancy in the number of features as inputs to the random forest models may have contributed to the bacterial model outperforming the viral model for classifying samples as healthy or cancerous.
 An OTU containing members of the genus _Fusobacterium_ was by far the most important feature of the bacterial model.
 The viral metagenomes were not aligned to a reference database, so OVUs were not able to be identified for feature importance determination.
