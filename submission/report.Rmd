@@ -21,9 +21,9 @@ bibliography: refs_report.bib
 subparagraph: true # fixed error that says "! Argument of \paragraph has an extra }."
 ---
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, 
-                      warning = FALSE, 
-                      message = FALSE, 
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE,
                       fig.path = here::here("figures/")
                       )
 ```
@@ -37,6 +37,7 @@ library(tidyverse)
 
 \newpage
 \todo{Guidelines: https://drive.google.com/file/d/1YNqYiMJYiVWXiSR9yWUbQTPAoUpVa9Id/view}
+
 # Abstract
 
 # Introduction
@@ -48,17 +49,16 @@ library(tidyverse)
 \todo{study design / data collection based on hannigan and zackular papers}
 [@hannigan_diagnostic_2017; @Zackular_human_2014]
 
-The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927). 
+The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927).
 All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.
-\todo{make the repo public before submitting}
 
 ## 16S rRNA gene sequence processing
 
 ## Metagenome and virome quality control
 
 Trimmomatic (v.0.39) [@bolger_trimmomatic_2014] was used to remove adapter sequences and low-quality reads in metagenome and virome sample sets. 
-The read quality was assessed using FastQC (v.0.11.9) [@andrews_fastqc_2010] before and after adapter trimming to confirm removal of adapters and low quality reads. 
-Unpaired reads were dropped using the repair function in BBTools (v.37.62) [@bushnell_bbtools_2018]. 
+The read quality was assessed using FastQC (v.0.11.9) [@andrews_fastqc_2010] before and after adapter trimming to confirm removal of adapters and low quality reads.
+Unpaired reads were dropped using the repair function in BBTools (v.37.62) [@bushnell_bbtools_2018].
 Then, reads mapping to the human GRCh38 reference genome were removed using the BWA-MEM algorithm (BWA v.0.7.12) [@li_aligning_2013].
 The paired unmapped reads were used for taxonomic profiling and gene annotation.
 
@@ -68,7 +68,7 @@ The paired unmapped reads were used for taxonomic profiling and gene annotation.
 
 ## Metagenome taxonomic profiling and gene annotation
 
-The human genome-free reads were used to profile the metagenomic taxonomy at the species, genus, family, and phylum levels using MetaPhlAn2 [@truong_metaphlan2_2015]. 
+The human genome-free reads were used to profile the metagenomic taxonomy at the species, genus, family, and phylum levels using MetaPhlAn2 [@truong_metaphlan2_2015].
 The results were visualized using the R package phyloseq [@mcmurdie_phyloseq_2013].
 
 The paired reads that did not map to the human genome were aligned to the Integrated Gene Catalog (IGC) [@li_integrated_2014] of 1,267 gut microbiome samples consisting of approximately 10 million genes with the BWA MEM algorithm for metagenome annotation [@li_aligning_2013]. 
@@ -92,10 +92,10 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
     \end{center}
 \end{wrapfigure}
 
-The gut metagenome from patients that are healthy or diagnosed with adenoma or cancer was aligned to the IGC database to annotate the genes with KEGG numbers. 
-KEGG number counts were calculated for all samples, then were used to determine whether specific genes were more or less abundant in patients with adenoma or cancer as compared to those who are healthy using edgeR. 
-Seven samples, including the negative control, with extremely low read counts were excluded from subsequent analyses, as they strongly skewed the results. 
-Multidimensional scaling (MDS) analysis of the KEGG number counts between different groups did not show clear clustering within groups (Fig. \ref{fig:MDS_KeggNo}). 
+The gut metagenome from patients that are healthy or diagnosed with adenoma or cancer was aligned to the IGC database to annotate the genes with KEGG numbers.
+KEGG number counts were calculated for all samples, then were used to determine whether specific genes were more or less abundant in patients with adenoma or cancer as compared to those who are healthy using edgeR.
+Seven samples, including the negative control, with extremely low read counts were excluded from subsequent analyses, as they strongly skewed the results.
+Multidimensional scaling (MDS) analysis of the KEGG number counts between different groups did not show clear clustering within groups (Fig. \ref{fig:MDS_KeggNo}).
 
 In the subsequent differential gene abundance analysis, abundance of 6,104 distinct genes were compared between healthy vs adenoma and healthy vs cancer patients. 
 In both cases, there were approximately 130 genes that were less abundant in adenoma and cancer patients, whereas around 600 to 1,000 genes were more abundant. 
@@ -155,7 +155,7 @@ kable(
 
 # Acknowledgements
 
-Author order was determined by alphabetizing by last name. 
+Author order was determined by alphabetizing by last name.
 Christina Kang-Yun constructed the workflow for preprocessing metagenome data, taxonomic profiling, and gene annotation and prepared the methods and results for these analyses.
 \todo{insert contribution statement here}
 
