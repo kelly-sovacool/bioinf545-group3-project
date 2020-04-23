@@ -244,20 +244,25 @@ kable(
 Some differences in the gut microbiome community composition between the patient groups may reflect prior findings. 
 Members of the *Peptostreptococacceae* and *Porphyromonadaceae* family are slightly more abundant in adenoma or cancer patients, which were previously found to be associated with colorectal cancer [@ternes_microbiome_2020-1]. 
 In addition, the enrichment of species included in the *Lachnospiraceae* family in the healthy patients also support prior studies indicating lower abundance of these butyrate-producing bacteria in colorectal cancer patients [@rinninella_what_2019]. 
-Moreover, higher abundance of Proteobacteria and lower abundance of Bacteroidetes in some patients with adenoma or carcinoma as compared to healthy patients in this study also demonstrate previous findings by Shen *et al.* [@shen_molecular_2010]. 
+Moreover, higher abundance of Proteobacteria and lower abundance of Bacteroidetes in some patients with adenoma or carcinoma as compared to healthy patients in this study also demonstrate previous findings by Shen *et al.* [@shen_molecular_2010, @burns_virulence_2015]. 
 
-Gene abundance analysis using the metagenomes from patients indicated enrichment in genes and pathways previously shown to be associated with colorectal cancer. 
-
-
+Gene abundance analysis using the metagenomes from patients indicated enrichment in genes and pathways previously shown to be associated with gastrointestinal diseases including colorectal cancer. 
+Genes K07345 and K07347 corresponding to fimbriae genes *fimA*, *fimD* that are associated with inflammatory bowel disease were found to be enriched in patients with adenoma or cancer [@minot_clustering_2019]. 
+Virulence genes, specifically bacterial secretion systems, two-component systems, bacterial flagellar assembly, and biofilm formation, each part of membrane transport, signal transduction, bacterial cell motility, and prokaryotic cellular community pathways, respectively, were highly enriched in patients with adenoma or cancer. 
+This is in line with previous studies, where virulence genes were found to be closely associated with colorectal tumor microenvironments [@burns_virulence_2015].
 
 The alpha and beta diversity of bacteria of the gut microbiome did not significantly shift in response to the presence of colorectal cancer. 
 Standard alpha and beta diversity metrics did not adequately capture bacterial community differences of the healthy and cancerous gut. 
 This illuminates that examining diversity metrics alone may not be an adequate tool for identifying a healthy versus a cancerous colon. 
 
 \todo{random forest discriminates disease classes better than diversity metrics}
-
 Kostic *et al.* [@kostic_genomic_2012] have previously shown that members of the genus *Fusobacterium* are associated with colorectal cancer. 
 The results of our study also support this finding, as an OTU containing members of this genus was the most important feature of the bacterial classification model.
+
+Overall, the taxonomic and gene abundance analyses gave insight into enriched members that have previously established association with colorectal cancer. 
+In addition, alpha and beta diversity metrics were not sufficient to identify colorectal cancer in patients, but the random forest model performed better in classifying disease states. 
+Interesting analyses that were not included in this study due to time constraints are taxonomic and gene co-abundance analysis, gut microbiome network analysis to identify hubs important in cancer disease state, and (PLEASE ADD MORE ANALYSES YOU WANTED TO COMPLETE!!).
+A more stringent statistical analysis of taxonomic and gene abundance results would provide a measure to identify key members that are important in colorectal cancer.
 
 # Project Contributions
 
