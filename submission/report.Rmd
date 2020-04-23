@@ -1,5 +1,5 @@
 ---
-title: "Investigating the microbial community of the human gut in colorectal cancer"
+title: Investigating the microbial community of the human gut in colorectal cancer
 author: |
   | Nicole Bowers$^1$, Brittany Hicks$^2$, Christina Kang-Yun$^2$, Katelyn Polemi$^3$, Kelly Sovacool$^1$
   |
@@ -153,6 +153,7 @@ Annotated genes were extracted from the alignment results using functions geneLi
 The differences in gene abundance between healthy, adenoma, and cancer groups were assessed using the R package edgeR [@robinson_edger_2009].
 Up to 480 top KEGG numbers of genes that were significantly different between healthy and other groups were selected and the relevant KEGG pathway was determined using the KEGG mapper tool [@kanehisa_kegg_2020].
 
+\pagebreak
 # Results
 
 ## Bacterial diversity in colorectal cancer
@@ -167,8 +168,9 @@ these perceived differences were not statistically significant among the disease
 This result suggests that individuals with cancerous and healthy colons may have a select group of OTUs that dominate the environment since their index values are not relatively high.
 
 \begin{figure}[ht]
+  \vspace{12pt}
   \includegraphics[width=1\textwidth, center]{../figures/alpha_beta_diversity.png}  
-  \caption{(A) Shannon diversity index across disease states and (B) multi-dimensional scaling plot of Bray-Curtis Distances.}
+  \caption{(A) Shannon diversity index across disease states and (B) multi-dimensional scaling plot of Bray-Curtis Distances of pairwise OTU abundance.}
   \label{fig:diversity}
 \end{figure}
 
@@ -178,20 +180,21 @@ There does not appear to be distinct clustering of the disease classes.
 Instead, each disease class is fairly dispersed.
 There was no statistically significant clustering of the disease groups ([ANOVA] p-value > 0.23).
 
-## Classification modeling
-
-\begin{wrapfigure}{r}{0.4\textwidth}
-    \begin{center}
-        \includegraphics[width=0.39\textwidth]{../figures/auroc.png}  
-        \caption{Model performance as measured by the receiver operating characteristic (ROC) curve for models trained on bacterial abundance or viral abundance data.}
-        \label{fig:auroc}  
-    \end{center}
-\end{wrapfigure}
+## Classification modeling discriminates disease states
 
 Random forest models were trained on OTU abundances from 16S bacterial sequence data and on OVU abundances from viral metagenomes to classify samples as healthy or cancerous.
 Both models had modest performance with an AUROC of 0.765 for the bacterial model and an AUROC of 0.73 for the viral model (Fig. \ref{fig:auroc}).
 The bacterial abundance data consisted of 3,704 OTUs, while the viral abundance data contained only 70 OVUs.
 This discrepancy in the number of features as inputs to the random forest models may have contributed to the bacterial model outperforming the viral model for classifying samples as healthy or cancerous.
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \begin{center}
+        \includegraphics[width=0.4\textwidth]{../figures/auroc.png}  
+        \caption{Model performance as measured by the receiver operating characteristic (ROC) curve for models trained on bacterial abundance or viral abundance data.}
+        \label{fig:auroc}  
+    \end{center}
+\end{wrapfigure}
+
 An OTU containing members of the genus _Fusobacterium_ was by far the most important feature of the bacterial model.
 The viral metagenomes were not aligned to a reference database, so OVUs were not able to be taxonomically identified for feature importance determination.
 Previous work by Hannigan _et al._ additionally included models trained on bacterial whole metagenomes and models combining bacterial and viral abundance data.
@@ -207,6 +210,7 @@ The gut microbiome of healthy patients are relatively more abundant with members
 Conversely, the gut microbiome of patients with adenoma or cancer seem to have greater abundance of members of the families *Enterobacteriaceae* and *Coriobacteriaceae*.
 
 \begin{figure}[H]
+\vspace{12pt}
     \begin{center}
         \includegraphics[width=1\textwidth]{../figures/metag_taxa_heatmap_phy_fam.png}  
         \caption{Taxonomic profile constructed using MetaPhlAn2 at the (A) phylum and (B) family level based on metagenome of gut microbiome of patients that are healthy, H, or diagnosed with adenoma, A, or cancer, C.}
@@ -217,11 +221,9 @@ Conversely, the gut microbiome of patients with adenoma or cancer seem to have g
 ## Metagenome annotation and quantification
 
 \begin{wrapfigure}{R}{0.5\textwidth}
-    \vspace{-20pt}
     \begin{center}
-        \includegraphics[width=0.49\textwidth]{../figures/gene_abundance_MDS.pdf}  
-        \vspace{-10pt}
-        \caption{Multidimensional scaling (MDS) abundance plot based on log2 fold-change (logFC) of KEGG annotation counts derived from gut microbiome of patients that are healthy, H, or diagnosed with adenoma, A, or cancer, C.}
+        \includegraphics[width=0.5\textwidth]{../figures/gene_abundance_MDS.pdf}  
+        \caption{Multidimensional scaling (MDS) abundance plot based on log2 fold-change (logFC) of KEGG annotation counts derived from gut microbiome of patients that are healthy, or diagnosed with adenoma or carcinoma.}
         \label{fig:MDS_KeggNo}  
     \end{center}
 \end{wrapfigure}
@@ -264,7 +266,6 @@ kable(
   row_spec(c(1, 14, 18, 21, 25, 28), bold = TRUE)
 ```
 
-
 # Discussion
 
 Some differences in the gut microbiome community composition between the patient groups may reflect prior findings. 
@@ -300,4 +301,5 @@ Christina Kang-Yun constructed the workflow for preprocessing metagenome data, t
 Katelyn Polemi and Nicole Bowers worked together to create figures for analyses including alpha and beta diversity plots, gene abundance MDS, taxa bar plots, OTU heatmaps (some plots not included in final paper, see GitHub), prepared the abstract and introduction for the paper, and contributed to the conclusions.
 Kelly Sovacool wrote the virome assembly pipeline, wrote and performed the classification modeling steps, collaborated in developing the metagenome quality control steps, integrated others' methods into a cohesive workflow, helped others troubleshoot at various steps, and participated in writing and editing the subsections of this report associated with the 16S data processing, virome pipeline, quality control, and classification modeling analyses.
 
+\pagebreak
 # References
