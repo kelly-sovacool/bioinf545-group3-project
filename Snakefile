@@ -26,7 +26,8 @@ rule render_pdf:
         rmd="submission/{doc}.Rmd",
         preamble="submission/preamble_{doc}.tex",
         bib="submission/refs_{doc}.bib",
-        figures=["figures/gene_abundance_MDS.pdf"],
+        figures=["figures/gene_abundance_MDS.pdf",
+                "figures/auroc.png"],
         tables=["data/metagenome/gene_abundance_results/DEgenes_pos.csv",
                 "data/metagenome/gene_abundance_results/DEgenes_neg.csv"]
     output:
@@ -192,5 +193,15 @@ rule model_OVU:
     output:
         tsv="data/model/rf_model_virus.tsv",
         rds="data/model/conf_mat_virus.rds"
+    script:
+        "{input.code}"
+
+rule plot_models:
+    input:
+        code="code/plot_models.R",
+        otu=rules.model_OTU.output,
+        ovu=rules.model_OVU.output
+    output:
+        "figures/auroc.png"
     script:
         "{input.code}"
