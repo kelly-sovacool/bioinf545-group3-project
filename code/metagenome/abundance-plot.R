@@ -8,20 +8,20 @@ library("ggplot2")
 
 # Import metadata to order samples by name.
 SraRun <- read.table(here::here("data", "SraRunTable.txt"),
-                     header = T,
-                     sep = ",", stringsAsFactors = F
+  header = T,
+  sep = ",", stringsAsFactors = F
 ) %>%
   filter(samp_mat_process == "WholeMetagenome") %>% # Filter out virome samples
   filter(Run != "SRR5665024" & # remove negative control and samples with extremely low read count
-           Run != "SRR5665060" &
-           Run != "SRR5665081" &
-           Run != "SRR5665121" &
-           Run != "SRR5665138" &
-           Run != "SRR5665117" &
-           Run != "SRR5665160") %>%
+    Run != "SRR5665060" &
+    Run != "SRR5665081" &
+    Run != "SRR5665121" &
+    Run != "SRR5665138" &
+    Run != "SRR5665117" &
+    Run != "SRR5665160") %>%
   arrange(subjectid) %>% # rearrange by patient type
   arrange(factor(DiseaseClass,
-                 levels = c("Negative", "Healthy", "Adenoma", "Cancer")
+    levels = c("Negative", "Healthy", "Adenoma", "Cancer")
   ))
 
 colOrder <- as.character(SraRun$Run) # used to order the dataframe of sample keggCounts.
@@ -87,7 +87,7 @@ cds <- estimateTagwiseDisp(cds, prior.df = 10)
 # Draw the MDS plot
 pdf(file = here::here("figures", "gene_abundance_MDS.pdf"), width = 5, height = 5)
 plotMDS(cds, pch = 19, col = groupColors)
-legend("bottomright",fill=c("#66C2A5","#FC8D62", "#8DA0CB"),legend=unique(factor(SraRun$DiseaseClass)))
+legend("bottomright", fill = c("#66C2A5", "#FC8D62", "#8DA0CB"), legend = unique(factor(SraRun$DiseaseClass)))
 dev.off()
 
 # Find differentially abundant genes in healthy vs cancer/adenoma
@@ -122,5 +122,4 @@ write.table(DEgenes_pos,
 write.table(DEgenes_neg,
   file = here::here("data", "metagenome", "gene_abundance_results", "DEgenes_neg.txt"),
   sep = "\t", row.names = T, quote = F, col.names = F
-
 )
