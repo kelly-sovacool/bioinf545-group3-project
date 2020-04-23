@@ -53,33 +53,33 @@ Overall, the goal of the current study is to classify whether samples are health
 
 # Introduction
 
-The leading cancer-related death in the United States is colorectal cancer [@hannigan_diagnostic_2018].
-Due to screening techniques and improvements in treatment the rate of colorectal cancer has fallen.
-The primary screening technique is colonoscopy.
-A new technique gaining popularity is Exact Sciences Cologuard, a combination test which looks for both the genetic material found in colon cancer and some more advanced colon polyps and it detects hemoglobin in the stool using fecal immunochemical testing (Cologuard).
-While colon cancer screening techniques are advancing, we aim to understand the environment of colorectal cancer.
+The leading cancer-related death in the United States is colorectal cancer [@hannigan_diagnostic_2018]. 
+Due to screening techniques and improvements in treatment the rate of colorectal cancer has fallen. 
+The primary screening technique is colonoscopy. 
+A new technique gaining popularity is Exact Sciences Cologuard, a combination test which looks for both the genetic material found in colon cancer and some more advanced colon polyps and it detects hemoglobin in the stool using fecal immunochemical testing (Cologuard). 
+While colon cancer screening techniques are advancing, we aim to understand the environment of colorectal cancer. 
 
-Gut dysbiosis is any change to the normal microbiome that could change the relationship between the host and associated microbes [@neto_upper_2017].
-This is well documented gastrointestinal (GI) disorders including irritable bowel syndrome, peptic ulcers, and even gastric and colon cancers [@neto_upper_2017].
-Gut dysbiosis is documented in patients with colorectal cancers [@nakatsu_alterations_2018].
-Though the underlying mechanisms of these microbes is yet unknown, some bacteria were found to be associated with colorectal cancer [@ternes_microbiome_2020a].
-These include *Fusobacterium*, *Peptostreptococcus*, *Porphyromonas*, *Prevotella*, *Parvimonas*, *Bacteroides*, and *Gemella*, and they may be able to affect the disease state via metabolite secretion, host tissue invasion, and inducing host immune response [@ternes_microbiome_2020a].
+Gut dysbiosis is any change to the normal microbiome that could change the relationship between the host and associated microbes [@neto_upper_2017]. 
+This is well documented gastrointestinal (GI) disorders including irritable bowel syndrome, peptic ulcers, and even gastric and colon cancers [@neto_upper_2017]. 
+Gut dysbiosis is documented in patients with colorectal cancers [@nakatsu_alterations_2018]. 
+Though the underlying mechanisms of these microbes is yet unknown, some bacteria were found to be associated with colorectal cancer [@ternes_microbiome_2020a]. 
+These include *Fusobacterium*, *Peptostreptococcus*, *Porphyromonas*, *Prevotella*, *Parvimonas*, *Bacteroides*, and *Gemella*, and they may be able to affect the disease state via metabolite secretion, host tissue invasion, and inducing host immune response [@ternes_microbiome_2020a]. 
 
-At present, the majority of cancer microbiome studies focus on the bacteria (CITATION NEEDED).
-Colorectal cancer is previously linked to changes to the colonic bacterial composition, yet the gut virome is vastly unexplored [@nakatsu_alterations_2018].
+At present, the majority of cancer microbiome studies focus on the bacteria [@neto_upper_2017]. Colorectal cancer is previously linked to changes to the colonic bacterial composition, yet the gut virome is vastly unexplored [@nakatsu_alterations_2018].
 
-Virome is a viral community associated with a particular ecosystem or holobiont.
-In mammals, the viruses infect host cells and the variety of organisms that inhabit us.
-Identifying and understanding the virome within a host requires genetic and transcriptional identification of the mammal.  This virome may be able to shed light on the host’s genetics in states of health and states of disease.
-The virome is composed of both nucleic acids (DNA and RNA).
-
-Human viruses are associated with many cancers, due to their manipulative and mutagenic abilities [@hannigan_diagnostic_2018].
-Viral metagenomic taxa can distinguish colorectal cancer patients from control subjects [@nakatsu_alterations_2018].
+Virome is a viral community associated with a particular ecosystem or holobiont. 
+In mammals, the viruses infect host cells and the variety of organisms that inhabit us. 
+Identifying and understanding the virome within a host requires genetic and transcriptional identification of the mammal.  This virome may be able to shed light on the host’s genetics in states of health and states of disease. The virome is composed of both nucleic acids (DNA and RNA).
+ 
+Human viruses are associated with many cancers, due to their manipulative and mutagenic abilities [@hannigan_diagnostic_2018]. 
+Viral metagenomic taxa can distinguish colorectal cancer patients from control subjects [@nakatsu_alterations_2018]. 
 Furthermore, a subset of markers were identified as high-risk from a subset of patients with colorectal cancer.  
 
-Here we address the knowledge gap with respect to whether bacterial and viral community composition differ between healthy patients and those diagnosed with adenoma and carcinoma.
+The composition of the microbiome is further affected by the presence and population of bacteriophages [@Hsu_Dynamic_2019].  Hsu et al. introduces lytic phages colonized with human gut bacteria.  The phages showed direct effects, that phage predation decreases the susceptible bacterial species, while resistant populations flourish.  Indirect effects include cascading effects on other bacterial species through interbacterial interactions.  Shifts in the microbiome caused by phage predation have a direct effect on the gut metabolome [@Hsu_Dynamic_2019]. 
 
-We used the data from __hannigan paper___ and _sited in report_ to try to understand the viruses and bacteria in the gut microbiome in colorectal cancer.
+Here we address the knowledge gap with respect to whether bacterial and viral community composition differ between healthy patients and those diagnosed with adenoma and carcinoma. 
+
+We used the data from Hannigan et al 2017 and NCBI BioProject ID: PRJA389927 to try to understand the differences in the bacterial and viral community composition between human stool samples from patients diagnosed as normal, adenoma, and carcinoma. We also try to illuminate if there differences in bacterial & viral community composition between human stool samples from patients of the three groups. In order to do this, we use the same approach of Hannigan et al with a random forest model with OTUs or OVUs as features.  We also seek to understand differences in functional potential between metagenomes of the three samples groups.  This would be demonstrated by differences in OTU levels between the three conditions: cancer, adenoma, and heatlhy control.
 
 
 # Methods
