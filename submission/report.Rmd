@@ -71,7 +71,7 @@ In mammals, the viruses infect host cells and the variety of organisms that inha
 Identifying and understanding the virome within a host requires genetic and transcriptional identification of the mammal.  This virome may be able to shed light on the host’s genetics in states of health and states of disease. 
 The virome is composed of both nucleic acids (DNA and RNA).
 
-Human viruses associated with many cancers, due to their manipulative and mutagenic abilities. (Hannigan, G.D. et al. 2018). 
+Human viruses associated with many cancers, due to their manipulative and mutagenic abilities [@hannigan_diagnostic_2018]. 
 Viral metagenomic taxa can distinguish colorectal cancer patients from control subjects [@nakatsu_alterations_2018]. 
 Furthermore, a subset of markers were identified as high-risk from a subset of patients with colorectal cancer.  
 
@@ -85,7 +85,7 @@ We used the data from __hannigan paper___ and __sited in report_ to try to under
 ## Study design and data collection
 
 \todo{study design / data collection based on hannigan and zackular papers}
-[@hannigan_diagnostic_2018; @Zackular_human_2014]
+[@hannigan_diagnostic_2018; @zackular_human_2014]
 
 The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927).
 All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.

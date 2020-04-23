@@ -1,5 +1,4 @@
-#use vegana
-BiocManager::install("phyloseq")
+#use vegan
 library("phyloseq")
 library("ggplot2")
 library("plyr")
