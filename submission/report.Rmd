@@ -95,6 +95,9 @@ The 16S rRNA gene sequences associated with this study were previously reported 
 The 16S rRNA gene sequences were analyzed with the mothur software package (v1.37.0) [@kozich_Development_2013] [@schloss_introducing_2009]. Mothur allows contigs from forward and reverse fastq files to be generated, pre-processing steps for primer removal and quality screening, and the identification of unique sequences. After these steps were taken to reduce sequencing and PCR errors, sequences were aligned to the SILVA database [@pruesse_SILVA_2007], screened for chimeras using VSEARCH, and binned into operational taxonomic units (OTUs) using a 97% similarity threshold. 
 
 
+\todo{mothur}
+Alpha and beta diversity metrics were calculated with the vegan R package [@oksanen_vegan_2018].
+
 ## Metagenome and virome quality control
 
 Trimmomatic (v.0.39) [@bolger_trimmomatic_2014] was used to remove adapter sequences and low-quality reads in metagenome and virome sample sets. 
@@ -107,7 +110,15 @@ The paired unmapped reads were used for taxonomic profiling and gene annotation.
 Closely related viral contig sequences were categorized into operational viral units (OVUs) in the absence of taxonomic identity. OVUs were defined with the CONCOCT algorithm (v0.4.0). This algorithm applies a variation-based Bayesian approach that bins related contigs by similar tetramer and coabundance profiles within samples [@alneberg_binning_2014].
 
 
+\todo{virome pipeline}
+
 ## Classification modeling
+
+The caret R package [@kuhn_caret_2013] was used to train random forest models to classify samples as healthy or cancerous based on taxonomic abundance data.
+Only binary classifier models were trained, rather than three-class models, to reduce the time and computing resources required.
+Two models were trained; one with OTU (bacterial) abundances as features and the other with OVU (viral) abundances as features.
+For both models, the data were split into training and test sets with 65\% of the data for training.
+The models were validated with five-fold cross validation and tuned for mtry values to maximize the area under the receiver operating curve (AUC).
 
 ## Metagenome taxonomic profiling and gene annotation
 
@@ -121,20 +132,53 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
 
 # Results
 
-## Bacterial diversity in colorectal cancer
+## Bacterial diversity
 
-The influence of colorectal cancer on bacterial OTU diversity was evaluated amongst the three disease classes. A total of 3,904 OTUs were identified. Alpha diversity was evaluated based upon Shannon diversity metrics. Shannon’s diversity index accounts for both the abundance and the evenness of the species present. As seen in Figure XX, individuals with healthy colons do not appear to have a distinctly different gut microbiome from an evenness perspective. The figure suggests that individuals with cancerous and healthy colons may have a select group of OTUs that dominate the environment since their index values are not relatively high. There was no statistically significant clustering of the disease groups (analysis of variance [ANOVA] P value = 0.3).
+\begin{figure}[ht]
+  \includegraphics[width=1\textwidth, center]{../figures/alpha_beta_diversity.png}  
+  \caption{(A) Shannon diversity index across disease states and (B) Multi-dimensional scaling plot of Bray-Curtis Distances.}
+  \label{fig:diversity}
+\end{figure}
 
-The beta diversity was evaluated based upon Bray-Curtis metrics. Bray-Curtis dissimilarity allows for the calculation of statistical dissimilarity between the three disease classes relative to each other. As seen in Figure XX, there does not appear to be distinct clustering of the disease classes. Instead, each disease class is fairly dispersed. There was no statistically significant clustering of the disease groups ([ANOVA] P value > 0.23). 
+The influence of colorectal cancer on bacterial OTU diversity was evaluated amongst the three disease classes. A total of 3,904 OTUs were identified. 
+Shannon diversity index of the 16S bacterial abundance data showed a general decreasing trend along the progression from healthy, to adenoma, to cancer (Fig. \ref{fig:diversity}A). 
+As a metric of alpha diversity, the Shannon diversity index describes diversity within communities in terms of richness and evenness.
+In contrast to Shannon diversity, Bray-Curtis distance is a beta diversity metric that quantifies diversity between communities [@tuomisto_diversity_2010].
+The pairwise Bray-Curtis distances of sample-wise OTU abundances were calculated and plotted as a multi-dimensional scaling plot, but there is no distinguishable separation among the disease classes (Fig. \ref{fig:diversity}B).
+This is further supported by analysis of variance (ANOVA) analyses for both alpha and beta diversity (P value > 0.23 and P value > 0.3 respectively).
+These alpha and beta diversity metrics characterize and distinguish communities in broad strokes.
 
+## Classification modeling
 
-## Taxnomonic abundance based on metagenome
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \begin{center}
+        \includegraphics[width=0.39\textwidth]{../figures/auroc.png}  
+        \caption{Model performance as measured by the receiver operating characteristic (ROC) curve for models trained on bacterial abundance or viral abundance data.}
+        \label{fig:auroc}  
+    \end{center}
+\end{wrapfigure}
 
+Random forest models were trained on OTU abundances from 16S bacterial sequence data and on OVU abundances from viral metagenomes to classify samples as healthy or cancerous. 
+Both models had modest performance with an AUROC of 0.765 for the bacterial model and an AUROC of 0.73 for the viral model (Fig. \ref{fig:auroc}). 
+The bacterial abundance data consisted of 3,04 OTUs, while the viral abundance data contained only 70 OVUs.
+This discrepancy in the number of features as inputs to the random forest models may have contributed to the bacterial model outperforming the viral model for classifying samples as healthy or cancerous.
+An OTU containing members of the genus _Fusobacterium_ was by far the most important feature of the bacterial model.
+The viral metagenomes were not aligned to a reference database, so OVUs were not able to be identified for feature importance determination.
+Previous work by Hannigan _et al._ additionally included models trained on bacterial whole metagenomes and models combining bacterial and viral abundance data.
 
+## Taxonomonic abundance
+
+\todo{moar werdz go here}
+
+\begin{figure}[H]
+  \includegraphics[width=1\textwidth, center]{../figures/metag_taxa_heatmap_phy_fam.png}  
+  \caption{}
+  \label{fig:taxabun}
+\end{figure}
 
 ## Metagenome annotation and quantification
 
-\begin{wrapfigure}{R}{0.5\textwidth}
+\begin{wrapfigure}{l}{0.5\textwidth}
     \begin{center}
         \includegraphics[width=0.49\textwidth]{../figures/gene_abundance_MDS.pdf}  
         \caption{Multidimensional scaling (MDS) abundance plot based on KEGG annotation counts derived from gut microbiome of patients that are healthy (H) or diagnosed with adenoma (A) or cancer (C).}
@@ -203,8 +247,11 @@ kable(
 
 # Discussion
 
-Based upon the alpha and beta diversity of the OTUs, it is possible that the gut microbiome does not significantly shift in response to the presence of colorectal cancer. Standard alpha and beta diversity metrics do not adequately capture community differences of the bacterial community. This illuminates that examining the 16S sequences of the gut microbiome may not be an adequate tool for identifying a healthy versus a cancerous colon.
+Based upon the alpha and beta diversity of the OTUs, it is possible that the gut microbiome does not significantly shift in response to the presence of colorectal cancer. 
+Standard alpha and beta diversity metrics do not adequately capture community differences of the bacterial community. 
+This illuminates that examining the 16S sequences of the gut microbiome may not be an adequate tool for identifying a healthy versus a cancerous colon.
 
+\todo{discuss: taxonomic abundance, random forest discriminates disease classes better than diversity metrics, gene abundance}
 
 # Acknowledgements
 

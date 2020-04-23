@@ -3,7 +3,8 @@ include: "references.smk"
 rule make_names_file:
     input:
         code="code/16S/make_names_file.R",
-        metadata="data/SraRunTable.txt"
+        metadata="data/SraRunTable.txt",
+        fasta=expand("data/raw/{sample}_{pair}", sample=metag_samples, pair=[1,2])
     output:
         file="data/16S/crc.files"
     shell:
@@ -87,4 +88,26 @@ rule cluster_OTUs:
         get.oturep(fasta={input.fasta}, count=current, list=current, label=0.03, method=abundance);
         remove.groups(shared=current, groups=mock1-mock2)
         '
+        """
+
+rule mothur_16S:
+    input:
+        expand("data/raw/{sample}_{r}.fastq.gz", sample=all_samples, r=[1,2])
+    output:
+        "data/16S/processed/tmp.txt"
+    shell:
+        """
+        # real mothur pipeline was run interactively, not incorporated in Snakemake
+        touch {output}
+        """
+
+rule cluster_OTU:
+    input:
+        rules.mothur_16S.output
+    output:
+        "data/16S/mothur_output/stability.opti_mcc.shared"
+    shell:
+        """
+        # real mothur pipeline was run interactively, not incorporated in Snakemake
+        touch {output}
         """

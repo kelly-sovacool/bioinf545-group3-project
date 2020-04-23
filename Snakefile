@@ -17,7 +17,8 @@ rule targets:
         "docs/report.pdf",
         "data/metagenome/all_kegg_counts.csv",
         "data/metagenome/metaphlan2_results/merged.txt",
-        "data/virome/concoct/clustering_merged.csv"
+        "data/model/rf_model_bacteria.tsv",
+        "data/model/rf_model_virus.tsv"
 
 rule render_pdf:
     input:
@@ -25,7 +26,10 @@ rule render_pdf:
         rmd="submission/{doc}.Rmd",
         preamble="submission/preamble_{doc}.tex",
         bib="submission/refs_{doc}.bib",
-        figures=["figures/gene_abundance_MDS.pdf"],
+        figures=["figures/gene_abundance_MDS.pdf",
+                "figures/auroc.png",
+                "figures/alpha_beta_diversity.png",
+                "figures/metag_taxa_heatmap_phy_fam.png"],
         tables=["data/metagenome/gene_abundance_results/DEgenes_pos.csv",
                 "data/metagenome/gene_abundance_results/DEgenes_neg.csv"]
     output:
@@ -171,3 +175,46 @@ rule re_pair_2:
         """
         repair.sh in={input.R1} in2={input.R2} out={output.R1} out2={output.R2} outs={output.single} 2> {log}
         """
+
+rule model_OTU:
+    input:
+        code="code/predict_OTU.R",
+        fcns="code/machine_learning.R",
+        data="data/16S/mothur_output/stability.opti_mcc.shared"
+    output:
+        tsv="data/model/rf_model_bacteria.tsv",
+        rds="data/model/conf_mat_bacteria.rds",
+        feat="data/model/feat_imp_bacteria.rds"
+    script:
+        "{input.code}"
+
+rule model_OVU:
+    input:
+        code="code/predict_OVU.R",
+        fcns="code/machine_learning.R",
+        data="data/virome/ovu_abundance.tsv"
+    output:
+        tsv="data/model/rf_model_virus.tsv",
+        mat="data/model/conf_mat_virus.rds",
+        feat="data/model/feat_imp_virus.rds"
+    script:
+        "{input.code}"
+
+rule plot_models:
+    input:
+        code="code/plot_models.R",
+        otu=rules.model_OTU.output,
+        ovu=rules.model_OVU.output
+    output:
+        "figures/auroc.png"
+    script:
+        "{input.code}"
+
+rule plot_diversity:
+    input:
+        code="code/16S/alpha_beta_plots.R",
+        data="data/16S/mothur_output/stability.opti_mcc.shared"
+    output:
+        "figures/alpha_beta_diversity.png"
+    script:
+        "{input.code}"
