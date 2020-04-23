@@ -109,7 +109,7 @@ The 16S rRNA gene sequences associated with this study were previously reported 
 The fastq sequence and metadata files were downloaded from the NCBI sequence read archive with the sra toolkit.
 The 16S rRNA gene sequences were analyzed with the mothur software package (v1.43.0) [@schloss_introducing_2009] according to the MiSeq standard operating procedure [@kozich_development_2013].
 Mothur allows contigs from forward and reverse reads to be assembled, pre-processing steps for primer removal and quality screening, and the identification of unique sequences.
-After these steps were taken to reduce sequencing and PCR errors, sequences were aligned to the SILVA database [@pruesse_silva_2007], screened for chimeras using VSEARCH, and clustered into operational taxonomic units (OTUs) using the default 97\% similarity threshold.
+After these steps were taken to reduce sequencing and PCR errors, sequences were aligned to the SILVA database [@pruesse_silva_2007], screened for chimeras using VSEARCH, and clustered into operational taxonomic units (OTU) using the _de novo_ OptiClust algorithm [@westcott_opticlust_2017] at a 97\% sequence similarity threshold.
 Alpha and beta diversity metrics were calculated with the vegan R package [@oksanen_vegan_2018].
 
 ## Metagenome and virome quality control
@@ -118,13 +118,17 @@ Trimmomatic (v.0.39) [@bolger_trimmomatic_2014] was used to remove adapter seque
 The read quality was assessed using FastQC (v.0.11.9) [@andrews_fastqc_2010] before and after adapter trimming to confirm removal of adapters and low quality reads.
 Unpaired reads were dropped using the repair function in BBTools (v.37.62) [@bushnell_bbtools_2018].
 Then, reads mapping to the human GRCh38 reference genome were removed using the BWA-MEM algorithm (BWA v.0.7.12) [@li_aligning_2013].
-The paired unmapped reads were used for taxonomic profiling and gene annotation.
+The paired unmapped reads from metagenome samples were used for taxonomic profiling and gene annotation, while those from virome samples were used for virome assembly.
 
 ## Virome assembly
 
-Closely related viral contig sequences were categorized into operational viral units (OVUs) in the absence of taxonomic identity.
-OVUs were defined with the CONCOCT algorithm (v0.4.0).
-This algorithm applies a variation-based Bayesian approach that bins related contigs by similar tetramer and coabundance profiles within samples [@alneberg_binning_2014].
+After the quality control steps, viral reads were assembled into contigs using megahit [@li_megahit_2015], 
+then reads were mapped back to the assembled contigs using BWA-MEM.
+Next, contigs were binned using the CONCOCT algorithm (v0.4.0) [@alneberg_binning_2014],
+which applies a variation-based Bayesian approach to bin related contigs by similar tetramer and coabundance profiles within samples.
+These bins defined operational viral units (OVU) in the absence of taxonomic identity.
+The sample-wise table of OVU abundances derived from the CONCOCT output was used for classification modeling of disease states.
+Due to a lack of time, the OVUs were not aligned to a virome reference database for taxonomic identification.
 
 ## Classification modeling
 
@@ -184,7 +188,7 @@ Both models had modest performance with an AUROC of 0.765 for the bacterial mode
 The bacterial abundance data consisted of 3,704 OTUs, while the viral abundance data contained only 70 OVUs.
 This discrepancy in the number of features as inputs to the random forest models may have contributed to the bacterial model outperforming the viral model for classifying samples as healthy or cancerous.
 An OTU containing members of the genus _Fusobacterium_ was by far the most important feature of the bacterial model.
-The viral metagenomes were not aligned to a reference database, so OVUs were not able to be identified for feature importance determination.
+The viral metagenomes were not aligned to a reference database, so OVUs were not able to be taxonomically identified for feature importance determination.
 Previous work by Hannigan _et al._ additionally included models trained on bacterial whole metagenomes and models combining bacterial and viral abundance data.
 
 ## Taxnomonic profiles of metagenomes
