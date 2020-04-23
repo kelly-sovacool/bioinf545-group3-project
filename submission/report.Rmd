@@ -91,7 +91,6 @@ This would be demonstrated by differences in OTU levels between the three condit
 
 ## Study design and data collection
 
-\todo{study design / data collection based on hannigan and zackular papers}
 The data used for our evaluation have been previously reported [@hannigan_diagnostic_2018; @zackular_human_2014]. 
 Whole evacuated stool was collected from patients. 
 Patient requirements included a minimum age of 18 years of age, informed consent, a histologically confirmed colonic disease status from a previous colonoscopy, no history of surgery or chemotherapy, and free of known comorbidities. 
@@ -258,9 +257,6 @@ kable(
 
 
 # Discussion
-
-\todo{taxonomic abundance, gene abundance}
-
 
 Some differences in the gut microbiome community composition between the patient groups may reflect prior findings. 
 Members of the *Peptostreptococacceae* and *Porphyromonadaceae* family are slightly more abundant in adenoma or cancer patients, which were previously found to be associated with CRC [@ternes_microbiome_2020a]. 
