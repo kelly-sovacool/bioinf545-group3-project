@@ -78,8 +78,21 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
 
 # Results
 
-## Taxnomonic abundance based on metagenome
+## Bacterial diversity
 
+## Classification modeling
+
+\begin{wrapfigure}{L}{0.4\textwidth}
+    \begin{center}
+        \includegraphics[width=0.39\textwidth]{../figures/auroc.png}  
+        \caption{Model performance as measured by the receiver operating characteristic (ROC) curve for models trained on 16S bacterial OTU abundance or virus OVU abundance.}
+        \label{fig:auroc}  
+    \end{center}
+\end{wrapfigure}
+
+(Fig. \ref{fig:auroc})
+
+## Taxonomonic abundance
 
 
 ## Metagenome annotation and quantification
