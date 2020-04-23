@@ -56,9 +56,9 @@ plot_heatmap <- function(taxonlevel) {
 plotlist <- lapply(c("Phylum", "Family", "Genus", "Species"), plot_heatmap)
 
 plot_phy_fam <- plot_grid(plot_grid(NULL, plotlist[[1]], labels = c("(a)", ""), ncol = 2, rel_widths = c(1, 8)),
-         plot_grid(plotlist[[2]], NULL, labels = c("(b)", ""), ncol = 2, rel_widths = c(1, 0)),
-         ncol = 1, rel_heights = c(2, 7)
-         )
+  plot_grid(plotlist[[2]], NULL, labels = c("(b)", ""), ncol = 2, rel_widths = c(1, 0)),
+  ncol = 1, rel_heights = c(2, 7)
+)
 
 rect <- rectGrob(
   x = 0.9,
