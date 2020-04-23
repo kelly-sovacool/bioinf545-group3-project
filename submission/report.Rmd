@@ -86,7 +86,7 @@ Shifts in the microbiome caused by phage predation have a direct effect on the g
 Here we address the knowledge gap with respect to whether bacterial and viral community composition differ between healthy patients and those diagnosed with adenoma and carcinoma. 
 
 We used the data from Hannigan *et al.* [@hannigan_diagnostic_2018] and NCBI BioProject ID: PRJA389927 to try to understand the differences in the bacterial and viral community composition between human stool samples from patients diagnosed as normal, adenoma, and carcinoma. 
-We also try to illuminate if there differences in bacterial & viral community composition between human stool samples from patients of the three groups. 
+We also try to illuminate if there are differences in bacterial & viral community composition between human stool samples from patients of the three groups. 
 In order to do achieve these objectives, we use the same approach as Hannigan *et al.* [@hannigan_diagnostic_2018] with a random forest model with OTUs or OVUs as features. 
 We also seek to understand differences in functional potential between metagenomes of the three samples groups by examining the relative gene abundance and pathways. 
 This would be demonstrated by differences in OTU levels between the three conditions: cancer, adenoma, and heatlhy control.
@@ -296,7 +296,7 @@ but models using abundance data take into account more granular similarities, di
 
 Kostic *et al.* [@kostic_genomic_2012] have previously shown that members of the genus *Fusobacterium* are associated with CRC.
 The results of our study also support this finding, as an OTU containing members of this genus was the most important feature of the bacterial classification model.
-Interestingly, this phylum was not the most abundant in any samples.
+Interestingly, this genus was not the most abundant in any samples.
 The most important members of communities may not always be the most abundant,
 but their metabolic activities may mediate important interactions that cannot be investigated 
 through genetic sequence analysis alone [@li_effects_2018].
