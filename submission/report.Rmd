@@ -1,10 +1,11 @@
 ---
 title: "Investigating the microbial community of the human gut in colorectal cancer"
-author:
-  - "Nicole Bowers$^1$, Brittany Hicks$^2$, Christina Kang-Yun$^2$, Katelyn Polemi$^3$, Kelly Sovacool$^1$"
-  - "$^1$Department of Computational Medicine and Bioinformatics," 
-  - "$^2$Department of Civil and Environmental Engineering,"
-  - "$^3$Department of Environmental Health Sciences"
+author: |
+  | Nicole Bowers$^1$, Brittany Hicks$^2$, Christina Kang-Yun$^2$, Katelyn Polemi$^3$, Kelly Sovacool$^1$
+  |
+  | $^1$Department of Computational Medicine and Bioinformatics
+  | $^2$Department of Civil and Environmental Engineering
+  | $^3$Department of Environmental Health Sciences
 csl: mbio.csl
 output:
   pdf_document:
