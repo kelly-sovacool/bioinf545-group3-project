@@ -3,8 +3,6 @@ library("edgeR")
 library("dplyr")
 library("purrr")
 library("tidyr")
-library("ggplot2")
-# library("vegan")
 
 # Import metadata to order samples by name.
 SraRun <- read.table(here::here("data", "SraRunTable.txt"),
@@ -44,7 +42,6 @@ colnames(keggCounts) <-
 keggCounts <- keggCounts %>%
   select(KeggNo, paste(colOrder)) # reorder by sample type.
 
-colnames(keggCounts) <- c("KeggNo", SraRun$subjectid) # keep KeggNo & add the subject id's
 keggCounts[is.na(keggCounts)] <- 0 # replace NA with 0
 
 write.table(keggCounts, file = here::here("data", "metagenome", "all_kegg_counts.csv"), sep = ",", row.names = TRUE)
@@ -59,20 +56,8 @@ group <- c(
   rep("A", sum(SraRun$DiseaseClass == "Adenoma")),
   rep("C", sum(SraRun$DiseaseClass == "Cancer"))
 )
+cds <- DGEList(keggCounts, group = group)
 
-groupColors <-
-  c(
-    rep("black", sum(SraRun$DiseaseClass == "Negative")),
-    rep("green", sum(SraRun$DiseaseClass == "Healthy")),
-    rep("blue", sum(SraRun$DiseaseClass == "Adenoma")),
-    rep("red", sum(SraRun$DiseaseClass == "Cancer"))
-  )
-
-cds <- keggCounts
-rownames(cds) <- keggCounts$KeggNo # change rownames to KeggNo
-cds <- cds %>%
-  select(-KeggNo) %>%
-  DGEList(group = group) # analyze just the count numbers
 # Filter out genes with low counts, keeping those rows where the count
 # per million (cpm) is at least 1 in at least 6 samples:
 keep <- rowSums(cpm(cds) > 1) >= 6
@@ -117,19 +102,8 @@ write.table(DEgenes_pos,
   sep = "\t", row.names = T, quote = F, col.names = F
 )
 
-<<<<<<< HEAD
-# Find Differentially Abundant genes healthy and control
-DEgenes.HC <- exactTest(cds, pair = c("H", "C"))
-summary(decideTestsDGE(DEgenes.HC, p.value = 0.05))
-DEgene.table.HC <- topTags(DEgenes.HC, n = nrow(DEgenes.HC$table))$table
-write.table(DEgene.table.HC,
-  file = here::here("data", "metagenome", "DEgenes.csv"),
-  sep = ",", row.names = TRUE
-=======
 write.table(DEgenes_neg,
   file = here::here("data", "metagenome", "gene_abundance_results", "DEgenes_neg.txt"),
   sep = "\t", row.names = T, quote = F, col.names = F
->>>>>>> d64c2cac7ec52b0da468236b7b636c8e5da33a95
-)
 
-#to do heatmap of the gene abundance
+)

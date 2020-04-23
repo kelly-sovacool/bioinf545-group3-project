@@ -3,9 +3,6 @@ title: "Investigating the microbial community of the human gut in colorectal can
 author: "Nicole Bowers, Brittany Hicks, Christina Kang-Yun, Katelyn Polemi, Kelly Sovacool"
 csl: mbio.csl
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   pdf_document:
     includes:
       in_header: preamble_report.tex
@@ -14,10 +11,14 @@ output:
     toc: yes
   word_document:
     toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
 geometry: margin=1in
 link-citations: yes
 fontsize: 11pt
 bibliography: refs_report.bib
+subparagraph: true # fixed error that says "! Argument of \paragraph has an extra }."
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
@@ -39,23 +40,69 @@ library(tidyverse)
 
 # Abstract
 
+Colorectal cancer is the third leading cause of cancer related deaths globally [@rawla_epidemiology_2019].
+Colorectal cancer (CRC) initiates in the large intestine emerging from glandular epithelial cells.
+Due to a selective advantage, obtained from a series of genetic or epigenetic mutations, these unregulated cells grow and can potentially develop into colorectal adenocarcinoma [@ewing_molecular_2014].
+Many studies have used the cancer microbiome to investigate how these mutations occur, however, they have almost exclusively focused on bacteria.
+Human viruses have been implicated in the development of many cancers such as HPV, HTLV-1 and HIV [@liao_viruses_2006].
+Through mutagenic and manipulative abilities, viruses cause unregulated growth by disrupting the normal function of cells.
+The association of colorectal cancer and the gut virome remains unknown, therefore, in this study we propose to investigate the differences in the bacterial and viral community composition and their effect on CRC development.
+We performed operational taxonomic unit (OTU) clustering of 16S sequences for bacterial taxonomy and operational viromic unit (OVU) clustering of metaviromes for viral taxonomy to investigate the differences in human colorectal bacterial and viral community composition.
+Using machine learning classification of OTUs and OVUs from healthy or cancerous samples, we aim to compare performance of the random forest model vs logistic regression.
+Overall, the goal of the current study is to classify whether samples are healthy or cancerous based on bacterial and viral taxa. These results provide…
+
 # Introduction
+
+The leading cancer-related death in the United States is colorectal cancer [@hannigan_diagnostic_2018].
+Due to screening techniques and improvements in treatment the rate of colorectal cancer has fallen.
+The primary screening technique is colonoscopy.
+A new technique gaining popularity is Exact Sciences Cologuard, a combination test which looks for both the genetic material found in colon cancer and some more advanced colon polyps and it detects hemoglobin in the stool using fecal immunochemical testing (Cologuard).
+While colon cancer screening techniques are advancing, we aim to understand the environment of colorectal cancer.
+
+Gut dysbiosis is any change to the normal microbiome that could change the relationship between the host and associated microbes [@neto_upper_2017].
+This is well documented gastrointestinal (GI) disorders including irritable bowel syndrome, peptic ulcers, and even gastric and colon cancers [@neto_upper_2017].
+Gut dysbiosis is documented in patients with colorectal cancers [@nakatsu_alterations_2018].
+Though the underlying mechanisms of these microbes is yet unknown, some bacteria were found to be associated with colorectal cancer [@ternes_microbiome_2020a].
+These include *Fusobacterium*, *Peptostreptococcus*, *Porphyromonas*, *Prevotella*, *Parvimonas*, *Bacteroides*, and *Gemella*, and they may be able to affect the disease state via metabolite secretion, host tissue invasion, and inducing host immune response [@ternes_microbiome_2020a].
+
+At present, the majority of cancer microbiome studies focus on the bacteria (CITATION NEEDED).
+Colorectal cancer is previously linked to changes to the colonic bacterial composition, yet the gut virome is vastly unexplored [@nakatsu_alterations_2018].
+
+Virome is a viral community associated with a particular ecosystem or holobiont.
+In mammals, the viruses infect host cells and the variety of organisms that inhabit us.
+Identifying and understanding the virome within a host requires genetic and transcriptional identification of the mammal.  This virome may be able to shed light on the host’s genetics in states of health and states of disease.
+The virome is composed of both nucleic acids (DNA and RNA).
+
+Human viruses are associated with many cancers, due to their manipulative and mutagenic abilities [@hannigan_diagnostic_2018].
+Viral metagenomic taxa can distinguish colorectal cancer patients from control subjects [@nakatsu_alterations_2018].
+Furthermore, a subset of markers were identified as high-risk from a subset of patients with colorectal cancer.  
+
+Here we address the knowledge gap with respect to whether bacterial and viral community composition differ between healthy patients and those diagnosed with adenoma and carcinoma.
+
+We used the data from __hannigan paper___ and _sited in report_ to try to understand the viruses and bacteria in the gut microbiome in colorectal cancer.
+
 
 # Methods
 
 ## Study design and data collection
 
 \todo{study design / data collection based on hannigan and zackular papers}
-[@hannigan_diagnostic_2017; @Zackular_human_2014]
+The data used for our evaluation have been previously reported [@hannigan_diagnostic_2018; @zackular_human_2014]. Whole evacuated stool was collected from patients. Patient requirements included a minimum age of 18 years of age, informed consent, a histologically confirmed colonic disease status from a previous colonoscopy, no history of surgery or chemotherapy, and free of known comorbidities. These comorbities included chronic viral hepatitis, inflammatory bowel disease, hereditary nonpolyposis colorectal cancer (HNPCC), HIV, and familial adenomatous polyposis (FAP). Ninety patients were recruited to the study. Three designated disease classes were designated: adenoma, carinoma, and healthy. Of these three disease classes, thirty patients were classified into each. Samples were collected from four geographic locations: Ann Arbor (MI, USA), Boston (MA, USA), Houston (TX, USA), and Toronto (Ontario, Canada).
 
 The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927).
 All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.
 
 ## 16S rRNA gene sequence processing
 
+The 16S rRNA gene sequences associated with this study were previously reported by [@zackular_human_2014]. The fastq sequence and metadata files were downloaded from the NCBI sequence read archive with the sra toolkit.
+The 16S rRNA gene sequences were analyzed with the mothur software package (v1.43.0) [@schloss_introducing_2009] according to the MiSeq standard operating procedure [@kozich_development_2013].
+Mothur allows contigs from forward and reverse reads to be assembled, pre-processing steps for primer removal and quality screening, and the identification of unique sequences.
+After these steps were taken to reduce sequencing and PCR errors, sequences were aligned to the SILVA database [@pruesse_silva_2007], screened for chimeras using VSEARCH, and clustered into operational taxonomic units (OTUs) using the default 97\% similarity threshold.
+Alpha and beta diversity metrics were calculated with the vegan R package [@oksanen_vegan_2018].
+
 ## Metagenome and virome quality control
 
-Trimmomatic (v.0.39) [@bolger_trimmomatic_2014] was used to remove adapter sequences and low-quality reads in metagenome and virome sample sets. 
+Trimmomatic (v.0.39) [@bolger_trimmomatic_2014] was used to remove adapter sequences and low-quality reads in metagenome and virome sample sets.
 The read quality was assessed using FastQC (v.0.11.9) [@andrews_fastqc_2010] before and after adapter trimming to confirm removal of adapters and low quality reads.
 Unpaired reads were dropped using the repair function in BBTools (v.37.62) [@bushnell_bbtools_2018].
 Then, reads mapping to the human GRCh38 reference genome were removed using the BWA-MEM algorithm (BWA v.0.7.12) [@li_aligning_2013].
@@ -63,83 +110,115 @@ The paired unmapped reads were used for taxonomic profiling and gene annotation.
 
 ## Virome assembly
 
+Closely related viral contig sequences were categorized into operational viral units (OVUs) in the absence of taxonomic identity.
+OVUs were defined with the CONCOCT algorithm (v0.4.0).
+This algorithm applies a variation-based Bayesian approach that bins related contigs by similar tetramer and coabundance profiles within samples [@alneberg_binning_2014].
+
 ## Classification modeling
+
+The caret R package [@kuhn_caret_2013] was used to train random forest models to classify samples as healthy or cancerous based on taxonomic abundance data.
+Only binary classifier models were trained, rather than three-class models, to reduce the time and computing resources required.
+Two models were trained; one with OTU (bacterial) abundances as features and the other with OVU (viral) abundances as features.
+For both models, the data were split into training and test sets with 65\% of the data for training.
+The models were validated with five-fold cross validation and tuned for mtry values to maximize the area under the receiver operating curve (AUC).
 
 ## Metagenome taxonomic profiling and gene annotation
 
 The human genome-free reads were used to profile the metagenomic taxonomy at the species, genus, family, and phylum levels using MetaPhlAn2 [@truong_metaphlan2_2015].
-The results were visualized using the R package phyloseq [@mcmurdie_phyloseq_2013].
+The results were visualized using the R package ggplot2 (v.3.3.0) [@wickham_ggplot2_2016].
 
 The paired reads that did not map to the human genome were aligned to the Integrated Gene Catalog (IGC) [@li_integrated_2014] of 1,267 gut microbiome samples consisting of approximately 10 million genes with the BWA MEM algorithm for metagenome annotation [@li_aligning_2013].
 Annotated genes were extracted from the alignment results using functions geneList and countKegg modified from the MGS-Fast pipeline [@brown_mgs-fast_2019].
 The differences in gene abundance between healthy, adenoma, and cancer groups were assessed using the R package edgeR [@robinson_edger_2009].
-Up to 500 top KEGG numbers of genes that were significantly different between healthy and other groups were selected and the relevant KEGG pathway was determined using the KEGG mapper tool [@kanehisa_kegg_2020].
+Up to 480 top KEGG numbers of genes that were significantly different between healthy and other groups were selected and the relevant KEGG pathway was determined using the KEGG mapper tool [@kanehisa_kegg_2020].
 
 # Results
+
+## Bacterial diversity in colorectal cancer
+
+The influence of colorectal cancer on bacterial diversity was evaluated amongst the three disease classes.
+A total of 3,904 OTUs were identified.
+Alpha and beta diversity metrics are used to characterize and distinguish ecological communities in broad strokes.
+As a metric of alpha diversity, the Shannon diversity index describes diversity within communities in terms of richness and evenness, taking into account the abundance of the species present [@tuomisto_diversity_2010].
+As seen in Fig. \ref{fig:diversity}A, individuals with healthy colons do not appear to have a distinctly different gut microbiome from a species richness and evenness perspective.
+Although the mean Shannon diversity decreased along the progression from healthy, to adenoma, to cancer (Fig. \ref{fig:diversity}A),
+these perceived differences were not statistically significant among the disease groups (analysis of variance [ANOVA] p-value = 0.3).
+This result suggests that individuals with cancerous and healthy colons may have a select group of OTUs that dominate the environment since their index values are not relatively high.
+
+In contrast to Shannon diversity, which quantifies diversity within communities, Bray-Curtis dissimilarity is a beta diversity metric that quantifies diversity _between_ communities [@tuomisto_diversity_2010].
+The pairwise Bray-Curtis distances of sample-wise OTU abundances were calculated and plotted as a multi-dimensional scaling plot (Fig. \ref{fig:diversity}B).
+There does not appear to be distinct clustering of the disease classes.
+Instead, each disease class is fairly dispersed.
+There was no statistically significant clustering of the disease groups ([ANOVA] p-value > 0.23).
+
+\begin{figure}[ht]
+  \includegraphics[width=1\textwidth, center]{../figures/alpha_beta_diversity.png}  
+  \caption{(A) Shannon diversity index across disease states and (B) Multi-dimensional scaling plot of Bray-Curtis Distances.}
+  \label{fig:diversity}
+\end{figure}
+
+## Classification modeling
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \begin{center}
+        \includegraphics[width=0.39\textwidth]{../figures/auroc.png}  
+        \caption{Model performance as measured by the receiver operating characteristic (ROC) curve for models trained on bacterial abundance or viral abundance data.}
+        \label{fig:auroc}  
+    \end{center}
+\end{wrapfigure}
+
+Random forest models were trained on OTU abundances from 16S bacterial sequence data and on OVU abundances from viral metagenomes to classify samples as healthy or cancerous.
+Both models had modest performance with an AUROC of 0.765 for the bacterial model and an AUROC of 0.73 for the viral model (Fig. \ref{fig:auroc}).
+The bacterial abundance data consisted of 3,704 OTUs, while the viral abundance data contained only 70 OVUs.
+This discrepancy in the number of features as inputs to the random forest models may have contributed to the bacterial model outperforming the viral model for classifying samples as healthy or cancerous.
+An OTU containing members of the genus _Fusobacterium_ was by far the most important feature of the bacterial model.
+The viral metagenomes were not aligned to a reference database, so OVUs were not able to be identified for feature importance determination.
+Previous work by Hannigan _et al._ additionally included models trained on bacterial whole metagenomes and models combining bacterial and viral abundance data.
+
+## Taxnomonic profile based on metagenome
+
+The taxonomic profile was constructed based on the gut microbiomes of healthy, adenoma, and cancer patients using MetaPhlAn2 (Fig. \ref{fig:taxabun}).
+There are subtle differences of community composition between healthy patients and those who were diagnosed with adenoma or cancer.
+At the phylum level, some healthy patients have more members of the phyla Verrucomicrobia, Bacteroidetes, and Actinobacteria as compared to other patient groups.
+In addition, some patients with adenoma or cancer have a greater abundance of species belonging to the Proteobacteria phylum.
+The gut microbiome of healthy patients are relatively more abundant with members of the families *Ruminococcaceae*, *Lachnospiraceae*, *Bifidobacteriaceae*, and *Akkermansiaceae*.
+Conversely, the gut microbiome of patients with adenoma or cancer seem to have greater abundance of members of the families *Enterobacteriaceae* and *Coriobacteriaceae*.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\textwidth]{../figures/metag_taxa_heatmap_phy_fam.png}  
+        \caption{Taxonomic profile constructed using MetaPhlAn2 at the (A) phylum and (B) family level based on metagenome of gut microbiome of patients that are healthy, H, or diagnosed with adenoma, A, or cancer, C.}
+        \label{fig:taxabun}  
+    \end{center}
+\end{figure}
 
 ## Metagenome annotation and quantification
 
 \begin{wrapfigure}{R}{0.5\textwidth}
+    \vspace{-20pt}
     \begin{center}
         \includegraphics[width=0.49\textwidth]{../figures/gene_abundance_MDS.pdf}  
-        \caption{Multidimensional scaling (MDS) abundance plot based on KEGG annotation counts derived from gut microbiome of patients that are healthy (H) or diagnosed with adenoma (A) or cancer (C).}
+        \vspace{-10pt}
+        \caption{Multidimensional scaling (MDS) abundance plot based on log2 fold-change (logFC) of KEGG annotation counts derived from gut microbiome of patients that are healthy, H, or diagnosed with adenoma, A, or cancer, C.}
         \label{fig:MDS_KeggNo}  
     \end{center}
 \end{wrapfigure}
 
 
-#Draw Alpha Diversity Plot 
-pdf(file=here::here("figures", "AlphaDiversityPlot.pdf"), width = 4, height= 4) AlphaDiversity(input, map)
-\begin{wrapfigure}{R}{0.5\textwidth}
-    \begin{center}
-        \includegraphics[width=0.49\textwidth]{../figures/AlphaDiversityPlot.pdf}  
-        \caption{Alpha Diversity Plot a box plot of the shannon index in groups: healthy (H) or diagnosed with adenoma (A) or cancer (C). Shannon index measures how evenly the microbes are distributed in a sample.
-}
-        \label{fig:Alpha_Diversity_Plot}  
-    \end{center}
-\end{wrapfigure}
+The gut metagenomes from patients that are healthy or diagnosed with adenoma or cancer were aligned to the IGC database to annotate the genes with KEGG numbers.
 
-#Draw Beta Diversity Plot 
-pdf(file=here::here("figures", "BetaDiversityPlot.pdf"), width = 5, height= 4) BetaDiversity(input, map)
-dev.off()
-
-\begin{wrapfigure}{R}{0.5\textwidth}
-    \begin{center}
-        \includegraphics[width=0.49\textwidth]{../figures/gene_abundance_MDS.pdf}  
-        \caption{Beta diversity shows the difference between microbial communities, the difference in taxonomic abundance profiles from different samples, healthy (H) or diagnosed with adenoma (A) or cancer (C).}
-        \label{fig:Beta_Diversity_Plot}  
-    \end{center}
-\end{wrapfigure}
-
-The gut metagenome from patients that are healthy or diagnosed with adenoma or cancer was aligned to the IGC database to annotate the genes with KEGG numbers.
 KEGG number counts were calculated for all samples, then were used to determine whether specific genes were more or less abundant in patients with adenoma or cancer as compared to those who are healthy using edgeR.
 Seven samples, including the negative control, with extremely low read counts were excluded from subsequent analyses, as they strongly skewed the results.
 Multidimensional scaling (MDS) analysis of the KEGG number counts between different groups did not show clear clustering within groups (Fig. \ref{fig:MDS_KeggNo}).
 
-In the subsequent differential gene abundance analysis, abundance of 5,821 distinct genes were compared between healthy vs adenoma and healthy vs cancer patients.
-In both cases, there were approximately 100 genes that were less abundant in adenoma and cancer patients, whereas around 1,200 to 1,500 genes were more abundant.
-Differentially abundant genes that were found in both adenoma and cancer patient groups were selected and used to map to metabolic pathways using the KEGG mapper (see Table \ref{tab:genes_neg} and Table \ref{tab:genes_pos}).
+In the subsequent differential gene abundance analysis, abundance of 6,104 distinct genes were compared between healthy vs adenoma and healthy vs cancer patients.
+In both cases, there were approximately 130 genes that were less abundant in adenoma and cancer patients, whereas around 600 to 1,000 genes were more abundant.
+Differentially abundant genes that were found in both adenoma and cancer patient groups were selected and used to map to metabolic pathways using the KEGG mapper (see Table \ref{tab:genes_pos}).
 
-
-```{r kegg_genes_neg}
-DEgenes_neg <-
-  read.csv(file = here(
-    "data",
-    "metagenome",
-    "gene_abundance_results",
-    "DEgenes_neg.csv"
-  ))
-DEgenes_neg$Number.of.Genes <-
-  DEgenes_neg$Number.of.Genes %>% replace_na("")
-kable(
-  DEgenes_neg,
-  col.names = c("KEGG Pathway", "", "Number of Genes", "KEGG No."),
-  caption = "Genes that are less abundant in adenoma or cancer patients as compared to healthy patients. \\label{tab:genes_neg}"
-) %>%
-  kable_styling(font_size = 8) %>%
-  row_spec(c(1, 8, 11), bold = TRUE)
-```
-
+The less and more abundant genes found in adenoma and cancer patients mapped to approximately 20 and 550 genes in the KEGG pathways, respectively.
+Less abundant genes in adenoma and cancer patients were slightly enriched in pathways in metabolism, genetic information processing, signal transduction, transport and catabolism, immune system, and bacterial infectious disease.
+Contrastingly, more abundant genes in adenoma and cancer patients were most enriched in pathways in metabolism, environmental information processing, and cellular proccesses amongst other pathways.
+Though human genome was filtered out through pre-processing, pathways pertaining to human diseases and organismal systems were also enriched in the case of genes more abundant in adenoma and cancer patients.
 
 ```{r kegg_genes_pos}
 DEgenes_pos <-
@@ -149,26 +228,49 @@ DEgenes_pos <-
     "gene_abundance_results",
     "DEgenes_pos.csv"
   ))
-DEgenes_pos$Number.of.Genes <-
-  DEgenes_pos$Number.of.Genes %>% replace_na("")
+DEgenes_pos <- DEgenes_pos %>% replace(., is.na(.), '')
 DEgenes_pos <-
-  DEgenes_pos %>% select(-KEGG.No.) %>% filter(KEGG.Pathway != "")
+  DEgenes_pos %>% filter(Total.Number.of.Genes != "" | KEGG.Pathway != "")
+DEgenes_pos$etc <- as.numeric(DEgenes_pos$Total.Number.of.Genes) - as.numeric(DEgenes_pos$Number.of.Genes)
+DEgenes_pos$X <- paste(DEgenes_pos$X, if_else(DEgenes_pos$etc == 0, "", ", etc.", ""), sep = '')
+DEgenes_pos <- DEgenes_pos %>% select(KEGG.Pathway, X, Total.Number.of.Genes)
 kable(
   DEgenes_pos,
   col.names = c("KEGG Pathway", "", "Number of Genes"),
   caption = "Genes that are more abundant in adenoma or cancer patients as compared to healthy patients. \\label{tab:genes_pos}"
 ) %>%
   kable_styling(font_size = 8) %>%
-  row_spec(c(1, 14, 17, 20, 24, 27), bold = TRUE)
+  row_spec(c(1, 14, 18, 21, 25, 28), bold = TRUE)
 ```
 
 
 # Discussion
 
-# Acknowledgements
+\todo{taxonomic abundance, gene abundance}
+
+Some differences in the gut microbiome community composition between the patient groups may reflect prior findings.
+Members of the *Peptostreptococacceae* and *Porphyromonadaceae* family are slightly more abundant in adenoma or cancer patients, which were previously found to be associated with colorectal cancer [@ternes_microbiome_2020a].
+In addition, the enrichment of species included in the *Lachnospiraceae* family in the healthy patients also support prior studies indicating lower abundance of these butyrate-producing bacteria in colorectal cancer patients [@rinninella_what_2019].
+Moreover, higher abundance of Proteobacteria and lower abundance of Bacteroidetes in some patients with adenoma or carcinoma as compared to healthy patients in this study also demonstrate previous findings by Shen *et al.* [@shen_molecular_2010].
+
+Gene abundance analysis using the metagenomes from patients indicated enrichment in genes and pathways previously shown to be associated with colorectal cancer.
+
+
+
+The alpha and beta diversity of bacteria of the gut microbiome did not significantly shift in response to the presence of colorectal cancer.
+Standard alpha and beta diversity metrics did not adequately capture bacterial community differences of the healthy and cancerous gut.
+This illuminates that examining diversity metrics alone may not be an adequate tool for identifying a healthy versus a cancerous colon.
+
+\todo{random forest discriminates disease classes better than diversity metrics}
+
+Kostic *et al.* [@kostic_genomic_2012] have previously shown that members of the genus *Fusobacterium* are associated with colorectal cancer.
+The results of our study also support this finding, as an OTU containing members of this genus was the most important feature of the bacterial classification model.
+
+# Project Contributions
 
 Author order was determined by alphabetizing by last name.
-Christina Kang-Yun constructed the workflow for preprocessing metagenome data, taxonomic profiling, and gene annotation and prepared the methods and results for these analyses.
+Brittany Hicks processed 16S sequencing data, collaborated for processing virome data, and assisted in preparing the methods, results, and discussion for these analyses.
+Christina Kang-Yun constructed the workflow for preprocessing metagenome data, taxonomic profiling, and gene annotation and prepared the methods, results, and discussion for these analyses.
 \todo{insert contribution statement here}
 
 # References

@@ -23,10 +23,10 @@ rule metaphlan2_results:
         expand("data/metagenome/metaphlan2_samples/{sample}_mtphln2.txt", sample=metag_samples)
     output:
         merged="data/metagenome/metaphlan2_results/merged.txt",
-        phylum="data/metagenome/metaphlan2_results/merged_phylum.txt",
-        family="data/metagenome/metaphlan2_results/merged_family.txt",
-        genus="data/metagenome/metaphlan2_results/merged_genus.txt",
-        species="data/metagenome/metaphlan2_results/merged_species.txt"
+        phylum="data/metagenome/metaphlan2_results/merged_Phylum.txt",
+        family="data/metagenome/metaphlan2_results/merged_Family.txt",
+        genus="data/metagenome/metaphlan2_results/merged_Genus.txt",
+        species="data/metagenome/metaphlan2_results/merged_Species.txt"
     shell:
         """
         merge_metaphlan_tables.py {input} > {output.merged}
@@ -119,7 +119,8 @@ rule gene_abundance:
         code="code/metagenome/abundance-plot.R",
         kegg=expand("data/metagenome/gene_abundance_results/{sample}_keggCount.txt", sample=metag_samples)
     output:
-        kegg="data/metagenome/all_kegg_counts.csv"#,
-        #diffexp="data/metagenome/DEgenes.csv"
+        kegg="data/metagenome/all_kegg_counts.csv",
+        neg="data/metagenome/gene_abundance_results/DEgenes_neg.txt",
+        pos="data/metagenome/gene_abundance_results/DEgenes_pos.txt"
     shell:
         "Rscript {input.code}"
