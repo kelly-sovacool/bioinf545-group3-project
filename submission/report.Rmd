@@ -87,6 +87,30 @@ Up to 500 top KEGG numbers of genes that were significantly different between he
     \end{center}
 \end{wrapfigure}
 
+
+#Draw Alpha Diversity Plot 
+pdf(file=here::here("figures", "AlphaDiversityPlot.pdf"), width = 4, height= 4) AlphaDiversity(input, map)
+\begin{wrapfigure}{R}{0.5\textwidth}
+    \begin{center}
+        \includegraphics[width=0.49\textwidth]{../figures/AlphaDiversityPlot.pdf}  
+        \caption{Alpha Diversity Plot a box plot of the shannon index in groups: healthy (H) or diagnosed with adenoma (A) or cancer (C). Shannon index measures how evenly the microbes are distributed in a sample.
+}
+        \label{fig:Alpha_Diversity_Plot}  
+    \end{center}
+\end{wrapfigure}
+
+#Draw Beta Diversity Plot 
+pdf(file=here::here("figures", "BetaDiversityPlot.pdf"), width = 5, height= 4) BetaDiversity(input, map)
+dev.off()
+
+\begin{wrapfigure}{R}{0.5\textwidth}
+    \begin{center}
+        \includegraphics[width=0.49\textwidth]{../figures/gene_abundance_MDS.pdf}  
+        \caption{Beta diversity shows the difference between microbial communities, the difference in taxonomic abundance profiles from different samples, healthy (H) or diagnosed with adenoma (A) or cancer (C).}
+        \label{fig:Beta_Diversity_Plot}  
+    \end{center}
+\end{wrapfigure}
+
 The gut metagenome from patients that are healthy or diagnosed with adenoma or cancer was aligned to the IGC database to annotate the genes with KEGG numbers.
 KEGG number counts were calculated for all samples, then were used to determine whether specific genes were more or less abundant in patients with adenoma or cancer as compared to those who are healthy using edgeR.
 Seven samples, including the negative control, with extremely low read counts were excluded from subsequent analyses, as they strongly skewed the results.
