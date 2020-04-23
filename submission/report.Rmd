@@ -9,11 +9,6 @@ output:
     keep_tex: no
     latex_engine: xelatex
     toc: yes
-  word_document:
-    toc: yes
-  html_document:
-    df_print: paged
-    toc: yes
 geometry: margin=1in
 link-citations: yes
 fontsize: 11pt
@@ -62,8 +57,8 @@ While colon cancer screening techniques are advancing, we aim to understand the 
 Gut dysbiosis is any change to the normal microbiome that could change the relationship between the host and associated microbes [@neto_upper_2017]. 
 This is well documented gastrointestinal (GI) disorders including irritable bowel syndrome, peptic ulcers, and even gastric and colon cancers [@neto_upper_2017]. 
 Gut dysbiosis is documented in patients with colorectal cancers [@nakatsu_alterations_2018]. 
-Though the underlying mechanisms of these microbes is yet unknown, some bacteria were found to be associated with colorectal cancer [@ternes_microbiome_2020a]. 
-These include *Fusobacterium*, *Peptostreptococcus*, *Porphyromonas*, *Prevotella*, *Parvimonas*, *Bacteroides*, and *Gemella*, and they may be able to affect the disease state via metabolite secretion, host tissue invasion, and inducing host immune response [@ternes_microbiome_2020a]. 
+Though the underlying mechanisms of these microbes is yet unknown, some bacteria were found to be associated with colorectal cancer [@ternes_microbiome_2020-1]. 
+These include *Fusobacterium*, *Peptostreptococcus*, *Porphyromonas*, *Prevotella*, *Parvimonas*, *Bacteroides*, and *Gemella*, and they may be able to affect the disease state via metabolite secretion, host tissue invasion, and inducing host immune response [@ternes_microbiome_2020-1]. 
 
 At present, the majority of cancer microbiome studies focus on the bacteria (CITATION NEEDED). 
 Colorectal cancer is previously linked to changes to the colonic bacterial composition, yet the gut virome is vastly unexplored [@nakatsu_alterations_2018].
@@ -247,7 +242,7 @@ kable(
 \todo{taxonomic abundance, gene abundance}
 
 Some differences in the gut microbiome community composition between the patient groups may reflect prior findings. 
-Members of the *Peptostreptococacceae* and *Porphyromonadaceae* family are slightly more abundant in adenoma or cancer patients, which were previously found to be associated with colorectal cancer [@ternes_microbiome_2020a]. 
+Members of the *Peptostreptococacceae* and *Porphyromonadaceae* family are slightly more abundant in adenoma or cancer patients, which were previously found to be associated with colorectal cancer [@ternes_microbiome_2020-1]. 
 In addition, the enrichment of species included in the *Lachnospiraceae* family in the healthy patients also support prior studies indicating lower abundance of these butyrate-producing bacteria in colorectal cancer patients [@rinninella_what_2019]. 
 Moreover, higher abundance of Proteobacteria and lower abundance of Bacteroidetes in some patients with adenoma or carcinoma as compared to healthy patients in this study also demonstrate previous findings by Shen *et al.* [@shen_molecular_2010]. 
 
