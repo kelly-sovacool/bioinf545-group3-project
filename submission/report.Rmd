@@ -92,6 +92,9 @@ All code used in preparation of this report is available in the following GitHub
 
 ## 16S rRNA gene sequence processing
 
+\todo{mothur}
+Alpha and beta diversity metrics were calculated with the vegan R package [@oksanen_vegan_2018].
+
 ## Metagenome and virome quality control
 
 Trimmomatic (v.0.39) [@bolger_trimmomatic_2014] was used to remove adapter sequences and low-quality reads in metagenome and virome sample sets. 
@@ -102,7 +105,15 @@ The paired unmapped reads were used for taxonomic profiling and gene annotation.
 
 ## Virome assembly
 
+\todo{virome pipeline}
+
 ## Classification modeling
+
+The caret R package [@kuhn_caret_2013] was used to train random forest models to classify samples as healthy or cancerous based on taxonomic abundance data.
+Only binary classifier models were trained, rather than three-class models, to reduce the time and computing resources required.
+Two models were trained; one with OTU (bacterial) abundances as features and the other with OVU (viral) abundances as features.
+For both models, the data were split into training and test sets with 65\% of the data for training.
+The models were validated with five-fold cross validation and tuned for mtry values to maximize the area under the receiver operating curve (AUC).
 
 ## Metagenome taxonomic profiling and gene annotation
 
@@ -118,15 +129,15 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
 
 ## Bacterial diversity
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \includegraphics[width=1\textwidth, center]{../figures/alpha_beta_diversity.png}  
   \caption{(A) Shannon diversity index across disease states and (B) Multi-dimensional scaling plot of Bray-Curtis Distances.}
   \label{fig:diversity}
 \end{figure}
 
-Shannon diversity index of the 16S bacterial abundance data showed a general decreasing trend along the progression from healthy, adenoma, to cancer (Fig. \ref{fig:diversity}A). 
+Shannon diversity index of the 16S bacterial abundance data showed a general decreasing trend along the progression from healthy, to adenoma, to cancer (Fig. \ref{fig:diversity}A). 
 As a metric of alpha diversity, the Shannon diversity index describes diversity within communities in terms of richness and evenness.
-In contrast to Shannon diversity, Bray-Curtis distance is a beta diversity metric that quantifies diversity between communities.
+In contrast to Shannon diversity, Bray-Curtis distance is a beta diversity metric that quantifies diversity between communities [@tuomisto_diversity_2010].
 The pairwise Bray-Curtis distances of sample-wise OTU abundances were calculated and plotted as a multi-dimensional scaling plot, but there is no distinguishable separation among the disease classes (Fig. \ref{fig:diversity}B).
 These alpha and beta diversity metrics characterize and distinguish communities in broad strokes.
 
@@ -143,7 +154,7 @@ These alpha and beta diversity metrics characterize and distinguish communities 
 Random forest models were trained on OTU abundances from 16S bacterial sequence data and on OVU abundances from viral metagenomes to classify samples as healthy or cancerous. 
 Both models had modest performance with an AUROC of 0.765 for the bacterial model and an AUROC of 0.73 for the viral model (Fig. \ref{fig:auroc}). 
 The bacterial abundance data consisted of 3,704 OTUs, while the viral abundance data contained only 70 OVUs.
-This discrepancy in the number of features as inputs to the random forest model may have contributed to the bacterial model outperforming the viral model for classifying samples as healthy or cancerous.
+This discrepancy in the number of features as inputs to the random forest models may have contributed to the bacterial model outperforming the viral model for classifying samples as healthy or cancerous.
 An OTU containing members of the genus _Fusobacterium_ was by far the most important feature of the bacterial model.
 The viral metagenomes were not aligned to a reference database, so OVUs were not able to be identified for feature importance determination.
 Previous work by Hannigan _et al._ additionally included models trained on bacterial whole metagenomes and models combining bacterial and viral abundance data.
@@ -226,6 +237,8 @@ kable(
 
 
 # Discussion
+
+\todo{discuss: taxonomic abundance, random forest discriminates disease classes better than diversity metrics, gene abundance}
 
 # Acknowledgements
 
