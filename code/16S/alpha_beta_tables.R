@@ -81,7 +81,7 @@ BetaDiversity <- function(intable, mapping) {
     ) +
     geom_point(size = 1.5) +
     scale_colour_brewer(palette = "Set1") +
-    ggtitle("Virome Bray-Curtis")
+    ggtitle("16S Bray-Curtis")
   return(plot)
 }
 

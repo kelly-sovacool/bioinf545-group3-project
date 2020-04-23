@@ -3,8 +3,6 @@ library("edgeR")
 library("dplyr")
 library("purrr")
 library("tidyr")
-library("ggplot2")
-# library("vegan")
 
 # Import metadata to order samples by name.
 SraRun <- read.table(here::here("data", "SraRunTable.txt"),
@@ -44,7 +42,6 @@ colnames(keggCounts) <-
 keggCounts <- keggCounts %>%
   select(KeggNo, paste(colOrder)) # reorder by sample type.
 
-colnames(keggCounts) <- c("KeggNo", SraRun$subjectid) # keep KeggNo & add the subject id's
 keggCounts[is.na(keggCounts)] <- 0 # replace NA with 0
 
 write.table(keggCounts, file = here::here("data", "metagenome", "all_kegg_counts.csv"), sep = ",", row.names = TRUE)
@@ -59,22 +56,8 @@ group <- c(
   rep("A", sum(SraRun$DiseaseClass == "Adenoma")),
   rep("C", sum(SraRun$DiseaseClass == "Cancer"))
 )
+cds <- DGEList(keggCounts, group = group)
 
-groupColors <-
-  c(
-    rep("black", sum(SraRun$DiseaseClass == "Negative")),
-    rep("green", sum(SraRun$DiseaseClass == "Healthy")),
-    rep("blue", sum(SraRun$DiseaseClass == "Adenoma")),
-    rep("red", sum(SraRun$DiseaseClass == "Cancer"))
-  )
-
-keggCounts <- keggCounts %>% filter(KeggNo != "unknown") # remove unknown genes
-
-cds <- keggCounts
-rownames(cds) <- keggCounts$KeggNo # change rownames to KeggNo
-cds <- cds %>%
-  select(-KeggNo) %>%
-  DGEList(group = group) # analyze just the count numbers
 # Filter out genes with low counts, keeping those rows where the count
 # per million (cpm) is at least 1 in at least 6 samples:
 keep <- rowSums(cpm(cds) > 1) >= 6
