@@ -27,7 +27,8 @@ rule render_pdf:
         preamble="submission/preamble_{doc}.tex",
         bib="submission/refs_{doc}.bib",
         figures=["figures/gene_abundance_MDS.pdf",
-                "figures/auroc.png"],
+                "figures/auroc.png",
+                "figures/alpha_beta_diversity.png"],
         tables=["data/metagenome/gene_abundance_results/DEgenes_pos.csv",
                 "data/metagenome/gene_abundance_results/DEgenes_neg.csv"]
     output:
@@ -205,5 +206,14 @@ rule plot_models:
         ovu=rules.model_OVU.output
     output:
         "figures/auroc.png"
+    script:
+        "{input.code}"
+
+rule plot_diversity:
+    input:
+        code="code/16S/alpha_beta_plots.R",
+        data="data/16S/mothur_output/stability.opti_mcc.shared"
+    output:
+        "figures/alpha_beta_diversity.png"
     script:
         "{input.code}"

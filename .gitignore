@@ -7,5 +7,6 @@
 benchmarks/
 *KLS*
 Rplots.pdf
+.ipynb_checkpoints/
 slurm*.out
 *.swp

@@ -231,6 +231,7 @@ ovu_abun <- coverage %>%
 head(ovu_abun)
 ```
 
+### Plot AUROC
 ```{r plot_roc}
 library(plotROC)
 library(RColorBrewer)
@@ -255,3 +256,17 @@ ggplot(models, aes(d = obs,
 	) +
     ggtitle("Random Forest Model Performance")
 ```
+
+### Feature importance
+
+```{r}
+feat_imp_virus <- readRDS(here("data", "model", "feat_imp_virus.rds"))
+feat_imp_bact <- readRDS(here("data", "model", "feat_imp_bacteria.rds"))
+feat_imp_bact$otu = rownames(feat_imp_bact)
+feat_imp_bact <- feat_imp_bact %>% 
+    as_tibble() %>% 
+    arrange(desc(Overall)) %>% 
+    rename(importance = Overall)
+# TODO: link OTU to tax
+```
+
