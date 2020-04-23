@@ -10,7 +10,7 @@ library(tidyverse)
 #' @return model
 run_rf <- function(training_data,
                    ncores = 8,
-                   tune_length = 15) {
+                   tune_length = 50) {
     train_control <- caret::trainControl(
         method = "repeatedcv",
         repeats = 5,
@@ -53,7 +53,7 @@ predict_rf <- function(data,
                        seed = 545,
                        partition = 0.65,
                        ncores = 8,
-                       tune_length = 15) {
+                       tune_length = 50) {
     set.seed(seed)
     inTraining <- as.vector(caret::createDataPartition(data$DiseaseClass,
                                                        p = partition,
