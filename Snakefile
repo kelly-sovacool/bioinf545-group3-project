@@ -184,6 +184,7 @@ rule taxa_bar_plot:
     shell:
         """
         Rscript {input.code}
+        """
 
 rule model_OTU:
     input:

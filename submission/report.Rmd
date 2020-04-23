@@ -31,8 +31,6 @@ library(tidyverse)
 ```
 
 \newpage
-\todo{Guidelines: https://drive.google.com/file/d/1YNqYiMJYiVWXiSR9yWUbQTPAoUpVa9Id/view}
-
 # Abstract
 
 Colorectal cancer (CRC) is the third leading cause of cancer related deaths globally [@rawla_epidemiology_2019]. 
@@ -40,8 +38,13 @@ CRC initiates in the large intestine emerging from glandular epithelial cells.
 Due to a selective advantage, obtained from a series of genetic or epigenetic mutations, these unregulated cells grow and can potentially develop into colorectal adenocarcinoma [@ewing_molecular_2014]. 
 Many studies have used the cancer microbiome to investigate how these mutations occur, however, they have almost exclusively focused on bacteria. 
 Human viruses have been implicated in the development of many cancers such as HPV, HTLV-1 and HIV [@liao_viruses_2006]. 
+<<<<<<< HEAD
+Through mutagenic and manipulative abilities, viruses cause unregulated growth by disrupting the normal function of cells. In addition, some bacteriophages have been shown to influence cancer processes through the immunological response [@budynek_bacteriophages_2010]
+The association of colorectal cancer and the gut virome remains unknown, therefore, in this study we propose to investigate the differences in the bacterial and viral community composition and their effect on CRC development. 
+=======
 Through mutagenic and manipulative abilities, viruses cause unregulated growth by disrupting the normal function of cells. In addition, some bacteriophages have been shown to influence cancer processes through the immunological response [@budynek_bacteriophages_2010].
 The association of CRC and the gut virome remains unknown, therefore, in this study we propose to investigate the differences in the bacterial and viral community composition and their effect on CRC development. 
+>>>>>>> 4d04063d5565b708f92c869210bcb4bee033a379
 We performed operational taxonomic unit (OTU) clustering of 16S sequences for bacterial taxonomy and operational viromic unit (OVU) clustering of metaviromes for viral taxonomy to investigate the differences in human colorectal bacterial and viral community composition. 
 Using machine learning classification of OTUs and OVUs from healthy or cancerous samples, we aim to compare performance of the random forest model vs logistic regression. 
 In addition, gene abundance was calculated from metagenomes in healthy vs adenoma or CRC patients and were mapped to pathways to identify key genes and/or pathways that may have a role in CRC.
@@ -58,8 +61,8 @@ While colon cancer screening techniques are advancing, we aim to understand the 
 Gut dysbiosis is any change to the normal microbiome that could change the relationship between the host and associated microbes [@neto_upper_2017]. 
 This is well documented gastrointestinal (GI) disorders including irritable bowel syndrome, peptic ulcers, and even gastric and colon cancers [@neto_upper_2017]. 
 Gut dysbiosis is documented in patients with CRC [@nakatsu_alterations_2018]. 
-Though the underlying mechanisms of these microbes is yet unknown, some bacteria were found to be associated with CRC [@ternes_microbiome_2020a]. 
-These include *Fusobacterium*, *Peptostreptococcus*, *Porphyromonas*, *Prevotella*, *Parvimonas*, *Bacteroides*, and *Gemella*, and they may be able to affect the disease state via metabolite secretion, host tissue invasion, and inducing host immune response [@ternes_microbiome_2020a]. 
+Though the underlying mechanisms of these microbes is yet unknown, some bacteria were found to be associated with CRC [@ternes_microbiome_2020-1]. 
+These include *Fusobacterium*, *Peptostreptococcus*, *Porphyromonas*, *Prevotella*, *Parvimonas*, *Bacteroides*, and *Gemella*, and they may be able to affect the disease state via metabolite secretion, host tissue invasion, and inducing host immune response [@ternes_microbiome_2020-1]. 
 
 At present, the majority of cancer microbiome studies focus on the bacteria [@neto_upper_2017]. CRC was previously linked to changes to the colonic bacterial composition, yet the gut virome is vastly unexplored [@nakatsu_alterations_2018].
 
@@ -157,17 +160,17 @@ Although the mean Shannon diversity decreased along the progression from healthy
 these perceived differences were not statistically significant among the disease groups (analysis of variance [ANOVA] *p*-value = 0.3).
 This result suggests that individuals with cancerous and healthy colons may have a select group of OTUs that dominate the environment since their index values are not relatively high.
 
-In contrast to Shannon diversity, which quantifies diversity within communities, Bray-Curtis dissimilarity is a beta diversity metric that quantifies diversity _between_ communities [@tuomisto_diversity_2010].
-The pairwise Bray-Curtis distances of sample-wise OTU abundances were calculated and plotted as a multi-dimensional scaling plot (Fig. \ref{fig:diversity}B).
-There does not appear to be distinct clustering of the disease classes.
-Instead, each disease class is fairly dispersed.
-There was no statistically significant clustering of the disease groups ([ANOVA] *p*-value > 0.23).
-
 \begin{figure}[ht]
   \includegraphics[width=1\textwidth, center]{../figures/alpha_beta_diversity.png}  
   \caption{(A) Shannon diversity index across disease states and (B) multi-dimensional scaling plot of Bray-Curtis Distances.}
   \label{fig:diversity}
 \end{figure}
+
+In contrast to Shannon diversity, which quantifies diversity within communities, Bray-Curtis dissimilarity is a beta diversity metric that quantifies diversity _between_ communities [@tuomisto_diversity_2010].
+The pairwise Bray-Curtis distances of sample-wise OTU abundances were calculated and plotted as a multi-dimensional scaling plot (Fig. \ref{fig:diversity}B).
+There does not appear to be distinct clustering of the disease classes.
+Instead, each disease class is fairly dispersed.
+There was no statistically significant clustering of the disease groups ([ANOVA] p-value > 0.23).
 
 ## Classification modeling
 
@@ -187,10 +190,11 @@ An OTU containing members of the genus _Fusobacterium_ was by far the most impor
 The viral metagenomes were not aligned to a reference database, so OVUs were not able to be identified for feature importance determination.
 Previous work by Hannigan _et al._ additionally included models trained on bacterial whole metagenomes and models combining bacterial and viral abundance data.
 
-## Taxnomonic profile based on metagenome
+## Taxnomonic profiles of metagenomes
 
-The taxonomic profile was constructed based on the gut microbiomes of healthy, adenoma, and cancer patients using MetaPhlAn2 (Fig. \ref{fig:taxabun}).
-There are subtle differences of community composition between healthy patients and those who were diagnosed with adenoma or cancer
+The taxonomic profiles were constructed based on the bacterial metagenomes extracted from the gut microbiomes of healthy, adenoma, and cancer patients using MetaPhlAn2 (Fig. \ref{fig:taxabun}).
+There are subtle differences of community composition between healthy patients and those who were diagnosed with adenoma or cancer.
+
 At the phylum level, some healthy patients have more members of the phyla Verrucomicrobia, Bacteroidetes, and Actinobacteria as compared to other patient groups.
 In addition, some patients with adenoma or cancer have a greater abundance of species belonging to the Proteobacteria phylum.
 The gut microbiome of healthy patients are relatively more abundant with members of the families *Ruminococcaceae*, *Lachnospiraceae*, *Bifidobacteriaceae*, and *Akkermansiaceae*.
@@ -215,7 +219,6 @@ Conversely, the gut microbiome of patients with adenoma or cancer seem to have g
         \label{fig:MDS_KeggNo}  
     \end{center}
 \end{wrapfigure}
-
 
 The gut metagenomes from patients that are healthy or diagnosed with adenoma or cancer were aligned to the IGC database to annotate the genes with KEGG numbers.
 KEGG number counts were calculated for all samples, then were used to determine whether specific genes were more or less abundant in patients with adenoma or cancer as compared to those who are healthy using edgeR.
@@ -259,7 +262,7 @@ kable(
 # Discussion
 
 Some differences in the gut microbiome community composition between the patient groups may reflect prior findings. 
-Members of the *Peptostreptococacceae* and *Porphyromonadaceae* family are slightly more abundant in adenoma or cancer patients, which were previously found to be associated with CRC [@ternes_microbiome_2020a]. 
+Members of the *Peptostreptococacceae* and *Porphyromonadaceae* family are slightly more abundant in adenoma or cancer patients, which were previously found to be associated with CRC [@ternes_microbiome_2020-1]. 
 In addition, the enrichment of species included in the *Lachnospiraceae* family in the healthy patients also support prior studies indicating lower abundance of these butyrate-producing bacteria in CRC patients [@rinninella_what_2019]. 
 
 Moreover, higher abundance of Proteobacteria and lower abundance of Bacteroidetes in some patients with adenoma or carcinoma as compared to healthy patients in this study also demonstrate previous findings by Shen *et al.* [@shen_molecular_2010, @burns_virulence_2015]. 
@@ -279,15 +282,16 @@ The results of our study also support this finding, as an OTU containing members
 
 Overall, the taxonomic and gene abundance analyses gave insight into enriched members that have previously established association with CRC. 
 In addition, alpha and beta diversity metrics were not sufficient to identify CRC in patients, but the random forest model performed better in classifying disease states. 
-Interesting analyses that were not included in this study due to time constraints are taxonomic and gene co-abundance analysis, gut microbiome network analysis to identify hubs important in cancer disease state, and **(PLEASE ADD MORE ANALYSES YOU WANTED TO COMPLETE!!)**.
+Interesting analyses that were not included in this study due to time constraints are taxonomic and gene co-abundance analysis, gut microbiome network analysis to identify hubs important in cancer disease state, and...
+\todo{PLEASE ADD MORE ANALYSES YOU WANTED TO COMPLETE!!}
 A more stringent statistical analysis of taxonomic and gene abundance results would provide a measure to identify key members that are important in CRC.
 
-# Project Contributions
+# Acknowledgements and project contributions
 
 Author order was determined by alphabetizing by last name.
 Brittany Hicks processed 16S sequencing data, collaborated for processing virome data, and assisted in preparing the methods, results, and discussion for these analyses.
 Christina Kang-Yun constructed the workflow for preprocessing metagenome data, taxonomic profiling, and gene annotation and prepared the methods, results, and discussion for these analyses. 
 Katelyn Polemi and Nicole Bowers worked together to create figures for analyses including alpha and beta diversity plots, gene abundance MDS, taxa bar plots, OTU heatmaps (some plots not included in final paper, see GitHub), prepared the abstract and introduction for the paper, and contributed to the conclusions.
-\todo{insert contribution statement here}
+Kelly Sovacool wrote the virome assembly pipeline, wrote and performed the classification modeling steps, collaborated in developing the metagenome quality control steps, integrated others' methods into a cohesive workflow, helped others troubleshoot at various steps, and participated in writing and editing the subsections of this report associated with the 16S data processing, virome pipeline, quality control, and classification modeling analyses.
 
 # References
