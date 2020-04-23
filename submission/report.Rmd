@@ -257,11 +257,15 @@ DEgenes_pos$X <- paste(DEgenes_pos$X, if_else(DEgenes_pos$etc == 0, "", ", etc."
 DEgenes_pos <- DEgenes_pos %>% select(KEGG.Pathway, X, Total.Number.of.Genes)
 kable(
   DEgenes_pos,
+  align = c("l", "l", "c"),
   col.names = c("KEGG Pathway", "", "Number of Genes"),
-  caption = "Genes that are more abundant in adenoma or cancer patients as compared to healthy patients. \\label{tab:genes_pos}"
+  caption = "Genes that are more abundant in adenoma or cancer patients as compared to healthy patients. \\label{tab:genes_pos}",
+  booktabs = TRUE,
+  linesep = ""
 ) %>%
   kable_styling(font_size = 8) %>%
-  row_spec(c(1, 14, 18, 21, 25, 28), bold = TRUE)
+  row_spec(c(0, 1, 14, 18, 21, 25, 28), bold = TRUE) %>%
+  row_spec(c(1, 13, 14, 17, 18, 20, 21, 24, 25, 27, 28), hline_after = TRUE)
 ```
 
 
