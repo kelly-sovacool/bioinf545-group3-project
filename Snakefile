@@ -181,7 +181,8 @@ rule model_OTU:
         data="data/16S/mothur_output/stability.opti_mcc.shared"
     output:
         tsv="data/model/rf_model_bacteria.tsv",
-        rds="data/model/conf_mat_bacteria.rds"
+        rds="data/model/conf_mat_bacteria.rds",
+        feat="data/model/feat_imp_bacteria.rds"
     script:
         "{input.code}"
 
@@ -192,7 +193,8 @@ rule model_OVU:
         data="data/virome/ovu_abundance.tsv"
     output:
         tsv="data/model/rf_model_virus.tsv",
-        rds="data/model/conf_mat_virus.rds"
+        mat="data/model/conf_mat_virus.rds",
+        feat="data/model/feat_imp_virus.rds"
     script:
         "{input.code}"
 

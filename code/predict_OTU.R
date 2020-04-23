@@ -21,5 +21,6 @@ otu_abun <-
 
 predict_rf(otu_abun,
            here("data", "model", "rf_model_bacteria.tsv"),
-           here("data", "model", "conf_mat_bacteria.rds")
+           here("data", "model", "conf_mat_bacteria.rds"),
+           here("data", "model", "feat_imp_bacteria.rds")
            )

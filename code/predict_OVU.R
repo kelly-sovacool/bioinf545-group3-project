@@ -8,5 +8,6 @@ ovu_abun <- read_tsv(here("data", "virome", "ovu_abundance.tsv")) %>%
 
 predict_rf(ovu_abun,
            here("data", "model", "rf_model_virus.tsv"),
-           here("data", "model", "conf_mat_virus.rds")
+           here("data", "model", "conf_mat_virus.rds"),
+           here("data", "model", "feat_imp_virus.rds")
 )

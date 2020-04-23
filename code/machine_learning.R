@@ -50,6 +50,7 @@ run_rf <- function(training_data,
 predict_rf <- function(data,
                        model_filename,
                        conf_mat_filename,
+                       feat_imp_filename,
                        seed = 545,
                        partition = 0.65,
                        ncores = 8,
@@ -62,6 +63,8 @@ predict_rf <- function(data,
     training_data <- data[inTraining,]
     testing_data  <- data[-inTraining,]
     rf_model <- run_rf(training_data, ncores, tune_length)
+    feat_imp <- caret::varImp(rf_model$finalModel)
+    saveRDS(feat_imp, file = feat_imp_filename)
     best_mtry <- rf_model$bestTune$mtry
     best_model <- rf_model$pred %>% filter(mtry == best_mtry)
     readr::write_tsv(best_model, path = model_filename)
