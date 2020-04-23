@@ -87,7 +87,7 @@ We used the data from __hannigan paper___ and __sited in report_ to try to under
 ## Study design and data collection
 
 \todo{study design / data collection based on hannigan and zackular papers}
-[@hannigan_diagnostic_2018; @zackular_human_2014]
+The data used for our evaluation have been previously reported [@hannigan_diagnostic_2018; @zackular_human_2014]. Whole evacuated stool was collected from patients. Patient requirements included a minimum age of 18 years of age, informed consent, a histologically confirmed colonic disease status from a previous colonoscopy, no history of surgery or chemotherapy, and free of known comorbidities. These comorbities included chronic viral hepatitis, inflammatory bowel disease, hereditary nonpolyposis colorectal cancer (HNPCC), HIV, and familial adenomatous polyposis (FAP). Ninety patients were recruited to the study. Three designated disease classes were designated: adenoma, carinoma, and healthy. Of these three disease classes, thirty patients were classified into each. Samples were collected from four geographic locations: Ann Arbor (MI, USA), Boston (MA, USA), Houston (TX, USA), and Toronto (Ontario, Canada).
 
 The data are available in the NCBI Sequence Read Archive as [PRJNA389927](https://www.ncbi.nlm.nih.gov/bioproject/389927).
 All code used in preparation of this report is available in the following GitHub repository: https://github.com/kelly-sovacool/bioinf545-group3-project.
