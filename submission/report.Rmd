@@ -9,11 +9,6 @@ output:
     keep_tex: no
     latex_engine: xelatex
     toc: yes
-  word_document:
-    toc: yes
-  html_document:
-    df_print: paged
-    toc: yes
 geometry: margin=1in
 link-citations: yes
 fontsize: 11pt
@@ -40,16 +35,16 @@ library(tidyverse)
 
 # Abstract
 
-Colorectal cancer is the third leading cause of cancer related deaths globally [@rawla_epidemiology_2019].
-Colorectal cancer (CRC) initiates in the large intestine emerging from glandular epithelial cells.
-Due to a selective advantage, obtained from a series of genetic or epigenetic mutations, these unregulated cells grow and can potentially develop into colorectal adenocarcinoma [@ewing_molecular_2014].
-Many studies have used the cancer microbiome to investigate how these mutations occur, however, they have almost exclusively focused on bacteria.
-Human viruses have been implicated in the development of many cancers such as HPV, HTLV-1 and HIV [@liao_viruses_2006].
-Through mutagenic and manipulative abilities, viruses cause unregulated growth by disrupting the normal function of cells.
-The association of colorectal cancer and the gut virome remains unknown, therefore, in this study we propose to investigate the differences in the bacterial and viral community composition and their effect on CRC development.
-We performed operational taxonomic unit (OTU) clustering of 16S sequences for bacterial taxonomy and operational viromic unit (OVU) clustering of metaviromes for viral taxonomy to investigate the differences in human colorectal bacterial and viral community composition.
-Using machine learning classification of OTUs and OVUs from healthy or cancerous samples, we aim to compare performance of the random forest model vs logistic regression.
-Overall, the goal of the current study is to classify whether samples are healthy or cancerous based on bacterial and viral taxa. These results provide…
+Colorectal cancer is the third leading cause of cancer related deaths globally [@rawla_epidemiology_2019]. 
+Colorectal cancer (CRC) initiates in the large intestine emerging from glandular epithelial cells. 
+Due to a selective advantage, obtained from a series of genetic or epigenetic mutations, these unregulated cells grow and can potentially develop into colorectal adenocarcinoma [@ewing_molecular_2014]. 
+Many studies have used the cancer microbiome to investigate how these mutations occur, however, they have almost exclusively focused on bacteria. 
+Human viruses have been implicated in the development of many cancers such as HPV, HTLV-1 and HIV [@liao_viruses_2006]. 
+Through mutagenic and manipulative abilities, viruses cause unregulated growth by disrupting the normal function of cells. In addition, some bacteriophages have been shown to influence cancer processes through the immunological response [@Budynek_bacteriophages_2010]
+The association of colorectal cancer and the gut virome remains unknown, therefore, in this study we propose to investigate the differences in the bacterial and viral community composition and their effect on CRC development. 
+We performed operational taxonomic unit (OTU) clustering of 16S sequences for bacterial taxonomy and operational viromic unit (OVU) clustering of metaviromes for viral taxonomy to investigate the differences in human colorectal bacterial and viral community composition. 
+Using machine learning classification of OTUs and OVUs from healthy or cancerous samples, we aim to compare performance of the random forest model vs logistic regression. 
+Overall, the goal of the current study is to classify whether samples are healthy or cancerous based on bacterial and viral taxa. These results provide evidence that the gut microbiome of patients with CRC differ from healthy patients. 
 
 # Introduction
 
@@ -62,8 +57,8 @@ While colon cancer screening techniques are advancing, we aim to understand the 
 Gut dysbiosis is any change to the normal microbiome that could change the relationship between the host and associated microbes [@neto_upper_2017]. 
 This is well documented gastrointestinal (GI) disorders including irritable bowel syndrome, peptic ulcers, and even gastric and colon cancers [@neto_upper_2017]. 
 Gut dysbiosis is documented in patients with colorectal cancers [@nakatsu_alterations_2018]. 
-Though the underlying mechanisms of these microbes is yet unknown, some bacteria were found to be associated with colorectal cancer [@ternes_microbiome_2020a]. 
-These include *Fusobacterium*, *Peptostreptococcus*, *Porphyromonas*, *Prevotella*, *Parvimonas*, *Bacteroides*, and *Gemella*, and they may be able to affect the disease state via metabolite secretion, host tissue invasion, and inducing host immune response [@ternes_microbiome_2020a]. 
+Though the underlying mechanisms of these microbes is yet unknown, some bacteria were found to be associated with colorectal cancer [@ternes_microbiome_2020-1]. 
+These include *Fusobacterium*, *Peptostreptococcus*, *Porphyromonas*, *Prevotella*, *Parvimonas*, *Bacteroides*, and *Gemella*, and they may be able to affect the disease state via metabolite secretion, host tissue invasion, and inducing host immune response [@ternes_microbiome_2020-1]. 
 
 At present, the majority of cancer microbiome studies focus on the bacteria [@neto_upper_2017]. Colorectal cancer is previously linked to changes to the colonic bacterial composition, yet the gut virome is vastly unexplored [@nakatsu_alterations_2018].
 
@@ -232,7 +227,7 @@ DEgenes_pos <- DEgenes_pos %>% replace(., is.na(.), '')
 DEgenes_pos <-
   DEgenes_pos %>% filter(Total.Number.of.Genes != "" | KEGG.Pathway != "")
 DEgenes_pos$etc <- as.numeric(DEgenes_pos$Total.Number.of.Genes) - as.numeric(DEgenes_pos$Number.of.Genes)
-DEgenes_pos$X <- paste(DEgenes_pos$X, if_else(DEgenes_pos$etc == 0, "", ", etc.", ""), sep = '')
+DEgenes_pos$X <- paste(DEgenes_pos$X, if_else(DEgenes_pos$etc = 0, "", ", etc.", ""), sep = '')
 DEgenes_pos <- DEgenes_pos %>% select(KEGG.Pathway, X, Total.Number.of.Genes)
 kable(
   DEgenes_pos,
@@ -248,10 +243,11 @@ kable(
 
 \todo{taxonomic abundance, gene abundance}
 
-Some differences in the gut microbiome community composition between the patient groups may reflect prior findings.
-Members of the *Peptostreptococacceae* and *Porphyromonadaceae* family are slightly more abundant in adenoma or cancer patients, which were previously found to be associated with colorectal cancer [@ternes_microbiome_2020a].
-In addition, the enrichment of species included in the *Lachnospiraceae* family in the healthy patients also support prior studies indicating lower abundance of these butyrate-producing bacteria in colorectal cancer patients [@rinninella_what_2019].
-Moreover, higher abundance of Proteobacteria and lower abundance of Bacteroidetes in some patients with adenoma or carcinoma as compared to healthy patients in this study also demonstrate previous findings by Shen *et al.* [@shen_molecular_2010].
+
+Some differences in the gut microbiome community composition between the patient groups may reflect prior findings. 
+Members of the *Peptostreptococacceae* and *Porphyromonadaceae* family are slightly more abundant in adenoma or cancer patients, which were previously found to be associated with colorectal cancer [@ternes_microbiome_2020-1]. 
+In addition, the enrichment of species included in the *Lachnospiraceae* family in the healthy patients also support prior studies indicating lower abundance of these butyrate-producing bacteria in colorectal cancer patients [@rinninella_what_2019]. 
+Moreover, higher abundance of Proteobacteria and lower abundance of Bacteroidetes in some patients with adenoma or carcinoma as compared to healthy patients in this study also demonstrate previous findings by Shen *et al.* [@shen_molecular_2010]. 
 
 Gene abundance analysis using the metagenomes from patients indicated enrichment in genes and pathways previously shown to be associated with colorectal cancer.
 
