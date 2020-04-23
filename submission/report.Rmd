@@ -53,25 +53,27 @@ Overall, the goal of the current study is to classify whether samples are health
 
 # Introduction
 
-Colorectal cancer is a leading cause of cancer-related death in the United States and worldwide. Its risk and severity have been linked to colonic bacterial community composition
 The leading cancer-related death in the United States is colorectal cancer [@hannigan_diagnostic_2018]. 
 Due to screening techniques and improvements in treatment the rate of colorectal cancer has fallen. 
-The primary screening technique is colonoscopy. A new technique gaining popularity is Exact Sciences Cologuard, a combination test which looks for both the genetic material found in colon cancer and some more advanced colon polyps and it detects hemoglobin in the stool using fecal immunochemical testing (Cologuard). 
-While colon cancer screening techniques are advancing, we aim to understand the environment of colorectal cancer.
+The primary screening technique is colonoscopy. 
+A new technique gaining popularity is Exact Sciences Cologuard, a combination test which looks for both the genetic material found in colon cancer and some more advanced colon polyps and it detects hemoglobin in the stool using fecal immunochemical testing (Cologuard). 
+While colon cancer screening techniques are advancing, we aim to understand the environment of colorectal cancer. 
 
 Gut dysbiosis is any change to the normal microbiome that could change the relationship between the host and associated microbes [@neto_upper_2017]. 
 This is well documented gastrointestinal (GI) disorders including irritable bowel syndrome, peptic ulcers, and even gastric and colon cancers [@neto_upper_2017]. 
 Gut dysbiosis is documented in patients with colorectal cancers [@nakatsu_alterations_2018]. 
+Though the underlying mechanisms of these microbes is yet unknown, some bacteria were found to be associated with colorectal cancer [@ternes_microbiome_2020a]. 
+These include *Fusobacterium*, *Peptostreptococcus*, *Porphyromonas*, *Prevotella*, *Parvimonas*, *Bacteroides*, and *Gemella*, and they may be able to affect the disease state via metabolite secretion, host tissue invasion, and inducing host immune response [@ternes_microbiome_2020a]. 
 
-At present, the majority of cancer microbiome studies focus on the bacteria(citation needed). 
-Colorectal cancer is previously linked to changes to the colonic bacterial composition yet the gut virome is vastly unexplored [@nakatsu_alterations_2018].
+At present, the majority of cancer microbiome studies focus on the bacteria (CITATION NEEDED). 
+Colorectal cancer is previously linked to changes to the colonic bacterial composition, yet the gut virome is vastly unexplored [@nakatsu_alterations_2018].
 
 Virome is a viral community associated with a particular ecosystem or holobiont. 
 In mammals, the viruses infect host cells and the variety of organisms that inhabit us. 
 Identifying and understanding the virome within a host requires genetic and transcriptional identification of the mammal.  This virome may be able to shed light on the host’s genetics in states of health and states of disease. 
 The virome is composed of both nucleic acids (DNA and RNA).
 
-Human viruses associated with many cancers, due to their manipulative and mutagenic abilities [@hannigan_diagnostic_2018]. 
+Human viruses are associated with many cancers, due to their manipulative and mutagenic abilities [@hannigan_diagnostic_2018]. 
 Viral metagenomic taxa can distinguish colorectal cancer patients from control subjects [@nakatsu_alterations_2018]. 
 Furthermore, a subset of markers were identified as high-risk from a subset of patients with colorectal cancer.  
 
@@ -132,8 +134,6 @@ Up to 480 top KEGG numbers of genes that were significantly different between he
 
 # Results
 
-
-
 ## Bacterial diversity in colorectal cancer
 
 The influence of colorectal cancer on bacterial diversity was evaluated amongst the three disease classes. 
@@ -177,9 +177,9 @@ Previous work by Hannigan _et al._ additionally included models trained on bacte
 
 ## Taxnomonic profile based on metagenome
 
-The taxonomic profile was constructed based on the gut microbiome of healthy, adenoma, and cancer patients using MetaPhlAn2 (Fig. \ref{fig:taxabun}). 
-There are subtle differences of composition between healthy patients and those who were diagnosed with adenoma or cancer. 
-At the phylum level, some healthy patients have an more members of the phyla Verrucomicrobia, Bacteroidetes, and Actinobacteria as compared to other patient groups. 
+The taxonomic profile was constructed based on the gut microbiomes of healthy, adenoma, and cancer patients using MetaPhlAn2 (Fig. \ref{fig:taxabun}). 
+There are subtle differences of community composition between healthy patients and those who were diagnosed with adenoma or cancer. 
+At the phylum level, some healthy patients have more members of the phyla Verrucomicrobia, Bacteroidetes, and Actinobacteria as compared to other patient groups. 
 In addition, some patients with adenoma or cancer have a greater abundance of species belonging to the Proteobacteria phylum. 
 The gut microbiome of healthy patients are relatively more abundant with members of the families *Ruminococcaceae*, *Lachnospiraceae*, *Bifidobacteriaceae*, and *Akkermansiaceae*. 
 Conversely, the gut microbiome of patients with adenoma or cancer seem to have greater abundance of members of the families *Enterobacteriaceae* and *Coriobacteriaceae*. 
@@ -187,9 +187,10 @@ Conversely, the gut microbiome of patients with adenoma or cancer seem to have g
 \begin{figure}[H]
     \begin{center}
         \includegraphics[width=1\textwidth]{../figures/metag_taxa_heatmap_phy_fam.png}  
-        \caption{Taxonomic profile constructed using MetaPhlAn2 at the (a) phylum and (b) family level based on metagenome of gut microbiome of patients that are healthy (H) or diagnosed with adenoma (A) or cancer (C).}
+        \caption{Taxonomic profile constructed using MetaPhlAn2 at the (A) phylum and (B) family level based on metagenome of gut microbiome of patients that are healthy, H, or diagnosed with adenoma, A, or cancer, C.}
         \label{fig:taxabun}  
     \end{center}
+\end{figure}
 
 ## Metagenome annotation and quantification
 
@@ -198,7 +199,7 @@ Conversely, the gut microbiome of patients with adenoma or cancer seem to have g
     \begin{center}
         \includegraphics[width=0.49\textwidth]{../figures/gene_abundance_MDS.pdf}  
         \vspace{-10pt}
-        \caption{Multidimensional scaling (MDS) abundance plot based on log2 fold-change (logFC) of KEGG annotation counts derived from gut microbiome of patients that are healthy (H) or diagnosed with adenoma (A) or cancer (C).}
+        \caption{Multidimensional scaling (MDS) abundance plot based on log2 fold-change (logFC) of KEGG annotation counts derived from gut microbiome of patients that are healthy, H, or diagnosed with adenoma, A, or cancer, C.}
         \label{fig:MDS_KeggNo}  
     \end{center}
 \end{wrapfigure}
@@ -245,12 +246,23 @@ kable(
 
 \todo{taxonomic abundance, gene abundance}
 
+Some differences in the gut microbiome community composition between the patient groups may reflect prior findings. 
+Members of the *Peptostreptococacceae* and *Porphyromonadaceae* family are slightly more abundant in adenoma or cancer patients, which were previously found to be associated with colorectal cancer [@ternes_microbiome_2020a]. 
+In addition, the enrichment of species included in the *Lachnospiraceae* family in the healthy patients also support prior studies indicating lower abundance of these butyrate-producing bacteria in colorectal cancer patients [@rinninella_what_2019]. 
+Moreover, higher abundance of Proteobacteria and lower abundance of Bacteroidetes in some patients with adenoma or carcinoma as compared to healthy patients in this study also demonstrate previous findings by Shen *et al.* [@shen_molecular_2010]. 
+
+Gene abundance analysis using the metagenomes from patients indicated enrichment in genes and pathways previously shown to be associated with colorectal cancer. 
+
+
+
 The alpha and beta diversity of bacteria of the gut microbiome did not significantly shift in response to the presence of colorectal cancer. 
-Standard alpha and beta diversity metrics did not adequately capture bacterial community differences of the healthy and cancerous gut.
-This illuminates that examining diversity metrics alone may not be an adequate tool for identifying a healthy versus a cancerous colon.
+Standard alpha and beta diversity metrics did not adequately capture bacterial community differences of the healthy and cancerous gut. 
+This illuminates that examining diversity metrics alone may not be an adequate tool for identifying a healthy versus a cancerous colon. 
 
 \todo{random forest discriminates disease classes better than diversity metrics}
 
+Kostic *et al.* [@kostic_genomic_2012] have previously shown that members of the genus *Fusobacterium* are associated with colorectal cancer. 
+The results of our study also support this finding, as an OTU containing members of this genus was the most important feature of the bacterial classification model.
 
 # Project Contributions
 
