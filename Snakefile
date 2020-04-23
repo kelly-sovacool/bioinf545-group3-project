@@ -17,8 +17,8 @@ rule targets:
         "docs/report.pdf",
         "data/metagenome/all_kegg_counts.csv",
         "data/metagenome/metaphlan2_results/merged.txt",
-        "data/virome/ovu_abundance.tsv",
-        "data/model/rf_model_bacteria.tsv"
+        "data/model/rf_model_bacteria.tsv",
+        "data/model/rf_model_virus.tsv"
 
 rule render_pdf:
     input:
@@ -188,8 +188,7 @@ rule model_OVU:
     input:
         code="code/predict_OVU.R",
         fcns="code/machine_learning.R",
-        bins="data/virome/concoct/clustering_merged.csv",
-        abun="data/virome/contigs/coverage_table.tsv"
+        data="data/virome/ovu_abundance.tsv"
     output:
         tsv="data/model/rf_model_virus.tsv",
         rds="data/model/conf_mat_virus.rds"

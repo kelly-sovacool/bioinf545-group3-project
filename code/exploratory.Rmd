@@ -209,14 +209,6 @@ prec_recall <- confusionMatrix(
     mode = "prec_recall"
 )
 ```
-```{r plot_roc}
-rf_model <- otu_model
-best_mtry <- rf_model$bestTune$mtry
-best_model <- rf_model$pred %>% filter(mtry == best_mtry)
-ggplot2::ggplot(best_model, aes(d = obs, m = Healthy)) + 
-    plotROC::geom_roc() +
-    coord_equal()
-```
 
 ### OVU (viruses)
 ```{r}
@@ -239,3 +231,11 @@ ovu_abun <- coverage %>%
 head(ovu_abun)
 ```
 
+```{r plot_roc}
+rf_model <- otu_model
+best_mtry <- rf_model$bestTune$mtry
+best_model <- rf_model$pred %>% filter(mtry == best_mtry)
+ggplot2::ggplot(best_model, aes(d = obs, m = Healthy)) + 
+    plotROC::geom_roc() +
+    coord_equal()
+```
