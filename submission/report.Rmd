@@ -263,7 +263,7 @@ The results of our study also support this finding, as an OTU containing members
 
 Author order was determined by alphabetizing by last name.
 Brittany Hicks processed 16S sequencing data, collaborated for processing virome data, and assisted in preparing the methods, results, and discussion for these analyses.
-Christina Kang-Yun constructed the workflow for preprocessing metagenome data, taxonomic profiling, and gene annotation and prepared the methods, results, and discussion for these analyses.
+Christina Kang-Yun constructed the workflow for preprocessing metagenome data, taxonomic profiling, and gene annotation and prepared the methods, results, and discussion for these analyses. Katelyn Polemi and Nicole Bowers worked together to create figures for analyses including alpha and beta diversity plots, gene abundance mds, taxa bar plots, OUT heat maps (some plots not included in final paper, see GitHub), prepared the abstract and introduction for the paper, and contributed to the conclusions.
 \todo{insert contribution statement here}
 
 # References
