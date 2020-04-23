@@ -100,7 +100,9 @@ BetaDiversity <- function(intable, mapping) {
 alpha_plot <- AlphaDiversity(input, map)
 beta_plot <- BetaDiversity(input, map)
 diversity_plot <- plot_grid(alpha_plot, beta_plot,
-                            labels = c('A', 'B'))
+  labels = c("A", "B")
+)
 ggsave(here("figures", "alpha_beta_diversity.png"),
-       diversity_plot,
-       width = 8, height = 4)
+  diversity_plot,
+  width = 8, height = 4
+)
